@@ -24,5 +24,4 @@ public class Aportacion {
     @OneToMany(mappedBy = "aportaciones")
     private List<DetalleAportacion> detalleAportacionList = new ArrayList<>();
 
-
 }
