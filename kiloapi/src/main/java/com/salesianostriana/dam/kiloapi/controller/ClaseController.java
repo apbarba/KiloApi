@@ -5,7 +5,15 @@ import com.salesianostriana.dam.kiloapi.dto.CreateClase;
 import com.salesianostriana.dam.kiloapi.model.Clase;
 import com.salesianostriana.dam.kiloapi.repository.ClaseRepository;
 import com.salesianostriana.dam.kiloapi.service.ClaseService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
+import net.bytebuddy.implementation.Implementation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +33,20 @@ public class ClaseController {
 
     private final ClaseService claseService;
 
+
+    @Operation(summary = "Crear una nueva clase")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Clase creado",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Clase.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {"id": 1, "nombre": "2DAM", "Tutor": ""Luismi}
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400", description = "DATOS ERRÓNEOS",
+                    content = @Content)})
     @PostMapping("/clase/")
     public ResponseEntity<Clase> newClase(@RequestBody Clase clase){
 
