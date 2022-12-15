@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -55,5 +57,34 @@ public class TipoAlimentoController {
         } else {
             return ResponseEntity.ok(tipoAlimentoService.findAll());
         }
+    }
+
+    @Operation(summary = "Agrega un nuevo tipo de alimento")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha agregado el tipo de alimento",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TipoAlimento.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            
+                                                {
+                                                    "id": 1,
+                                                    "nombre": "Latas de conserva"
+                                                }
+                                                                                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "No se ha agregado el tipo de alimento",
+                    content = @Content),
+    })
+    @PostMapping("/tipoAlimento/")
+    public ResponseEntity<TipoAlimento> newTipoAlimento(@RequestBody TipoAlimento tipoAlimento) {
+        if (tipoAlimento.getNombre() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else
+            return ResponseEntity.status(HttpStatus.CREATED).body(tipoAlimentoService.add(tipoAlimento));
     }
 }
