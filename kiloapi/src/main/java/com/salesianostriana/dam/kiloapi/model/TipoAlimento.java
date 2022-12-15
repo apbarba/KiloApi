@@ -26,21 +26,21 @@ public class TipoAlimento {
     @OneToMany(mappedBy = "tipoAlimento", fetch = FetchType.EAGER)
     private List<Tiene> tieneList = new ArrayList<>();
 
-//    @OneToOne(mappedBy = "tipoAlimento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private KilosDisponibles kilosDisponibles;
-//
-//
-//    // HELPERS GESTIÓN TIPOALIMENTO-KILOSDISPONIBLES
-//    public void addKilosToTipo(KilosDisponibles kilosDisponibles) {
-//        kilosDisponibles.setId(this.getId());
-//        kilosDisponibles.setTipoAlimento(this);
-//        this.kilosDisponibles = kilosDisponibles;
-//    }
-//
-//    public void removeFromTipo() {
-//        this.kilosDisponibles.setId(null);
-//        this.kilosDisponibles.setTipoAlimento(this);
-//        this.kilosDisponibles = null;
-//    }
+    @OneToOne(mappedBy = "tipoAlimento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private KilosDisponibles kilosDisponibles;
+
+
+    // HELPERS GESTIÓN TIPOALIMENTO-KILOSDISPONIBLES
+    public void addKilosToTipo(KilosDisponibles kilosDisponibles) {
+        kilosDisponibles.setId(this.getId());
+        kilosDisponibles.setTipoAlimento(this);
+        this.kilosDisponibles = kilosDisponibles;
+    }
+
+    public void removeKilosFromTipo() {
+        this.kilosDisponibles.setId(null);
+        this.kilosDisponibles.setTipoAlimento(this);
+        this.kilosDisponibles = null;
+    }
 
 }
