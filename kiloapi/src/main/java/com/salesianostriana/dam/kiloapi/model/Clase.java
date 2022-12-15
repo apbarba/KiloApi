@@ -27,4 +27,7 @@ public class Clase {
     @Builder.Default
     private List<Aportacion> aportacionList = new ArrayList<>();
 
+//    @PreRemove
+//    public void setNullAportaciones(){aportacionList.forEach(c -> c.setClase(null));}
+
 }
