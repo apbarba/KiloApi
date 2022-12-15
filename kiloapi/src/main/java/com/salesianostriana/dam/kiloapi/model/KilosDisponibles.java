@@ -15,11 +15,11 @@ import javax.persistence.*;
 @ToString
 public class KilosDisponibles {
 
-//        @JsonIgnore
-//        @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//        @JoinColumn(name = "tipo_alimento")
-//        @MapsId("id")
-//        private TipoAlimento tipoAlimento;
+        @JsonIgnore
+        @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @JoinColumn(name = "tipo_alimento")
+        @MapsId("id")
+        private TipoAlimento tipoAlimento;
 
     @Id
     private Long id;
