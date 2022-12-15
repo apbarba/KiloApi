@@ -30,13 +30,14 @@ public class Caja {
     @OneToMany(mappedBy = "caja", fetch = FetchType.EAGER)
     private List<Tiene> tieneList = new ArrayList<>();
 
-//    @ManyToOne
-//    @JoinColumn(name = "destinatario_id", foreignKey = @ForeignKey(name = "FK_CAJA_DESTINATARIO"))
-//    private Destinatario destinatario;
+    @ManyToOne
+    @JoinColumn(name = "destinatario_id", foreignKey = @ForeignKey(name = "FK_CAJA_DESTINATARIO"))
+    private Destinatario destinatario;
 
     // CONSTRUCTOR
     public Caja(String qr, int numCaja) {
         this.qr = qr;
         this.numCaja = numCaja;
     }
+
 }
