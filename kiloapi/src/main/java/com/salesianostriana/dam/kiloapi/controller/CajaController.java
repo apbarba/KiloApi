@@ -3,6 +3,7 @@ package com.salesianostriana.dam.kiloapi.controller;
 import com.salesianostriana.dam.kiloapi.dto.CajaDto;
 import com.salesianostriana.dam.kiloapi.dto.CreateCajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
+import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,10 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -80,6 +78,32 @@ public class CajaController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+
+    @Operation(summary = "Eliminar una caja, buscada por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Caja eliminada correctamente",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Caja.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {}
+                                            """
+                            )}
+                    )})})
+    @DeleteMapping("/caja/{id}")
+    public ResponseEntity<?> borrarCaja(@PathVariable Long id) {
+        Optional<Caja> cajaOp = cajaService.findById(id);
+        if (cajaOp.isPresent()) {
+            Caja caja = cajaOp.get();
+            Destinatario d = caja.getDestinatario();
+            if (d != null) {
+                caja.removeCajaFromDestinatario(d);
+            }
+            kilosDisponiblesService.devolverKilos(caja);
+            cajaService.delete(caja);
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
