@@ -7,12 +7,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConverterClase {
 
-    public Clase createClase(CreateClase createClase, Destinatario d){
+    public Clase createClaseDtoToClase(CreateClase createClase, Destinatario d){
 
         return  Clase.builder()
                 .id(d.getId())
                 .nombre(createClase.getNombre())
                 .tutor(createClase.getTutor())
+                .build();
+    }
+
+    public GetClase claseToGetClaseDto(Clase clase){
+
+        return GetClase
+                .builder()
+                .nombre(clase.getNombre())
+                .id(clase.getId())
+                .numAportaciones(clase.getAportacionList().size())
+             //   .totalKilos(kilos)
                 .build();
     }
 }
