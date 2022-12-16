@@ -39,26 +39,7 @@ public class DestinatarioController {
         Optional<Destinatario> d1 = destinatarioService.findById(id);
         return d1.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                    : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+                : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
-    @Operation(summary = "Obtiene la información de un destinatario por su ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Se ha encontrado el destinatario relacionado con ese ID",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Destinatario.class))}),
-            @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado un destinatario con ese ID",
-                    content = @Content),
-    })
-    @GetMapping("/destinatario/{id}")
-    public ResponseEntity<Destinatario> findById(@PathVariable Long id) {
-        Optional<Destinatario> d1 = destinatarioService.findById(id);
-        return d1.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                    : ResponseEntity.of(destinatarioService.findById(id));
-
-    }
-
 }
