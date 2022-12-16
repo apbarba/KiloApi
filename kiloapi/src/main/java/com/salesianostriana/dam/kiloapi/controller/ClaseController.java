@@ -28,36 +28,6 @@ public class ClaseController {
 
     private final ClaseService claseService;
 
-
-    @Operation(summary = "Obtiene todas las clases")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Se han encontrado clases",
-                    content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Clase.class)),
-                            examples = {@ExampleObject(
-                                    value = """
-                                            [
-                                                {"id": 1, "nombre": "1ºDAM","tutor": "Miguel Campos"},
-                                                {"id": 2, "nombre": "2ºDAM","tutor": "Luis Miguel López Magaña"}
-                                            ]                                          
-                                            """
-                            )}
-                    )}),
-            @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ninguna clase",
-                    content = @Content),
-    })
-    @GetMapping("/clase/")
-    public ResponseEntity<List<Clase>> findAll() {
-        List<Clase> claseList = claseService.findAll();
-        return claseList.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.status(HttpStatus.OK).body(claseList);
-
-
-    }
-
     @Operation(summary = "Edita las propiedades de una clase por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
