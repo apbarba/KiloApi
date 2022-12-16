@@ -1,7 +1,6 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.salesianostriana.dam.kiloapi.dto.CajaDto;
-import com.salesianostriana.dam.kiloapi.dto.CreateCajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
@@ -40,7 +39,13 @@ public class CajaController {
                                                     "qr": "http://www.caja99.com",
                                                     "numCaja": 99,
                                                     "kilosTotales": 8.0,
-                                                    "destinatario": null,
+                                                    "destinatario": {
+                                                        "id": 7,
+                                                        "nombre": "Banco Alimentos Triana",
+                                                        "direccion": "C/ Castilla, 10",
+                                                        "personaContacto": "Antonio Álvarez",
+                                                        "telefono": "123456789"
+                                                    },
                                                     "alimentos": [
                                                         {
                                                             "id": 1,
@@ -60,23 +65,21 @@ public class CajaController {
                             )}
                     )}),
             @ApiResponse(responseCode = "400", description = "Cuerpo para la modificación aportado inválido",
-                    content = @Content),
-    })
+                    content = @Content)})
     @PutMapping("/caja/{id}")
-    public ResponseEntity<CajaDto> actualizarCaja(@PathVariable Long id, @RequestBody CreateCajaDto createCajaDto) {
+    public ResponseEntity<CajaDto> actualizarCaja(@PathVariable Long id, @RequestBody Caja c) {
         Optional<Caja> caja = cajaService.findById(id);
-        if (caja.isPresent()) {
-            Caja cajaEditada = CreateCajaDto.createCajaDtoToCaja(createCajaDto);
-            return ResponseEntity.of(
-                    caja.map(c -> {
-                        c.setQr(cajaEditada.getQr());
-                        c.setNumCaja(cajaEditada.getNumCaja());
-                        cajaService.edit(c);
-
-                        return CajaDto.mostrarDetallesCaja(c);
-                    }));
-        } else {
+        if (!caja.isPresent() || cajaService.comprobarDatos(c)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else {
+            return ResponseEntity.of(
+                    caja.map(cj -> {
+                        cj.setQr(c.getQr());
+                        cj.setNumCaja(c.getNumCaja());
+                        cajaService.edit(cj);
+
+                        return CajaDto.mostrarDetallesCaja(cj);
+                    }));
         }
     }
 

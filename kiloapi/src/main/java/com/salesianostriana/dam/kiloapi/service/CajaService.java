@@ -38,4 +38,8 @@ public class CajaService {
         repository.deleteById(id);
     }
 
+    public boolean comprobarDatos(Caja caja) {
+        return caja.getQr() == "" || caja.getNumCaja() <= 0;
+    }
+
 }

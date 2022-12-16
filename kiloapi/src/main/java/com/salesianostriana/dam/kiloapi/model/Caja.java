@@ -46,12 +46,12 @@ public class Caja {
     // MÉTODOS HELPERS GESTIÓN CAJA-DESTINATARIO
     public void addCajaToDestinatario(Destinatario d) {
         this.destinatario = d;
-        d.getCajasList().add(this);
+        d.getCajaList().add(this);
     }
 
     public void removeCajaFromDestinatario(Destinatario d) {
         this.destinatario = null;
-        d.getCajasList().remove(this);
+        d.getCajaList().remove(this);
     }
 
 
