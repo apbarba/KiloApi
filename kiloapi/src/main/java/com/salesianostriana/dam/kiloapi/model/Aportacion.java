@@ -19,9 +19,11 @@ public class Aportacion {
     private Long id;
 
     private LocalDate fecha;
-    @OneToMany(mappedBy = "aportacion")
-    private List <Clase> clase = new ArrayList<>();
-    @OneToMany(mappedBy = "aportaciones")
+
+    @ManyToOne
+    private Clase clase;
+
+    @OneToMany(mappedBy = "aportaciones", orphanRemoval = true)
     private List<DetalleAportacion> detalleAportacionList = new ArrayList<>();
 
 }

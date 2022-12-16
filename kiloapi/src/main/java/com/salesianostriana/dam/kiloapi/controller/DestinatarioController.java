@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -39,9 +38,10 @@ public class DestinatarioController {
         Optional<Destinatario> d1 = destinatarioService.findById(id);
         return d1.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                    : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+                : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
+
     @Operation(summary = "Obtiene la información de un destinatario por su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -57,7 +57,7 @@ public class DestinatarioController {
         Optional<Destinatario> d1 = destinatarioService.findById(id);
         return d1.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                    : ResponseEntity.of(destinatarioService.findById(id));
+                : ResponseEntity.of(destinatarioService.findById(id));
 
     }
 

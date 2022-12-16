@@ -20,7 +20,7 @@ public class Clase {
     private String nombre;
     private String tutor;
 
-    @ManyToOne
-    private Aportacion aportacion;
+    @OneToMany
+    private List <Aportacion> aportacionList = new ArrayList<>();
 
 }
