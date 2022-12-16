@@ -5,12 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Data
 @Getter
 @Setter
 public class TipoAlimento {
@@ -21,16 +21,10 @@ public class TipoAlimento {
 
     private String nombre;
 
-    @EqualsAndHashCode.Exclude
-    @Builder.Default
-    @OneToMany(mappedBy = "tipoAlimento", fetch = FetchType.EAGER)
-    private List<Tiene> tieneList = new ArrayList<>();
-
     @OneToOne(mappedBy = "tipoAlimento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private KilosDisponibles kilosDisponibles;
 
-
-    // HELPERS GESTIÓN TIPOALIMENTO-KILOSDISPONIBLES
+    // HELPERS
     public void addKilosToTipo(KilosDisponibles kilosDisponibles) {
         kilosDisponibles.setId(this.getId());
         kilosDisponibles.setTipoAlimento(this);
@@ -39,8 +33,34 @@ public class TipoAlimento {
 
     public void removeKilosFromTipo() {
         this.kilosDisponibles.setId(null);
-        this.kilosDisponibles.setTipoAlimento(this);
+        this.kilosDisponibles.setTipoAlimento(null);
         this.kilosDisponibles = null;
+    }
+
+    public void addTipoToTiene(Tiene t) {
+        t.setTipoAlimento(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TipoAlimento that = (TipoAlimento) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "TipoAlimento{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", kilosDisponibles=" + kilosDisponibles +
+                '}';
     }
 
 }

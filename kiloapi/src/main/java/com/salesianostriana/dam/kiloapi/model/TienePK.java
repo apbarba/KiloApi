@@ -11,9 +11,14 @@ import javax.persistence.Embeddable;
 public class TienePK {
 
     //???
-    private static final long serialVersionUID = 8682909319466153524L;
+    private static final long serialVersionUID = 1L;
 
     long tipoAlimento_id;
     long caja_id;
+
+    public TienePK(long tipoAlimento_id, long caja_id) {
+        this.tipoAlimento_id = tipoAlimento_id;
+        this.caja_id = caja_id;
+    }
 
 }

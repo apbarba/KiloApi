@@ -1,21 +1,19 @@
 package com.salesianostriana.dam.kiloapi.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Objects;
 
-@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class Tiene {
 
     @EmbeddedId
-    @Builder.Default
     private TienePK id = new TienePK();
 
     @ManyToOne
@@ -34,6 +32,29 @@ public class Tiene {
     public Tiene(TipoAlimento tipoAlimento, Caja caja) {
         this.tipoAlimento = tipoAlimento;
         this.caja = caja;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tiene tiene = (Tiene) o;
+        return id.equals(tiene.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Tiene{" +
+                //"tipoAlimento=" + tipoAlimento +
+                ", cantidadKgs=" + cantidadKgs +
+                '}';
     }
 
 }
