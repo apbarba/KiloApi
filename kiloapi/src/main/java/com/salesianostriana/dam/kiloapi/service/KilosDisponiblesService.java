@@ -1,9 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
-import com.salesianostriana.dam.kiloapi.model.Caja;
-import com.salesianostriana.dam.kiloapi.model.KilosDisponibles;
-import com.salesianostriana.dam.kiloapi.model.Tiene;
-import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
+import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.repository.KilosDisponiblesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,5 +53,14 @@ public class KilosDisponiblesService {
                 });
             });
         }
+    }
+
+    public void restarKilos(DetalleAportacion da) {
+        this.findAll().forEach(k -> {
+            if (k.getTipoAlimento().equals(da.getTipoAlimento())) {
+                k.setCantidadDisponible(k.getCantidadDisponible() - da.getCantidadKg());
+                this.edit(k);
+            }
+        });
     }
 }
