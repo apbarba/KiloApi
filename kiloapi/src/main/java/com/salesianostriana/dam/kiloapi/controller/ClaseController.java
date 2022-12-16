@@ -57,33 +57,4 @@ public class ClaseController {
 
 
     }
-
-    @Operation(summary = "Edita las propiedades de una clase por ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "La clase ha sido modificada correctamente",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Clase.class))}),
-            @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ninguna clase relacionada con ese ID",
-                    content = @Content),
-    })
-    @PutMapping("/clase/{id}")
-    public ResponseEntity<Clase> editClase(@RequestBody Clase clase, @PathVariable Long id) {
-        Optional<Clase> c1 = claseService.findById(id);
-
-        return c1.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.of(c1.map(old -> {
-                    old.setAportacion(c1.get().getAportacion());
-                    old.setNombre(c1.get().getNombre());
-                    old.setTutor(c1.get().getTutor());
-                    claseService.add(old);
-                    return old;
-                })
-        );
-
-
-    }
-
 }
