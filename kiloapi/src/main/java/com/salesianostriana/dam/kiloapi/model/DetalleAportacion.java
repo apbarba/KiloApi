@@ -1,11 +1,9 @@
 package com.salesianostriana.dam.kiloapi.model;
 
+
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -14,13 +12,17 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @ToString
-public class Aportacion {
+public class DetalleAportacion {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private LocalDate fecha;
+    @ManyToOne
+    @JoinColumn(name = "aportacion_id")
+    private Aportacion aportacion;
+
+    private double cantidadKilos;
 
 
 }
