@@ -56,13 +56,27 @@ public class KilosDisponiblesService {
         }
     }
 
-    public void restarKilos(DetalleAportacion da) {
-        this.findAll().forEach(k -> {
-            if (k.getTipoAlimento().equals(da.getTipoAlimento())) {
-                k.setCantidadDisponible(k.getCantidadDisponible() - da.getCantidadKg());
-                this.edit(k);
-            }
-        });
+    public void modificarKilos(DetalleAportacion da, int opcion, double cantPrev) {
+        switch (opcion) {
+            case 1:
+                this.findAll().forEach(k -> {
+                    if (k.getTipoAlimento().equals(da.getTipoAlimento())) {
+                        k.setCantidadDisponible(k.getCantidadDisponible() - da.getCantidadKg());
+                        this.edit(k);
+                    }
+                });
+                break;
+            case 2:
+                this.findAll().forEach(k -> {
+                    if (k.getTipoAlimento().equals(da.getTipoAlimento())) {
+                        k.setCantidadDisponible(k.getCantidadDisponible() - cantPrev + da.getCantidadKg());
+                        this.edit(k);
+                    }
+                });
+                break;
+            default:
+                break;
+        }
     }
 
 

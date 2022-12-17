@@ -66,6 +66,49 @@ public class AportacionController {
     }
 
 
+    @Operation(summary = "Modificar los kg de una línea de aportación, buscado por su ID {id} y línea {num}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Kg modificados correctamente",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AportacionDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": 13,
+                                                    "nombreCurso": "2ºDAM",
+                                                    "tutor": "Luismi López",
+                                                    "fecha": "2022-12-14",
+                                                    "aportaciones": {
+                                                        "Leche": 10.0,
+                                                        "Pasta": 2.0
+                                                    }
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400", description = "Cuerpo para la modificación aportado inválido",
+                    content = @Content)})
+    @PutMapping("/aportacion/{id}/linea/{num}/kg/{numKg}")
+    public ResponseEntity<AportacionDto> modificarAportacion(@PathVariable Long id, @PathVariable Long num, @PathVariable double numKg) {
+        DetallesPK detallesPK = new DetallesPK(id, num);
+        Optional<Aportacion> aportacion = aportacionService.findById(id);
+
+        if (aportacion.isPresent()) {
+            Aportacion a = aportacion.get();
+            Optional<DetalleAportacion> opDa = aportacionService.devolverAportacion(a, detallesPK);
+            if (opDa.isPresent()) {
+                DetalleAportacion da = opDa.get();
+                double cantidadPrevia = da.getCantidadKg();
+                da.setCantidadKg(numKg);
+                kilosDisponiblesService.modificarKilos(da, 2, cantidadPrevia);
+                aportacionService.edit(a);
+                return ResponseEntity.ok(AportacionDto.of(a));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+
     @Operation(summary = "Eliminar una línea, buscada por su ID (num), de una aportación, buscada por su ID (id)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Línea eliminada correctamente",
@@ -97,7 +140,7 @@ public class AportacionController {
             Optional<DetalleAportacion> opDa = aportacionService.devolverAportacion(a, detallesPK);
             if (opDa.isPresent()) {
                 DetalleAportacion da = opDa.get();
-                kilosDisponiblesService.restarKilos(da);
+                kilosDisponiblesService.modificarKilos(da, 1, 0);
                 a.removeDetalleAportacion(da);
                 aportacionService.edit(a);
                 return ResponseEntity.ok(AportacionDto.of(a));
