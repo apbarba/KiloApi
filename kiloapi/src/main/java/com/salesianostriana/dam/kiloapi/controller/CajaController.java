@@ -27,6 +27,45 @@ public class CajaController {
     private final CajaService cajaService;
     private final KilosDisponiblesService kilosDisponiblesService;
 
+    @Operation(summary = "Agrega una nueva caja")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha agregado la caja",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Caja.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                                                        
+                                                {
+                                                    "id": 12,
+                                                    "qr": "http://www.caja1.com",
+                                                    "numCaja": 1,
+                                                    "kilosTotales": 0.0,
+                                                    "destinatario": null
+                                                }
+                                                                                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "No se ha agregado la caja",
+                    content = @Content),
+    })
+    //FALTA JSON VIEW
+    @PostMapping("/caja/")
+    public ResponseEntity<Caja> newCaja(@RequestBody CajaDto cajaDto) {
+        if (cajaDto.getNumCaja() == 0 || cajaDto.getQr() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        Caja caja = Caja.of(cajaDto);
+
+        caja = cajaService.add(caja);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(caja);
+    }
+
     @Operation(summary = "Modificar una caja, buscada por su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Caja modificada correctamente",

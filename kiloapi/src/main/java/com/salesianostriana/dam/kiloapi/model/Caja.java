@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.kiloapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.salesianostriana.dam.kiloapi.dto.CajaDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -41,7 +42,20 @@ public class Caja {
         this.numCaja = numCaja;
     }
 
+    // ESTE CONSTRUCTOR LO QUITAREMOS CUANDO CREEMOS LOS JSONVIEW
+    public Caja(Long id, String qr, int numCaja) {
+        this.id = id;
+        this.qr = qr;
+        this.numCaja = numCaja;
+    }
 
+    public static Caja of (CajaDto cajaDto) {
+        return new Caja(
+                cajaDto.getId(),
+                cajaDto.getQr(),
+                cajaDto.getNumCaja()
+        );
+    }
 
     // MÉTODOS HELPERS GESTIÓN CAJA-DESTINATARIO
     public void addCajaToDestinatario(Destinatario d) {
