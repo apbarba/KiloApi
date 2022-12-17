@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.util.Pair;
 
 import java.time.LocalDate;
+import java.util.AbstractMap;
 import java.util.List;
 
 @Data
@@ -20,7 +21,17 @@ public class GetAportacion {
 
     private Integer cantidadK;
 
-    private String fecha;
+    private LocalDate fecha;
 
-    private List<Pair<String,Integer>> alimentos;
-}
+    private List<AbstractMap.SimpleEntry<String,Integer>> alimentos;
+
+    public GetAportacion(LocalDate fecha, List<AbstractMap.SimpleEntry<String, Integer>> alimentos){
+
+        this.fecha = fecha;
+
+        this.alimentos = alimentos;
+    }
+
+    }
+
+
