@@ -12,10 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -24,6 +21,40 @@ import java.util.Optional;
 public class DestinatarioController {
 
     private final DestinatarioService destinatarioService;
+
+    @Operation(summary = "Agrega un nuevo destinatario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha agregado el destinatario",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Destinatario.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            
+                                                {
+                                                    "id": 12,
+                                                    "nombre": "Asociación 3000 viviendas",
+                                                    "direccion": "Avenida Diputación",
+                                                    "personaContacto": "Miguel Campos",
+                                                    "telefono": "954954954",
+                                                    "cajasList": []
+                                                }
+                                                                                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "No se ha agregado el destinatario",
+                    content = @Content),
+    })
+    @PostMapping("/destinatario/")
+    public ResponseEntity<Destinatario> newClase(@RequestBody Destinatario destinatario) {
+        if (destinatario.getNombre() == null || destinatario.getDireccion() == null||
+                destinatario.getPersonaContacto() == null || destinatario.getTelefono() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else
+            return ResponseEntity.status(HttpStatus.CREATED).body(destinatarioService.add(destinatario));
+    }
 
     @Operation(summary = "Modificar un destinatario, buscado por su ID")
     @ApiResponses(value = {

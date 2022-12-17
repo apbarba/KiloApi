@@ -87,30 +87,6 @@ public class MainPrueba {
 
         tieneRepository.saveAll(List.of(t1, t2));
 
-        Destinatario d1 = Destinatario.builder()
-                .nombre("Banco Alimentos Triana")
-                .direccion("C/ Castilla, 10")
-                .personaContacto("Antonio Álvarez")
-                .telefono("123456789")
-                .build();
-        Destinatario d2 = Destinatario.builder()
-                .nombre("Banco Alimentos Mairena")
-                .direccion("C/Ciaurriz")
-                .personaContacto("Bartolomé Méndez")
-                .telefono("987654321")
-                .build();
-        Destinatario d3 = Destinatario.builder()
-                .nombre("Banco Alimentos Sevilla")
-                .direccion("Avda/Coria")
-                .personaContacto("José Pérez")
-                .telefono("456789123")
-                .build();
-
-        c1.addCajaToDestinatario(d1);
-        c2.addCajaToDestinatario(d1);
-        c3.addCajaToDestinatario(d2);
-
-        destinatarioRepository.saveAll(List.of(d1, d2, d3));
 
         cajaService.edit(c1);
         cajaService.edit(c2);
@@ -191,6 +167,34 @@ public class MainPrueba {
         a3.addDetalleAportacion(da6);
 
         aportacionRepository.saveAll(List.of(a1, a2, a3));
+
+
+        Destinatario d1 = Destinatario.builder()
+                .nombre("Banco Alimentos Triana")
+                .direccion("C/ Castilla, 10")
+                .personaContacto("Antonio Álvarez")
+                .telefono("123456789")
+                .build();
+        Destinatario d2 = Destinatario.builder()
+                .nombre("Banco Alimentos Mairena")
+                .direccion("C/Ciaurriz")
+                .personaContacto("Bartolomé Méndez")
+                .telefono("987654321")
+                .build();
+        Destinatario d3 = Destinatario.builder()
+                .nombre("Banco Alimentos Sevilla")
+                .direccion("Avda/Coria")
+                .personaContacto("José Pérez")
+                .telefono("456789123")
+                .build();
+        destinatarioRepository.saveAll(List.of(d1, d2, d3));
+
+        c1.addCajaToDestinatario(d1);
+        c2.addCajaToDestinatario(d1);
+        c3.addCajaToDestinatario(d2);
+        cajaRepository.saveAll(List.of(c1, c2, c3));
+        destinatarioRepository.saveAll(List.of(d1, d2, d3));
+
 
     }
 }
