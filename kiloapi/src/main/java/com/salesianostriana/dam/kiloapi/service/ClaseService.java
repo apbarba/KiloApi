@@ -14,33 +14,33 @@ public class ClaseService {
 
     private final ClaseRepository claseRepository;
 
-    public Clase add(Clase clase){
+    public Clase add(Clase clase) {
 
         return claseRepository.save(clase);
     }
 
-    public Optional<Clase> findById(Long id){
+    public Optional<Clase> findById(Long id) {
 
         return claseRepository.findById(id);
     }
 
-    public List<Clase> findAll(){
+    public List<Clase> findAll() {
 
         return claseRepository.findAll();
     }
 
-    public Clase edit(Clase clase){
+    public Clase edit(Clase clase) {
 
         return claseRepository.save(clase);
     }
 
-    public void delete(Clase clase){
+    public void delete(Clase clase) {
 
         claseRepository.delete(clase);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
 
-        claseRepository.deleteById(id);
     }
+
 }

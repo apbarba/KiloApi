@@ -1,6 +1,10 @@
 package com.salesianostriana.dam.kiloapi.dto;
 
 import lombok.*;
+import org.springframework.data.util.Pair;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Getter
@@ -14,5 +18,9 @@ public class GetAportacion {
 
     private Long numLinea;
 
-    private double cantidadK;
+    private Integer cantidadK;
+
+    private String fecha;
+
+    private List<Pair<String,Integer>> alimentos;
 }
