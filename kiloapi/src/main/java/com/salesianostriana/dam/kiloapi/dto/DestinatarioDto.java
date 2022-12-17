@@ -47,4 +47,12 @@ public class DestinatarioDto {
                 .build();
     }
 
+    public static DestinatarioDto mostrarIdYNombre(Destinatario d){
+        return DestinatarioDto
+                .builder()
+                .id(d.getId())
+                .nombre(d.getNombre())
+                .build();
+    }
+
 }

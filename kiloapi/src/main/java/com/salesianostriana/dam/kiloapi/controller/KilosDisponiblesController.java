@@ -34,7 +34,7 @@ public class KilosDisponiblesController {
             @ApiResponse(responseCode = "200",
                     description = "Se han encontrado todos los kilos disponibles de cada tipo de alimento",
                     content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = KilosDisponibles.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = TipoAlimentoDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                                 [

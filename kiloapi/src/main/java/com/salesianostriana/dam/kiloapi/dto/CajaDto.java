@@ -22,6 +22,7 @@ public class CajaDto {
     private double kilosTotales;
     private Destinatario destinatario;
     private List<TipoAlimentoDto> alimentos;
+    private DestinatarioDto destinatarioDto;
 
     public static CajaDto mostrarDetallesCaja(Caja c) {
         List<TipoAlimentoDto> listado = new ArrayList<>();
@@ -44,5 +45,26 @@ public class CajaDto {
                 .alimentos(listado)
                 .build();
     }
+    public static CajaDto of(Caja c) {
+        List<TipoAlimentoDto> listado = new ArrayList<>();
+        c.getTieneList().forEach(l -> {
+            TipoAlimentoDto t = TipoAlimentoDto.builder()
+                    .id(l.getTipoAlimento().getId())
+                    .nombre(l.getTipoAlimento().getNombre())
+                    .kilosDisponibles(l.getTipoAlimento().getKilosDisponibles().getCantidadDisponible())
+                    .build();
+            listado.add(t);
+        });
 
+        return CajaDto.builder()
+                .id(c.getId())
+                .qr(c.getQr())
+                .numCaja(c.getNumCaja())
+                .kilosTotales(c.getKilosTotales())
+                .destinatarioDto(DestinatarioDto.mostrarIdYNombre(c.getDestinatario()))
+                .alimentos(listado)
+                .build();
+
+
+    }
 }

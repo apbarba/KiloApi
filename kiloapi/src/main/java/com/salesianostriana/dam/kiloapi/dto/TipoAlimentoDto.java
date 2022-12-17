@@ -18,7 +18,6 @@ public class TipoAlimentoDto {
     private double kilosAportados;
     private double kilosDisponibles;
 
-
     public static TipoAlimentoDto of(TipoAlimento t) {
         return TipoAlimentoDto.builder()
                 .id(t.getId())

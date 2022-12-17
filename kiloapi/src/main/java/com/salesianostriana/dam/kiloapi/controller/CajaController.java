@@ -27,6 +27,52 @@ public class CajaController {
     private final CajaService cajaService;
     private final KilosDisponiblesService kilosDisponiblesService;
 
+    @Operation(summary = "Obtiene una caja en base a su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado la caja",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CajaDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                                                        
+                                                {
+                                                    "id": 4,
+                                                    "qr": "http://www.caja1.com",
+                                                    "numCaja": 1,
+                                                    "kilosTotales": 8.0,
+                                                    "alimentos": [
+                                                        {
+                                                            "id": 1,
+                                                            "nombre": "Pasta",
+                                                            "kilosDisponibles": 12.0
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "nombre": "Leche",
+                                                            "kilosDisponibles": 25.0
+                                                        }
+                                                    ],
+                                                    "destinatarioDto": {
+                                                        "id": 12,
+                                                        "nombre": "Banco Alimentos Triana",
+                                                    }
+                                                }
+                                                                                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado la caja por el ID",
+                    content = @Content),
+    })
+    @GetMapping("/caja/{id}")
+    public ResponseEntity<CajaDto> obtenerUno(@PathVariable Long id) {
+
+        return ResponseEntity.of(cajaService.findById(id)
+                .map(CajaDto::of));
+
+    }
     @Operation(summary = "Agrega una nueva caja")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
