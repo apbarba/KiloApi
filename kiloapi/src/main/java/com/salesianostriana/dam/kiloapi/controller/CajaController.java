@@ -2,6 +2,8 @@ package com.salesianostriana.dam.kiloapi.controller;
 
 import com.salesianostriana.dam.kiloapi.dto.ConverterCaja;
 import com.salesianostriana.dam.kiloapi.dto.GetCaja;
+import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
+import com.salesianostriana.dam.kiloapi.service.CajaService;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;

@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface DestinatarioRepository extends JpaRepository<Destinatario, Long> {
 
+
+    //Esta consulta trata de buscar todos los datos de los destinatarios y del atributo necesario de cajas que so los kilos totales
     @Query("select dto.nombre, dto.direccion, dto.personaContacto, dto.telefono, c.kilosT from Destinatario dto JOIN Caja c On (dto.id = c.destinatario) where c.destinatario = idDestinatario")
     public List<GetDestinatario> getDestinatario(@Param("idDestinatario") Long id);
 }

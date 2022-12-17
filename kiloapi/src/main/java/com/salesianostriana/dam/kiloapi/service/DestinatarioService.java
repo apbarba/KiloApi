@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dto.GetDestinatario;
 import com.salesianostriana.dam.kiloapi.model.Clase;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
@@ -43,5 +44,11 @@ public class DestinatarioService {
     public void deleteById(Long id){
 
         destinatarioRepository.deleteById(id);
+    }
+
+    //Implementación de ls consulta realizada en el repositorio
+    public List<GetDestinatario> findAll(Long id){
+
+      return destinatarioRepository.getDestinatario(id);
     }
 }
