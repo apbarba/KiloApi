@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConverterAportacion {
 
-    public GetAportacion getAportacionDetallesDto(Aportacion aportacion, DetalleAportacion detalleAportacion){
+    public GetAportacion getAportacionDetallesDto(DetalleAportacion detalleAportacion){
 
         return GetAportacion.builder()
                 .id(detalleAportacion.getId())
