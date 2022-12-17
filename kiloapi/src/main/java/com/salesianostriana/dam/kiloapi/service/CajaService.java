@@ -33,7 +33,6 @@ public class CajaService {
             tp.getKilosDisponibles().setCantidadDisponible(tp.getKilosDisponibles()
                     .getCantidadDisponible() - cantidad);
         }
-//        caja = CajaDto.of(caja);
         return repository.save(caja);
     }
 
