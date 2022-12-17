@@ -2,6 +2,8 @@ package com.salesianostriana.dam.kiloapi.controller;
 
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
+import com.salesianostriana.dam.kiloapi.service.AportacionService;
+import com.salesianostriana.dam.kiloapi.service.TieneService;
 import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,6 +28,8 @@ import java.util.Optional;
 public class TipoAlimentoController {
 
     private final TipoAlimentoService tipoAlimentoService;
+    private final AportacionService aportacionService;
+    private final TieneService tieneService;
 
     @Operation(summary = "Obtener detalles de un tipo de alimento por su ID")
     @ApiResponses(value = {
@@ -64,13 +68,15 @@ public class TipoAlimentoController {
                                     value = """
                                                 {}
                                             """
-                            )}
-                    )})})
+                            )})})})
     @DeleteMapping("/tipoAlimento/{id}")
     public ResponseEntity<?> borrarTipoAlimento(@PathVariable Long id) {
         Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(id);
         if (tipoAlimento.isPresent()) {
-            tipoAlimentoService.delete(tipoAlimento.get());
+            TipoAlimento ta = tipoAlimento.get();
+            aportacionService.removeTipoFromDetalle(ta);
+            tieneService.borrarTipoDeTiene(ta);
+            tipoAlimentoService.delete(ta);
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

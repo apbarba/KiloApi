@@ -61,6 +61,11 @@ public class Caja {
         this.tieneList.add(t);
     }
 
+    public void removeTieneFromCaja(Tiene t) {
+        t.setCaja(null);
+        this.tieneList.remove(t);
+    }
+
 
     @Override
     public boolean equals(Object o) {
