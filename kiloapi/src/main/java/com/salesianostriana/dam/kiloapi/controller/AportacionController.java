@@ -40,24 +40,24 @@ public class AportacionController {
 
     private final ClaseService claseService;
 
-    @GetMapping("/aportacion/{id}")
-    public ResponseEntity<List<GetAportacion>> findById(@PathVariable Long id) {
+   // @GetMapping("/aportacion/{id}")
+   // public ResponseEntity<List<GetAportacion>> findById(@PathVariable Long id) {
 
-        if (aportacionesService.findById(id).isEmpty()) {
+     //   if (aportacionesService.findById(id).isEmpty()) {
 
-            return ResponseEntity
-                    .ok()
-                    .build();
-        }
-        List<GetAportacion> getAportacionList =
-                aportacionesService.findById(id).stream()
-                        .map(converterAportacion::getAportacionDetallesDto)
-                        .collect(Collectors.toList());
+       //     return ResponseEntity
+         //           .ok()
+           //         .build();
+        //}
+       // List<GetAportacion> getAportacionList =
+         //       aportacionesService.findById(id).stream()
+           //             .map(converterAportacion::getAportacionDetallesDto)
+             //           .collect(Collectors.toList());
 
-        return ResponseEntity
-                .ok()
-                .body(getAportacionList);
-    }
+        //return ResponseEntity
+          //      .ok()
+            //    .body(getAportacionList);
+    //}
 
     @Operation(summary = "Obtener una lista con todas las aportaciones de una clase correspondiente")
     @ApiResponses(value = {

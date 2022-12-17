@@ -25,6 +25,7 @@ public class GetAportacion {
 
     private List<AbstractMap.SimpleEntry<String,Integer>> alimentos;
 
+    //Constructor para que funcione correctamente
     public GetAportacion(LocalDate fecha, List<AbstractMap.SimpleEntry<String, Integer>> alimentos){
 
         this.fecha = fecha;
