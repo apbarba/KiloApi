@@ -8,15 +8,14 @@ import com.salesianostriana.dam.kiloapi.repository.AportacionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class AportacionService {
 
     private final AportacionRepository repository;
+    private final TipoAlimentoService tipoAlimentoService;
 
     public Aportacion add(Aportacion aportacion) {
         return repository.save(aportacion);
@@ -87,6 +86,33 @@ public class AportacionService {
             });
             this.edit(a);
         });
+    }
+
+
+    public Map<TipoAlimento, Double> convertJSONToDetalles(Map<Long, Double> json) {
+        Map<TipoAlimento, Double> aportacion = new HashMap<>();
+        json.keySet().forEach(idTipo -> {
+            Optional<TipoAlimento> t = tipoAlimentoService.findById(idTipo);
+            if (t.isPresent()) {
+                aportacion.put(t.get(), json.get(t.get().getId()));
+            }
+        });
+        return aportacion;
+    }
+
+    public void addListadoDetalles(Map<TipoAlimento, Double> aportacion, Aportacion a) {
+        List<DetalleAportacion> listAux = new ArrayList<>();
+        aportacion.keySet().forEach(tipo -> {
+            listAux.add(DetalleAportacion
+                    .builder()
+                    .detallesPK(new DetallesPK(a.getId(), listAux.size() + 1))
+                    .cantidadKg(aportacion.get(tipo))
+                    .tipoAlimento(tipo)
+                    .build());
+        });
+
+        listAux.forEach(a::addDetalleAportacion);
+        this.edit(a);
     }
 
 }

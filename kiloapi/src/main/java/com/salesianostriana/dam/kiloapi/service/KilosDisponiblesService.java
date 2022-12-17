@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -61,6 +62,20 @@ public class KilosDisponiblesService {
                 k.setCantidadDisponible(k.getCantidadDisponible() - da.getCantidadKg());
                 this.edit(k);
             }
+        });
+    }
+
+
+    public void agregarKilos(Map<TipoAlimento, Double> aportacion) {
+        List<KilosDisponibles> listado = this.findAll();
+
+        listado.forEach(l -> {
+            aportacion.keySet().forEach(tipoAlimento -> {
+                if (l.getTipoAlimento() == tipoAlimento) {
+                    l.setCantidadDisponible(l.getCantidadDisponible() + aportacion.get(tipoAlimento));
+                    this.edit(l);
+                }
+            });
         });
     }
 }

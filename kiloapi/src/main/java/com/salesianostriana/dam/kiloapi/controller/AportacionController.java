@@ -1,10 +1,10 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.salesianostriana.dam.kiloapi.dto.AportacionDto;
-import com.salesianostriana.dam.kiloapi.model.Aportacion;
-import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
-import com.salesianostriana.dam.kiloapi.model.DetallesPK;
+import com.salesianostriana.dam.kiloapi.dto.CrearAportacionDto;
+import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
+import com.salesianostriana.dam.kiloapi.service.ClaseService;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,10 +15,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +26,45 @@ public class AportacionController {
 
     private final AportacionService aportacionService;
     private final KilosDisponiblesService kilosDisponiblesService;
+    private final ClaseService claseService;
+
+
+    @Operation(summary = "Crear nueva aportación")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Aportación creada",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AportacionDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "fecha": "2022-12-17",
+                                                    "id_clase": 11,
+                                                    "detalle": {
+                                                        "1": "6.0",
+                                                        "3": "7.0"
+                                                    }
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400", description = "Cuerpo para la creación aportado inválido",
+                    content = @Content)})
+    @PostMapping("/aportacion")
+    public ResponseEntity<AportacionDto> crearAportacion(@RequestBody CrearAportacionDto crear) {
+        Optional<Clase> opC = claseService.findById(crear.getId_clase());
+        if (opC.isPresent() && crear.getFecha() != null && !crear.getDetalle().isEmpty()) {
+            Map<TipoAlimento, Double> aportacion = aportacionService.convertJSONToDetalles(crear.getDetalle());
+            if (!aportacion.isEmpty()) {
+                Aportacion a = CrearAportacionDto.generar(crear, opC.get());
+                aportacionService.add(a);
+                kilosDisponiblesService.agregarKilos(aportacion);
+                aportacionService.addListadoDetalles(aportacion, a);
+                return ResponseEntity.status(HttpStatus.CREATED).body(AportacionDto.of(a));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
 
     @Operation(summary = "Eliminar una línea, buscada por su ID (num), de una aportación, buscada por su ID (id)")
     @ApiResponses(value = {

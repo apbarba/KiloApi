@@ -17,15 +17,23 @@ public class MainPrueba {
 
     public final TipoAlimentoService tipoAlimentoService;
     public final TipoAlimentoRepository tipoAlimentoRepository;
+
     public final KilosDisponiblesService kilosDiposniblesService;
     public final KilosDisponiblesRepository kilosDisponiblesRepository;
+
     public final CajaService cajaService;
     public final CajaRepository cajaRepository;
+
     public final TieneService tieneService;
     public final TieneRepository tieneRepository;
+
     public final DestinatarioRepository destinatarioRepository;
+
     private final ClaseRepository claseRepository;
+    private final ClaseService claseService;
+
     private final AportacionRepository aportacionRepository;
+    private final AportacionService aportacionService;
 
     @PostConstruct
     public void run() {
@@ -40,6 +48,7 @@ public class MainPrueba {
                 .nombre("Lentejas")
                 .build();
 
+
         KilosDisponibles kd1 = KilosDisponibles.builder()
                 .cantidadDisponible(12)
                 .build();
@@ -50,22 +59,38 @@ public class MainPrueba {
                 .cantidadDisponible(6)
                 .build();
 
+
         Caja c1 = new Caja("http://www.caja1.com", 1);
         Caja c2 = new Caja("http://www.caja2.com", 2);
         Caja c3 = new Caja("http://www.caja3.com", 3);
+
 
         ta1.addKilosToTipo(kd1);
         ta2.addKilosToTipo(kd2);
         ta3.addKilosToTipo(kd3);
 
+
+//        tipoAlimentoService.add(ta1);
+//        tipoAlimentoService.add(ta2);
+//        tipoAlimentoService.add(ta3);
         tipoAlimentoRepository.saveAll(List.of(ta1, ta2, ta3));
 
+
+//        kilosDiposniblesService.add(kd1);
+//        kilosDiposniblesService.add(kd2);
+//        kilosDiposniblesService.add(kd3);
         kilosDisponiblesRepository.saveAll(List.of(kd1, kd2, kd3));
 
+
+//        cajaService.add(c1);
+//        cajaService.add(c2);
+//        cajaService.add(c3);
         cajaRepository.saveAll(List.of(c1, c2, c3));
+
 
         TienePK tpk1 = new TienePK(ta1.getId(), c1.getId());
         TienePK tpk2 = new TienePK(ta2.getId(), c1.getId());
+
 
         Tiene t1 = Tiene.builder()
                 .id(tpk1)
@@ -76,16 +101,24 @@ public class MainPrueba {
                 .cantidadKgs(2)
                 .build();
 
+
         ta1.addTipoToTiene(t1);
         c1.addTieneToCaja(t1);
+
 
         ta2.addTipoToTiene(t2);
         c1.addTieneToCaja(t2);
 
-        c1.setKilosTotales(t1.getCantidadKgs() + t2.getCantidadKgs());
-        cajaService.edit(c1);
 
+        cajaService.calcularKg(c1);
+        //c1.setKilosTotales(t1.getCantidadKgs() + t2.getCantidadKgs());
+        //cajaService.edit(c1);
+
+
+//        tieneService.add(t1);
+//        tieneService.add(t2);
         tieneRepository.saveAll(List.of(t1, t2));
+
 
         Destinatario d1 = Destinatario.builder()
                 .nombre("Banco Alimentos Triana")
