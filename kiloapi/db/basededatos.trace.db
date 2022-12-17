@@ -1,0 +1,12 @@
+2022-12-17 17:03:27 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * [*]KILOS_TOTALES"
+Syntax error in SQL statement "SELECT * [*]KILOS_TOTALES"; SQL statement:
+SELECT * KILOS_TOTALES [42000-214]
+2022-12-17 17:03:37 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * [*]KILOS_DISPONIBLES"
+Syntax error in SQL statement "SELECT * [*]KILOS_DISPONIBLES"; SQL statement:
+SELECT * KILOS_DISPONIBLES [42000-214]
+2022-12-17 17:03:38 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * [*]KILOS_DISPONIBLES"
+Syntax error in SQL statement "SELECT * [*]KILOS_DISPONIBLES"; SQL statement:
+SELECT * KILOS_DISPONIBLES [42000-214]

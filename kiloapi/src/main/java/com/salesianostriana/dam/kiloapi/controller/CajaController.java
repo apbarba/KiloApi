@@ -1,10 +1,11 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.salesianostriana.dam.kiloapi.dto.CajaDto;
-import com.salesianostriana.dam.kiloapi.model.Caja;
-import com.salesianostriana.dam.kiloapi.model.Destinatario;
+import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
+import com.salesianostriana.dam.kiloapi.service.TieneService;
+import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -26,6 +27,10 @@ public class CajaController {
 
     private final CajaService cajaService;
     private final KilosDisponiblesService kilosDisponiblesService;
+
+    private final TipoAlimentoService tipoAlimentoService;
+
+    private final TieneService tieneService;
 
     @Operation(summary = "Obtiene una caja en base a su ID")
     @ApiResponses(value = {
@@ -110,6 +115,50 @@ public class CajaController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(caja);
+    }
+    @Operation(summary = "Agrega a la caja la cantidad de kilos del tipo de alimento")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha agregado la caja",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CajaDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": 4,
+                                                    "qr": "http://www.caja99.com",
+                                                    "numCaja": 99,
+                                                    "kilosTotales": 8.0,
+                                                    "alimentos": [
+                                                        {
+                                                            "id": 1,
+                                                            "nombre": "Pasta",
+                                                            "kilosDisponibles": 12.0
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "nombre": "Leche",
+                                                            "kilosDisponibles": 25.0
+                                                        }
+                                                    ]
+                                                }
+                                            """
+
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "No se ha agregado a la caja la cantidad de kilos de tipo alimento",
+                    content = @Content)
+    })
+    //FALTA 201 BAD REQUEST
+    @PostMapping("/caja/{id}/tipo/{idTipoAlim}/kg/{cantidad}")
+    public ResponseEntity<CajaDto> addCantidadToCaja(@PathVariable Long id,
+                                                  @PathVariable Long idTipoAlim, @PathVariable Double cantidad) {
+        Caja caja = cajaService.findById(id).get();
+        CajaDto cajaDto = CajaDto.of(caja);
+        cajaService.addKilostoCaja(caja, id, idTipoAlim, cantidad);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cajaDto);
+
     }
 
     @Operation(summary = "Modificar una caja, buscada por su ID")
