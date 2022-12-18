@@ -1,7 +1,10 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
-import com.salesianostriana.dam.kiloapi.dto.TipoAlimentoDto;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoViews;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
+import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
 import com.salesianostriana.dam.kiloapi.service.TieneService;
 import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
@@ -28,6 +31,7 @@ import java.util.Optional;
 public class TipoAlimentoController {
 
     private final TipoAlimentoService tipoAlimentoService;
+    private final TipoAlimentoRepository repository;
     private final AportacionService aportacionService;
     private final TieneService tieneService;
 
@@ -49,10 +53,11 @@ public class TipoAlimentoController {
                     description = "Tipo de alimento no encontrado",
                     content = @Content)})
     @GetMapping("/tipoAlimento/{id}")
+    @JsonView(TipoAlimentoViews.MostrarDisponible.class)
     public ResponseEntity<TipoAlimentoDto> mostrarDetallesTipo(@PathVariable Long id) {
         Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(id);
         if (tipoAlimento.isPresent()) {
-            return ResponseEntity.ok(TipoAlimentoDto.of(tipoAlimento.get()));
+            return ResponseEntity.ok(repository.detallesAlimento(id));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
