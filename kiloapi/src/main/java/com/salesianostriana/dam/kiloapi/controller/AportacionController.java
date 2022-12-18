@@ -4,6 +4,7 @@ import com.salesianostriana.dam.kiloapi.dto.AportacionDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
 import com.salesianostriana.dam.kiloapi.model.DetallesPK;
+import com.salesianostriana.dam.kiloapi.model.KilosDisponibles;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,5 +68,23 @@ public class AportacionController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
+    @Operation(summary = "Borra una aportación y sus detalles en base a su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Se ha borrado la aportación",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Aportacion.class))})
+    })
 
+    @DeleteMapping("/aportacion/{id}")
+    public ResponseEntity<Aportacion> deleteAportacion(@PathVariable Long id){
+        Optional<Aportacion> ap = aportacionService.findById(id);
+        if(ap.isPresent()){
+            ap.get().getDetalleAportacionList().forEach(d ->{
+                kilosDisponiblesService.restarKilos(d);
+            });
+            aportacionService.deleteById(id);
+        }
+        return ResponseEntity.noContent().build();
+    }
 }
