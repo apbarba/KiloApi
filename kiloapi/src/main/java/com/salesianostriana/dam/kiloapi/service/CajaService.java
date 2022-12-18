@@ -1,10 +1,8 @@
 package com.salesianostriana.dam.kiloapi.service;
 
-import com.salesianostriana.dam.kiloapi.dto.CajaDto;
 import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

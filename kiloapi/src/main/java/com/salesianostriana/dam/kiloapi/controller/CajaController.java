@@ -1,7 +1,10 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
-import com.salesianostriana.dam.kiloapi.dto.CajaDto;
-import com.salesianostriana.dam.kiloapi.model.*;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.cajaDto.CajaDto;
+import com.salesianostriana.dam.kiloapi.dto.cajaDto.CajaViews;
+import com.salesianostriana.dam.kiloapi.model.Caja;
+import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import com.salesianostriana.dam.kiloapi.service.TieneService;
@@ -103,9 +106,9 @@ public class CajaController {
                     description = "No se ha agregado la caja",
                     content = @Content),
     })
-    //FALTA JSON VIEW
+    @JsonView(CajaViews.PostCaja.class)
     @PostMapping("/caja/")
-    public ResponseEntity<Caja> newCaja(@RequestBody CajaDto cajaDto) {
+    public ResponseEntity<CajaDto> newCaja(@RequestBody CajaDto cajaDto) {
         if (cajaDto.getNumCaja() == 0 || cajaDto.getQr() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -115,7 +118,7 @@ public class CajaController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(caja);
+                .body(CajaDto.of(caja));
     }
 
     @Operation(summary = "Agrega a la caja la cantidad de kilos del tipo de alimento")
@@ -152,6 +155,7 @@ public class CajaController {
                     description = "No se ha agregado a la caja la cantidad de kilos de tipo alimento",
                     content = @Content)
     })
+    @JsonView(CajaViews.PostCajaTipo.class)
     @PostMapping("/caja/{id}/tipo/{idTipoAlim}/kg/{cantidad}")
     public ResponseEntity<CajaDto> addCantidadToCaja(@PathVariable Long id,
                                                      @PathVariable Long idTipoAlim, @PathVariable Double cantidad) {
@@ -205,6 +209,7 @@ public class CajaController {
                     )}),
             @ApiResponse(responseCode = "400", description = "Cuerpo para la modificación aportado inválido",
                     content = @Content)})
+    @JsonView(CajaViews.GetCajaId.class)
     @PutMapping("/caja/{id}")
     public ResponseEntity<CajaDto> actualizarCaja(@PathVariable Long id, @RequestBody Caja c) {
         Optional<Caja> caja = cajaService.findById(id);

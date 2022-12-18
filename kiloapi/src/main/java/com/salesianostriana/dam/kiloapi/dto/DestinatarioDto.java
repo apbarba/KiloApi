@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class DestinatarioDto {
 
     private Long id;
@@ -47,12 +49,15 @@ public class DestinatarioDto {
                 .build();
     }
 
-    public static DestinatarioDto mostrarIdYNombre(Destinatario d){
-        return DestinatarioDto
-                .builder()
-                .id(d.getId())
-                .nombre(d.getNombre())
-                .build();
+    public static DestinatarioDto mostrarIdYNombre(Destinatario d) {
+        if (d != null) {
+            return DestinatarioDto
+                    .builder()
+                    .id(d.getId())
+                    .nombre(d.getNombre())
+                    .build();
+        }
+        return null;
     }
 
 }

@@ -1,11 +1,8 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimentoDto;
-import com.salesianostriana.dam.kiloapi.model.KilosDisponibles;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.KilosDisponiblesRepository;
-import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
-import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -25,8 +22,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class KilosDisponiblesController {
-
-    private final KilosDisponiblesService kilosDisponiblesService;
+    private final KilosDisponiblesRepository kilosDisponiblesRepository;
     private final TipoAlimentoService tipoAlimentoService;
 
     @Operation(summary = "Obtiene todos los kilos disponibles")
@@ -41,19 +37,16 @@ public class KilosDisponiblesController {
                                                     {
                                                         "id": 1,
                                                         "nombre": "Pasta",
-                                                        "kilosAportados": 0.0,
                                                         "kilosDisponibles": 12.0
                                                     },
                                                     {
                                                         "id": 2,
                                                         "nombre": "Leche",
-                                                        "kilosAportados": 0.0,
                                                         "kilosDisponibles": 25.0
                                                     },
                                                     {
                                                         "id": 3,
                                                         "nombre": "Lentejas",
-                                                        "kilosAportados": 0.0,
                                                         "kilosDisponibles": 6.0
                                                     }
                                                 ]                                 
@@ -64,18 +57,13 @@ public class KilosDisponiblesController {
                     description = "No se ha encontrado ningún kilo disponible",
                     content = @Content),
     })
-    //FALTA JSON VIEW
     @GetMapping("/kilosDisponibles/")
     public ResponseEntity<List<TipoAlimentoDto>> getAll() {
         List<TipoAlimento> data = tipoAlimentoService.findAll();
         if (data.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } else {
-            List<TipoAlimentoDto> result =
-                    data.stream()
-                            .map(TipoAlimentoDto::of)
-                            .toList();
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(kilosDisponiblesRepository.crearTipoAlimentoDto());
         }
     }
 

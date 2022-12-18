@@ -1,5 +1,9 @@
-package com.salesianostriana.dam.kiloapi.dto;
+package com.salesianostriana.dam.kiloapi.dto.cajaDto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.DestinatarioDto;
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import lombok.AllArgsConstructor;
@@ -14,14 +18,22 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CajaDto {
 
+    @JsonView(CajaViews.PostCaja.class)
     private Long id;
+    @JsonView(CajaViews.PostCaja.class)
     private String qr;
+    @JsonView(CajaViews.PostCaja.class)
     private int numCaja;
+    @JsonView(CajaViews.PostCaja.class)
     private double kilosTotales;
+    @JsonView(CajaViews.PostCajaTipo.class)
     private Destinatario destinatario;
+    @JsonView(CajaViews.PostCajaTipo.class)
     private List<TipoAlimentoDto> alimentos;
+    @JsonView(CajaViews.GetCajaId.class)
     private DestinatarioDto destinatarioDto;
 
     public static CajaDto mostrarDetallesCaja(Caja c) {
@@ -64,7 +76,6 @@ public class CajaDto {
                 .destinatarioDto(DestinatarioDto.mostrarIdYNombre(c.getDestinatario()))
                 .alimentos(listado)
                 .build();
-
 
     }
 }

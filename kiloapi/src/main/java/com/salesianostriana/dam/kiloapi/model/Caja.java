@@ -1,7 +1,7 @@
 package com.salesianostriana.dam.kiloapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.salesianostriana.dam.kiloapi.dto.CajaDto;
+import com.salesianostriana.dam.kiloapi.dto.cajaDto.CajaDto;
 import lombok.*;
 
 import javax.persistence.*;
