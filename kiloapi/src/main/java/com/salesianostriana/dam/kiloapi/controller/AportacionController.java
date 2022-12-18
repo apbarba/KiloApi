@@ -1,7 +1,9 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
-import com.salesianostriana.dam.kiloapi.dto.AportacionDto;
-import com.salesianostriana.dam.kiloapi.dto.CrearAportacionDto;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionViews;
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.CrearAportacionDto;
 import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
 import com.salesianostriana.dam.kiloapi.service.ClaseService;
@@ -12,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Aportación", description = "Controlador para gestionar las aportaciones")
 public class AportacionController {
 
     private final AportacionService aportacionService;
@@ -37,25 +41,39 @@ public class AportacionController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
+                                                    "id": 15,
+                                                    "nombreCurso": "2ºDAM",
+                                                    "tutor": "Luismi López",
                                                     "fecha": "2022-12-17",
-                                                    "id_clase": 11,
-                                                    "detalle": {
-                                                        "1": "6.0",
-                                                        "3": "7.0"
-                                                    }
+                                                    "aportaciones": [
+                                                        {
+                                                            "numLinea": 1,
+                                                            "tipoAlimento": "Pasta",
+                                                            "cantidadAportada": 6.0
+                                                        },
+                                                        {
+                                                            "numLinea": 2,
+                                                            "tipoAlimento": "Lentejas",
+                                                            "cantidadAportada": 7.0
+                                                        }
+                                                    ]
                                                 }
                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "400", description = "Cuerpo para la creación aportado inválido",
                     content = @Content)})
+    @JsonView(AportacionViews.Master.class)
     @PostMapping("/aportacion")
     public ResponseEntity<AportacionDto> crearAportacion(@RequestBody CrearAportacionDto crear) {
         Optional<Clase> opC = claseService.findById(crear.getId_clase());
         if (opC.isPresent() && crear.getFecha() != null && !crear.getDetalle().isEmpty()) {
             Map<TipoAlimento, Double> aportacion = aportacionService.convertJSONToDetalles(crear.getDetalle());
             if (!aportacion.isEmpty()) {
-                Aportacion a = CrearAportacionDto.generar(crear, opC.get());
+                Aportacion a = Aportacion.builder()
+                        .fecha(crear.getFecha())
+                        .clase(opC.get())
+                        .build();
                 aportacionService.add(a);
                 kilosDisponiblesService.agregarKilos(aportacion);
                 aportacionService.addListadoDetalles(aportacion, a);
@@ -78,16 +96,25 @@ public class AportacionController {
                                                     "nombreCurso": "2ºDAM",
                                                     "tutor": "Luismi López",
                                                     "fecha": "2022-12-14",
-                                                    "aportaciones": {
-                                                        "Leche": 10.0,
-                                                        "Pasta": 2.0
-                                                    }
+                                                    "aportaciones": [
+                                                        {
+                                                            "numLinea": 1,
+                                                            "tipoAlimento": "Pasta",
+                                                            "cantidadAportada": 2.0
+                                                        },
+                                                        {
+                                                            "numLinea": 2,
+                                                            "tipoAlimento": "Leche",
+                                                            "cantidadAportada": 10.0
+                                                        }
+                                                    ]
                                                 }
                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "400", description = "Cuerpo para la modificación aportado inválido",
                     content = @Content)})
+    @JsonView(AportacionViews.Master.class)
     @PutMapping("/aportacion/{id}/linea/{num}/kg/{numKg}")
     public ResponseEntity<AportacionDto> modificarAportacion(@PathVariable Long id, @PathVariable Long num, @PathVariable double numKg) {
         DetallesPK detallesPK = new DetallesPK(id, num);
@@ -121,15 +148,24 @@ public class AportacionController {
                                                     "nombreCurso": "1ºDAM",
                                                     "tutor": "Miguel Campos",
                                                     "fecha": "2022-12-12",
-                                                    "aportaciones": {
-                                                        "Lentejas": 1.0,
-                                                        "Leche": 4.0
-                                                    }
+                                                    "aportaciones": [
+                                                        {
+                                                            "numLinea": 1,
+                                                            "tipoAlimento": "Pasta",
+                                                            "cantidadAportada": 2.0
+                                                        },
+                                                        {
+                                                            "numLinea": 3,
+                                                            "tipoAlimento": "Lentejas",
+                                                            "cantidadAportada": 1.0
+                                                        }
+                                                    ]
                                                 }
                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404", description = "No se encuentran la línea o la aportación", content = @Content)})
+    @JsonView(AportacionViews.Master.class)
     @DeleteMapping("/aportacion/{id}/linea/{num}")
     public ResponseEntity<AportacionDto> borrarDetalle(@PathVariable Long id, @PathVariable Long num) {
         DetallesPK detallesPK = new DetallesPK(id, num);
