@@ -1,6 +1,7 @@
-package com.salesianostriana.dam.kiloapi.dto;
+package com.salesianostriana.dam.kiloapi.dto.Caja;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
@@ -19,14 +20,20 @@ import java.util.List;
 @Builder
 public class CajaDto {
 
+    @JsonView(CajaViews.Master.class)
     private Long id;
+    @JsonView(CajaViews.Master.class)
     private String qr;
+    @JsonView(CajaViews.Master.class)
     private int numCaja;
+    @JsonView(CajaViews.Master.class)
     private double kilosTotales;
-    private Destinatario destinatario;
+    @JsonView(CajaViews.Master.class)
+    private String destinatario;
+    @JsonView(CajaViews.Master.class)
     private List<TipoAlimentoDto> alimentos;
 
-    public static CajaDto mostrarDetallesCaja(Caja c) {
+    public static CajaDto of(Caja c) {
         List<TipoAlimentoDto> listado = new ArrayList<>();
         c.getTieneList().forEach(l -> {
             TipoAlimentoDto t = TipoAlimentoDto.builder()
@@ -43,7 +50,7 @@ public class CajaDto {
                 .qr(c.getQr())
                 .numCaja(c.getNumCaja())
                 .kilosTotales(c.getKilosTotales())
-                .destinatario(c.getDestinatario())
+                .destinatario(c.getDestinatario().getNombre())
                 .alimentos(listado)
                 .build();
     }

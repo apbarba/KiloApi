@@ -1,6 +1,8 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
-import com.salesianostriana.dam.kiloapi.dto.CajaDto;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
@@ -39,25 +41,17 @@ public class CajaController {
                                                     "qr": "http://www.caja99.com",
                                                     "numCaja": 99,
                                                     "kilosTotales": 8.0,
-                                                    "destinatario": {
-                                                        "id": 7,
-                                                        "nombre": "Banco Alimentos Triana",
-                                                        "direccion": "C/ Castilla, 10",
-                                                        "personaContacto": "Antonio Álvarez",
-                                                        "telefono": "123456789"
-                                                    },
+                                                    "destinatario": "Banco Alimentos Triana",
                                                     "alimentos": [
                                                         {
                                                             "id": 1,
                                                             "nombre": "Pasta",
-                                                            "kilosAportados": 6.0,
-                                                            "kilosDisponibles": 12.0
+                                                            "kilosEnviado": 6.0
                                                         },
                                                         {
                                                             "id": 2,
                                                             "nombre": "Leche",
-                                                            "kilosAportados": 2.0,
-                                                            "kilosDisponibles": 25.0
+                                                            "kilosEnviados": 2.0
                                                         }
                                                     ]
                                                 }
@@ -66,6 +60,7 @@ public class CajaController {
                     )}),
             @ApiResponse(responseCode = "400", description = "Cuerpo para la modificación aportado inválido",
                     content = @Content)})
+    @JsonView(CajaViews.Master.class)
     @PutMapping("/caja/{id}")
     public ResponseEntity<CajaDto> actualizarCaja(@PathVariable Long id, @RequestBody Caja c) {
         Optional<Caja> caja = cajaService.findById(id);
@@ -78,7 +73,7 @@ public class CajaController {
                         cj.setNumCaja(c.getNumCaja());
                         cajaService.edit(cj);
 
-                        return CajaDto.mostrarDetallesCaja(cj);
+                        return CajaDto.of(cj);
                     }));
         }
     }

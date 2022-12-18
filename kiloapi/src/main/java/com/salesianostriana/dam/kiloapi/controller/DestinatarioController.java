@@ -1,6 +1,8 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
-import com.salesianostriana.dam.kiloapi.dto.DestinatarioDto;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
+import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioViews;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.service.DestinatarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Destinatario", description = "Controlador para gestionar los destinatarios")
 public class DestinatarioController {
 
     private final DestinatarioService destinatarioService;
@@ -48,6 +52,7 @@ public class DestinatarioController {
                     )}),
             @ApiResponse(responseCode = "400", description = "Cuerpo para la modificación aportado inválido",
                     content = @Content)})
+    @JsonView(DestinatarioViews.Master.class)
     @PutMapping("/destinatario/{id}")
     public ResponseEntity<DestinatarioDto> actualizarDestinatario(@PathVariable Long id, @RequestBody Destinatario d) {
         Optional<Destinatario> destinatario = destinatarioService.findById(id);
