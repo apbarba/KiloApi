@@ -5,23 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b05a4d2b-4871-418c-b284-ca6a26212f39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/DetallesPK.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Tiene.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/TienePK.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/TieneRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/TieneService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dtos/AportacionDtoConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dtos/GetAportacionDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/basededatos.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/basededatos.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/MainMentira.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/MainMentira.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/AportacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/AportacionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/ClaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/ClaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/KilosDisponiblesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/KilosDisponiblesController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Aportacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Aportacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Caja.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Caja.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Clase.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Clase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Destinatario.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Destinatario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/DetalleAportacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/DetalleAportacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/KilosDisponibles.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/KilosDisponibles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/TipoAlimento.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/TipoAlimento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/AportacionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/AportacionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/CajaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/CajaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/AportacionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/AportacionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/CajaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/CajaService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -56,7 +51,7 @@
       <map>
         <entry key="com.haulmont.jpb.jpaInspector" value="false" />
         <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
   </component>
@@ -76,18 +71,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Git.Branch.Popup.ShowAllRemotes": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/Arturo/Desktop/Trianafy-clone-",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "spring.configuration.checksum": "3182fdc476284d4c673d943dbf9340da"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Arturo/Desktop/Trianafy-clone-&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;3182fdc476284d4c673d943dbf9340da&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.salesianostriana.dam.kiloapi.model" />

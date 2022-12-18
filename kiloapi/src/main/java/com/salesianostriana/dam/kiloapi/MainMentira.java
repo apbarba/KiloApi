@@ -1,18 +1,15 @@
 package com.salesianostriana.dam.kiloapi;
 
-import com.salesianostriana.dam.kiloapi.model.Caja;
-import com.salesianostriana.dam.kiloapi.model.Destinatario;
-import com.salesianostriana.dam.kiloapi.model.Tiene;
-import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
-import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
-import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
-import com.salesianostriana.dam.kiloapi.repository.TieneRepository;
-import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
+import com.salesianostriana.dam.kiloapi.controller.AportacionController;
+import com.salesianostriana.dam.kiloapi.model.*;
+import com.salesianostriana.dam.kiloapi.repository.*;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -23,10 +20,15 @@ public class MainMentira {
     private final TipoAlimentoRepository tipoAlimentoService;
 
     private final TieneRepository tieneService;
+    private final ClaseRepository claseRepository;
 
+    private final AportacionRepository aportacionRepository;
     private final DestinatarioRepository destinatarioRepository;
     @PostConstruct
     public void test() {
+        Clase clase = Clase.builder().tutor("lmlopez").nombre("2ºDAM").build();
+        claseRepository.save(clase);
+
 
         TipoAlimento t1 = TipoAlimento.builder().nombre("Garabanzos").build();
         Caja c1 = Caja.builder().qr("eoooeooe").numCaja(3).kilosTotales(3.0).build();

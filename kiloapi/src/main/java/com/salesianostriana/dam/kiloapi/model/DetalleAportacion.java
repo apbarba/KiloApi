@@ -12,11 +12,16 @@ import javax.persistence.*;
 @Setter
 public class DetalleAportacion {
 
-    @EmbeddedId
-    private DetallesPK detallesPK;
 
-    //    @MapsId("numLinea_id")
-    private int numLinea;
+// comente esto porque da error
+//    @EmbeddedId
+//    private DetallesPK detallesPK;
+//
+//     @MapsId("numLinea_id")
+
+    @Id
+    @GeneratedValue
+    private Long numLinea;
 
     private double cantidadKg;
 

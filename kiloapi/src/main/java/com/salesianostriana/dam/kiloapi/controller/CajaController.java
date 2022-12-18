@@ -38,10 +38,7 @@ public class CajaController {
 
 
     @Operation(summary = "Elimina un tipo de alimento de una caja por ID")
-    @ApiResponses(value = {@ApiResponse(responseCode = "204", description
-            = "El alimento ha sido eliminado de la caja correctamente", content
-            = {@Content(mediaType = "application/json", schema = @Schema(implementation = TipoAlimento.class))}),
-            @ApiResponse(responseCode = "404", description = "No se encuentra un alimento relacionado con este ID", content = @Content),})
+    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "El alimento ha sido eliminado de la caja correctamente", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TipoAlimento.class))}), @ApiResponse(responseCode = "404", description = "No se encuentra un alimento relacionado con este ID", content = @Content),})
     @DeleteMapping("/caja/{id1}/tipoAlimento/{id2}")
     public ResponseEntity<Caja> deleteAlimento(@PathVariable Long id1, @PathVariable Long id2) {
 
@@ -73,7 +70,7 @@ public class CajaController {
         if (c1.isPresent() && d1.isPresent()) {
             c1.get().addDestinatario(d1.get());
             cajaService.add(c1.get());
-            return ResponseEntity.status(HttpStatus.CREATED).body(cajaDtoConverter.cajaToGetCajaDto(c1.get()));
+            return ResponseEntity.status(HttpStatus.CREATED).body(cajaService.getCajaDto(id1).get());
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

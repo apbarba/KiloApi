@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dtos.GetCajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,10 @@ public class CajaService {
 
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    public Optional<GetCajaDto> getCajaDto(Long id){
+    return repository.getCajaDto(id);
+
     }
 }
