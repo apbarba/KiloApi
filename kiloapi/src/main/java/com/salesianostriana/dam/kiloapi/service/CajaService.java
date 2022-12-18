@@ -4,6 +4,7 @@ import com.salesianostriana.dam.kiloapi.dto.CajaDto;
 import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,17 +25,30 @@ public class CajaService {
         return repository.save(caja);
     }
 
-    public Caja addKilostoCaja(Caja caja, Long id, Long idTipoAlim, Double cantidad) {
-        TipoAlimento tp = tipoAlimentoService.findById(idTipoAlim).get();
-        Tiene tiene = tieneService.findById(new TienePK(tp.getId(), caja.getId())).get();
-
-        if (tp.getKilosDisponibles().getCantidadDisponible() >= cantidad) {
-            caja.setKilosTotales(tiene.getCantidadKgs() + cantidad);
-            tp.getKilosDisponibles().setCantidadDisponible(tp.getKilosDisponibles()
-                    .getCantidadDisponible() - cantidad);
+    public Caja addKilostoCaja(Caja caja, Long id, Long idTipoAlim, double cantidad) {
+        Optional<TipoAlimento> tp = tipoAlimentoService.findById(idTipoAlim);
+        Optional<Caja> cj = Optional.of(caja);
+        if (cj.isPresent() & tp.isPresent()) {
+            TipoAlimento tipoAl = tp.get();
+            Optional<Tiene> ti = tieneService.findById(new TienePK(tipoAl.getId(), caja.getId()));
+            if (ti.isPresent()) {
+                Tiene tiene = ti.get();
+                caja.setKilosTotales(tiene.getCantidadKgs() + cantidad);
+                tipoAl.getKilosDisponibles().setCantidadDisponible(tipoAl.getKilosDisponibles()
+                        .getCantidadDisponible() - cantidad);
+            }
         }
-//        caja = CajaDto.of(caja);
         return repository.save(caja);
+    }
+
+    public boolean comprobarCantidad(Long id, Long idTipoAlim, double cantidad) {
+
+        Optional<TipoAlimento> tipoAl = tipoAlimentoService.findById(idTipoAlim);
+        if (tipoAl.isPresent()) {
+            TipoAlimento tp = tipoAl.get();
+            return tp.getKilosDisponibles().getCantidadDisponible() >= cantidad;
+        }
+        return false;
     }
 
     public Optional<Caja> findById(Long id) {

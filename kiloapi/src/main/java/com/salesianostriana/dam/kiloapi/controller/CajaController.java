@@ -78,6 +78,7 @@ public class CajaController {
                 .map(CajaDto::of));
 
     }
+
     @Operation(summary = "Agrega una nueva caja")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
@@ -116,6 +117,7 @@ public class CajaController {
                 .status(HttpStatus.CREATED)
                 .body(caja);
     }
+
     @Operation(summary = "Agrega a la caja la cantidad de kilos del tipo de alimento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
@@ -150,15 +152,18 @@ public class CajaController {
                     description = "No se ha agregado a la caja la cantidad de kilos de tipo alimento",
                     content = @Content)
     })
-    //FALTA 201 BAD REQUEST
     @PostMapping("/caja/{id}/tipo/{idTipoAlim}/kg/{cantidad}")
     public ResponseEntity<CajaDto> addCantidadToCaja(@PathVariable Long id,
-                                                  @PathVariable Long idTipoAlim, @PathVariable Double cantidad) {
-        Caja caja = cajaService.findById(id).get();
-        CajaDto cajaDto = CajaDto.of(caja);
-        cajaService.addKilostoCaja(caja, id, idTipoAlim, cantidad);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cajaDto);
-
+                                                     @PathVariable Long idTipoAlim, @PathVariable Double cantidad) {
+        Optional<Caja> c = cajaService.findById(id);
+        if (c.isPresent()) {
+            Caja caja = c.get();
+            if (cajaService.comprobarCantidad(id, idTipoAlim, cantidad)) {
+                cajaService.addKilostoCaja(caja, id, idTipoAlim, cantidad);
+                return ResponseEntity.status(HttpStatus.CREATED).body(CajaDto.of(caja));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @Operation(summary = "Modificar una caja, buscada por su ID")
