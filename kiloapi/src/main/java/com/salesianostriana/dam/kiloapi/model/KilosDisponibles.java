@@ -1,23 +1,29 @@
 package com.salesianostriana.dam.kiloapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
+@NoArgsConstructor
 @Builder
+@Data
+@Getter
+@Setter
+@ToString
 public class KilosDisponibles {
 
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "tipo_alimento")
+    @MapsId("id")
+    private TipoAlimento tipoAlimento;
+
     @Id
-    @GeneratedValue
     private Long id;
-  /* @OneToOne
-    @JoinColumn(name = "tipo_alimento_id")
-    @Id
-    private TipoAlimento tipoAlimentoId;
-    private Double cantidadDisponible;*/
+
+    private Double cantidadDisponible;
+
 }

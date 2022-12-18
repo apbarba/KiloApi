@@ -4,21 +4,31 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Builder
 @Getter
 @Setter
-@Builder
 public class DetalleAportacion {
 
+    @EmbeddedId
+    private DetallesPK detallesPK;
+
+    //    @MapsId("numLinea_id")
+    private int numLinea;
+
+    private double cantidadKg;
 
     @ManyToOne
-    @JoinColumn(name = "aportaciones", foreignKey = @ForeignKey(name = "FK_APORTACION_ID"))
-    private Aportacion aportaciones;
-    @Id
-    @GeneratedValue
-    private Long numLinea;
+    @MapsId("id_aportacion")
+    @JoinColumn(name = "aportacion_id",
+            foreignKey = @ForeignKey(name = "FK_DETALLE_APORTACION_APORTACION"))
+    private Aportacion aportacion;
 
-    private Double cantidadKgs;
+    @ManyToOne
+    @JoinColumn(name = "tipoAlimento_id",
+            foreignKey = @ForeignKey(name = "FK_DETALLE_TIPO_ALIMENTO"))
+    private TipoAlimento tipoAlimento;
+
 }
