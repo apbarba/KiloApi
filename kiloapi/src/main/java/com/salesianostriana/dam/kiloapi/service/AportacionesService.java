@@ -44,4 +44,9 @@ public class AportacionesService {
 
         aportacionRepository.deleteById(id);
     }
+
+    public List<Aportacion> getAportacionDto(Long id){
+
+        return aportacionRepository.findAportacionByClase(id);
+    }
 }

@@ -1,11 +1,12 @@
 package com.salesianostriana.dam.kiloapi.dto;
 
 import lombok.*;
-import org.springframework.data.util.Pair;
 
 import java.time.LocalDate;
 import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Getter
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GetAportacion {
+public class GetAportacionDto {
 
     private Long id;
 
@@ -23,15 +24,20 @@ public class GetAportacion {
 
     private LocalDate fecha;
 
+    @Builder.Default
+    private Map<String,Double> listaAlimentos= new HashMap<String, Double>();
+
+    /*
     private List<AbstractMap.SimpleEntry<String,Integer>> alimentos;
 
     //Constructor para que funcione correctamente
-    public GetAportacion(LocalDate fecha, List<AbstractMap.SimpleEntry<String, Integer>> alimentos){
+    public GetAportacionDto(LocalDate fecha, List<AbstractMap.SimpleEntry<String, Integer>> alimentos){
 
         this.fecha = fecha;
 
         this.alimentos = alimentos;
     }
+    */
 
     }
 

@@ -20,7 +20,7 @@ public class DetalleAportacion {
     //    @MapsId("numLinea_id")
     private int numLinea;
 
-    private Integer cantidadKg;
+    private double cantidadKg;
 
 //    @ManyToOne
 //    @MapsId("id_aportacion")

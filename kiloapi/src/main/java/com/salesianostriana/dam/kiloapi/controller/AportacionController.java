@@ -1,9 +1,8 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
-import com.salesianostriana.dam.kiloapi.dto.ConverterAportacion;
-import com.salesianostriana.dam.kiloapi.dto.GetAportacion;
+import com.salesianostriana.dam.kiloapi.dto.AportacionDtoConverter;
+import com.salesianostriana.dam.kiloapi.dto.GetAportacionDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
-import com.salesianostriana.dam.kiloapi.model.Clase;
 import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
 import com.salesianostriana.dam.kiloapi.repository.AportacionRepository;
 import com.salesianostriana.dam.kiloapi.service.AportacionesService;
@@ -15,18 +14,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +31,7 @@ public class AportacionController {
 
     private final AportacionRepository aportacionRepository;
 
-    private final ConverterAportacion converterAportacion;
+    private final AportacionDtoConverter converterAportacion;
 
     private final AportacionesService aportacionesService;
 
@@ -65,7 +62,7 @@ public class AportacionController {
                     responseCode = "200",
                     description = "Clase Encontrada",
                     content = {@Content(mediaType = "aplication/json",
-                        schema = @Schema(implementation = GetAportacion.class),
+                        schema = @Schema(implementation = GetAportacionDto.class),
                     examples = {@ExampleObject(
                             value = """
                                     
@@ -79,8 +76,35 @@ public class AportacionController {
                     responseCode = "404",
                     description = "Clase inexistente",
                     content = @Content)})
-    @GetMapping("/aportacion/{idClase}")
-    public ResponseEntity<List<GetAportacion>> getAportacionesByIdClase(@PathVariable Long idClase) {
+    @GetMapping("/aportacion/clase/{id}")
+    public ResponseEntity<List<GetAportacionDto>> findAll(@PathVariable Long id) {
+
+        List<Aportacion> lista = aportacionesService.getAportacionDto(id);
+
+        if (lista.isEmpty()) {
+
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .build();
+
+        } else {
+            List<GetAportacionDto> listaAport = new ArrayList<>();
+            for (Aportacion a:lista) {
+                Map<String, Double> mapa = new HashMap<>();
+                for (DetalleAportacion d: a.getDetalleAportacionList()) {
+                    mapa.put(d.getTipoAlimento().getNombre(), d.getCantidadKg());
+                }
+                listaAport.add(converterAportacion.aportacionToGetAportacionDto(a, mapa));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).
+                    body(listaAport);
+        }
+    }
+
+
+    //@GetMapping("/aportacion/{idClase}")
+   /*public ResponseEntity<List<GetAportacion>> getAportacionesByIdClase(@PathVariable Long idClase) {
 
         Optional<Clase> clase = claseService.findById(idClase);
 
@@ -115,4 +139,6 @@ public class AportacionController {
 
 
     }
+    */
+
 }
