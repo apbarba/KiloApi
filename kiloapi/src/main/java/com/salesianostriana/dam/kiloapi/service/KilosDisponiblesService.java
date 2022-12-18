@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -55,12 +56,47 @@ public class KilosDisponiblesService {
         }
     }
 
-    public void restarKilos(DetalleAportacion da) {
+    public void modificarKilos(DetalleAportacion da, int opcion, double cantPrev) {
+        switch (opcion) {
+            case 1:
+                this.findAll().forEach(k -> {
+                    if (k.getTipoAlimento().equals(da.getTipoAlimento())) {
+                        k.setCantidadDisponible(k.getCantidadDisponible() - da.getCantidadKg());
+                        this.edit(k);
+                    }
+                });
+                break;
+            case 2:
+                this.findAll().forEach(k -> {
+                    if (k.getTipoAlimento().equals(da.getTipoAlimento())) {
+                        k.setCantidadDisponible(k.getCantidadDisponible() - cantPrev + da.getCantidadKg());
+                        this.edit(k);
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void restarKilos(DetalleAportacion detalleAportacion){
         this.findAll().forEach(k -> {
-            if (k.getTipoAlimento().equals(da.getTipoAlimento())) {
-                k.setCantidadDisponible(k.getCantidadDisponible() - da.getCantidadKg());
+            if (k.getTipoAlimento().equals(detalleAportacion.getTipoAlimento())) {
+                k.setCantidadDisponible(k.getCantidadDisponible() - detalleAportacion.getCantidadKg());
                 this.edit(k);
             }
+        });
+    }
+    public void agregarKilos(Map<TipoAlimento, Double> aportacion) {
+        List<KilosDisponibles> listado = this.findAll();
+
+        listado.forEach(l -> {
+            aportacion.keySet().forEach(tipoAlimento -> {
+                if (l.getTipoAlimento() == tipoAlimento) {
+                    l.setCantidadDisponible(l.getCantidadDisponible() + aportacion.get(tipoAlimento));
+                    this.edit(l);
+                }
+            });
         });
     }
 }

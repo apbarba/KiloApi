@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.kiloapi.dto.cajaDto;
+package com.salesianostriana.dam.kiloapi.dto.Caja;
 
 public class CajaViews {
     public static class PostCaja{}

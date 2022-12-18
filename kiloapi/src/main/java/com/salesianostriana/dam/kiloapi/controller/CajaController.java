@@ -1,14 +1,11 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.salesianostriana.dam.kiloapi.dto.cajaDto.CajaDto;
-import com.salesianostriana.dam.kiloapi.dto.cajaDto.CajaViews;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
-import com.salesianostriana.dam.kiloapi.service.CajaService;
-import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
-import com.salesianostriana.dam.kiloapi.service.TieneService;
-import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
+import com.salesianostriana.dam.kiloapi.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -30,11 +27,7 @@ public class CajaController {
 
     private final CajaService cajaService;
     private final KilosDisponiblesService kilosDisponiblesService;
-
-    private final TipoAlimentoService tipoAlimentoService;
-
-    private final TieneService tieneService;
-
+    private final CajaServiceLogica cajaServiceLogica;
     @Operation(summary = "Obtiene una caja en base a su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -162,8 +155,8 @@ public class CajaController {
         Optional<Caja> c = cajaService.findById(id);
         if (c.isPresent()) {
             Caja caja = c.get();
-            if (cajaService.comprobarCantidad(id, idTipoAlim, cantidad)) {
-                cajaService.addKilostoCaja(caja, id, idTipoAlim, cantidad);
+            if (cajaServiceLogica.comprobarCantidad(id, idTipoAlim, cantidad)) {
+                cajaServiceLogica.addKilostoCaja(caja, id, idTipoAlim, cantidad);
                 return ResponseEntity.status(HttpStatus.CREATED).body(CajaDto.of(caja));
             }
         }

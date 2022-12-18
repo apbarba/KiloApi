@@ -1,7 +1,7 @@
 package com.salesianostriana.dam.kiloapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.salesianostriana.dam.kiloapi.dto.cajaDto.CajaDto;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -73,6 +73,11 @@ public class Caja {
     public void addTieneToCaja(Tiene t) {
         t.setCaja(this);
         this.tieneList.add(t);
+    }
+
+    public void removeTieneFromCaja(Tiene t) {
+        t.setCaja(null);
+        this.tieneList.remove(t);
     }
 
 

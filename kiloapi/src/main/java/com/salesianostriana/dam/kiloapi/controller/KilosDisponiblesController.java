@@ -1,6 +1,6 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
-import com.salesianostriana.dam.kiloapi.dto.TipoAlimentoDto;
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.KilosDisponiblesRepository;
 import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
