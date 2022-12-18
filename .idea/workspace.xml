@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b05a4d2b-4871-418c-b284-ca6a26212f39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dtos/AportacionDtoConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dtos/GetAportacionDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/basededatos.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/basededatos.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/MainMentira.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/MainMentira.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/AportacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/AportacionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/DetalleAportacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/DetalleAportacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/AportacionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/AportacionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/CajaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/CajaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/AportacionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/AportacionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/CajaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/CajaService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="arturo_main" />
+        <entry key="$PROJECT_DIR$" value="arturo_destinatario_deleteDestinatario" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
