@@ -26,4 +26,6 @@ public class GetDestinatario {
 
     //Array de enteros para saber el numero de las cajas asignadas del destinatario correspondiente
     private List<Caja> numCajasAsignadasDestinatario = new ArrayList<>();
+
+    private List<GetCaja> cajas = new ArrayList<>();
 }

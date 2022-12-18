@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.kiloapi.service;
 
 import com.salesianostriana.dam.kiloapi.model.Caja;
+import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,13 @@ public class CajaService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    //Método para recuperar las cajas asignadas a un destinatario(id) a partir de una consulta
+    //Endpoint de get /destinatario/{id}/detalles
+
+   // public List<Caja> findByDestinatario(Destinatario destinatario){
+
+     //   return repository.findByDestinatario(destinatario);
+   // }
 
 }

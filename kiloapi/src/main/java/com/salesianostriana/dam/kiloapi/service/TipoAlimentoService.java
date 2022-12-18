@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,11 @@ public class TipoAlimentoService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    //Método que se utiliza para recuperar los tipos de alimento que hay en una caja(id) a partir de una consulta
+    //public List<TipoAlimento> findByCaja(Caja caja){
+
+      //  return repository.finByCaja(caja);
+    //}
 
 }
