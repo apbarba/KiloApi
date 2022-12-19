@@ -200,7 +200,7 @@ public class AportacionController {
                 aportacionService.add(a);
                 kilosDisponiblesService.agregarKilos(aportacion);
                 aportacionService.addListadoDetalles(aportacion, a);
-                return ResponseEntity.status(HttpStatus.CREATED).body(AportacionDto.of(a));
+                return ResponseEntity.status(HttpStatus.CREATED).body(aportacionService.devolverAportacionDto(a));
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -252,7 +252,7 @@ public class AportacionController {
                 da.setCantidadKg(numKg);
                 kilosDisponiblesService.modificarKilos(da, 2, cantidadPrevia);
                 aportacionService.edit(a);
-                return ResponseEntity.ok(AportacionDto.of(a));
+                return ResponseEntity.ok(aportacionService.devolverAportacionDto(a));
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -302,7 +302,7 @@ public class AportacionController {
                 kilosDisponiblesService.modificarKilos(da, 1, 0);
                 a.removeDetalleAportacion(da);
                 aportacionService.edit(a);
-                return ResponseEntity.ok(AportacionDto.of(a));
+                return ResponseEntity.ok(aportacionService.devolverAportacionDto(a));
             }
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

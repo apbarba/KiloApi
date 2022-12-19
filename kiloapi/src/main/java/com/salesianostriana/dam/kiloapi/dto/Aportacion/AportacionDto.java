@@ -25,7 +25,7 @@ public class AportacionDto {
     @JsonView(AportacionViews.Master.class)
     private Long id;
     @JsonView(AportacionViews.Master.class)
-    private String nombreCurso;
+    private String nombreClase;
     @JsonView(AportacionViews.Master.class)
     private String tutor;
     @JsonView(AportacionViews.Master.class)
@@ -47,15 +47,22 @@ public class AportacionDto {
 //    }
 
 
-    public static AportacionDto of(Aportacion a) {
+//    public static AportacionDto of(Aportacion a) {
+//
+//        return AportacionDto.builder()
+//                .id(a.getId())
+//                .nombreClase(a.getClase().getNombre())
+//                .tutor(a.getClase().getTutor())
+//                .fecha(a.getFecha())
+//                .aportaciones(DetalleAportacionDto.of(a))
+//                .build();
+//    }
 
-        return AportacionDto.builder()
-                .id(a.getId())
-                .nombreCurso(a.getClase().getNombre())
-                .tutor(a.getClase().getTutor())
-                .fecha(a.getFecha())
-                .aportaciones(DetalleAportacionDto.of(a))
-                .build();
+    public AportacionDto(Long id, String nombreCurso, String tutor, LocalDate fecha) {
+        this.id = id;
+        this.nombreClase = nombreCurso;
+        this.tutor = tutor;
+        this.fecha = fecha;
     }
 
 

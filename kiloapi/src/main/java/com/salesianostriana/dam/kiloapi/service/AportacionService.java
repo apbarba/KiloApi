@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
 import com.salesianostriana.dam.kiloapi.model.DetallesPK;
@@ -116,4 +117,10 @@ public class AportacionService {
         this.edit(a);
     }
 
+    public AportacionDto devolverAportacionDto(Aportacion a) {
+        AportacionDto adto = repository.generarAportacionDto(a.getId());
+        adto.setAportaciones(repository.generarListadoAportaciones(a.getId()));
+
+        return adto;
+    }
 }
