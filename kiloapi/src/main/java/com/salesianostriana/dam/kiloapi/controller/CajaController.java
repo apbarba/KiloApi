@@ -164,8 +164,8 @@ public class CajaController {
         Optional<Caja> c = cajaService.findById(id);
         if (c.isPresent()) {
             Caja caja = c.get();
-            if (cajaServiceLogica.comprobarCantidad(id, idTipoAlim, cantidad)) {
-                cajaServiceLogica.addKilostoCaja(caja, id, idTipoAlim, cantidad);
+            if (cajaServiceLogica.comprobarCantidad(idTipoAlim, cantidad)) {
+                cajaServiceLogica.addKilostoCaja(caja, idTipoAlim, cantidad);
                 tieneService.modificarKilos(caja);
                 return ResponseEntity.status(HttpStatus.CREATED).body(CajaDto.of(caja));
             }
