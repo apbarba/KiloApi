@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.CrearTipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoViews;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
@@ -107,11 +108,11 @@ public class TipoAlimentoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Se ha agregado el tipo de alimento",
-                    content = { @Content(mediaType = "application/json",
+                    content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = TipoAlimento.class),
                             examples = {@ExampleObject(
                                     value = """
-                                            
+                                                                                        
                                                 {
                                                     "id": 1,
                                                     "nombre": "Latas de conserva"
@@ -129,12 +130,51 @@ public class TipoAlimentoController {
     public ResponseEntity<TipoAlimentoDto> newTipoAlimento(@RequestBody TipoAlimento tipoAlimento) {
         if (tipoAlimento.getNombre() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        } else{
+        } else {
             tipoAlimentoService.add(tipoAlimento);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(repository.detallesAlimento(tipoAlimento.getId()));
         }
     }
+
+
+    @Operation(summary = "Modificar un tipo de alimento, buscado por su ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Tipo de alimento modificado correctamente",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = TipoAlimentoDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": 2,
+                                                    "nombre": "Leche Semidesnatada",
+                                                    "kilosDisponibles": 32.0
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400", description = "Cuerpo para la modificación aportado inválido",
+                    content = @Content)})
+    @JsonView(TipoAlimentoViews.MostrarDisponible.class)
+    @PutMapping("/tipoAlimento/{id}")
+    public ResponseEntity<TipoAlimentoDto> modificarTipo(@PathVariable Long id, @RequestBody CrearTipoAlimentoDto c) {
+        Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(id);
+        if (!tipoAlimento.isPresent() || c.getNombre() == "" || c.getCantidadDisponible() <= 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        } else {
+            return ResponseEntity.of(
+                    tipoAlimento.map(ta -> {
+                        ta.setNombre(c.getNombre());
+                        ta.getKilosDisponibles().setCantidadDisponible(c.getCantidadDisponible());
+
+                        tipoAlimentoService.edit(ta);
+
+                        return repository.detallesAlimento(id);
+                    }));
+        }
+    }
+
+
     @Operation(summary = "Eliminar un tipo de alimento, buscado por su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Tipo de alimento eliminado correctamente",
