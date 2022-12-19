@@ -1,0 +1,49 @@
+Index: kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Aportacion.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Aportacion.java b/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Aportacion.java
+--- a/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Aportacion.java	
++++ b/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/model/Aportacion.java	
+@@ -4,6 +4,7 @@
+ import lombok.*;
+ 
+ import javax.persistence.*;
++import java.lang.reflect.Type;
+ import java.time.LocalDate;
+ import java.util.ArrayList;
+ import java.util.List;
+@@ -12,7 +13,8 @@
+ @NoArgsConstructor
+ @AllArgsConstructor
+ @Builder
+-@Getter@Setter
++@Getter
++@Setter
+ public class Aportacion {
+     @Id
+     @GeneratedValue
+@@ -23,7 +25,7 @@
+     @ManyToOne
+     private Clase clase;
+ 
+-    @OneToMany(mappedBy = "aportaciones", orphanRemoval = true)
++    @OneToMany(mappedBy = "aportaciones",cascade = CascadeType.ALL, orphanRemoval = true)
+     private List<DetalleAportacion> detalleAportacionList = new ArrayList<>();
+ 
+ }
+Index: .idea/workspace.xml
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -92,7 +92,7 @@
+       <updated>1671097353001</updated>
+       <workItem from="1671097354343" duration="1723000" />
+       <workItem from="1671109166063" duration="925000" />
+-      <workItem from="1671174929065" duration="10154000" />
++      <workItem from="1671174929065" duration="14389000" />
+     </task>
+     <servers />
+   </component>
