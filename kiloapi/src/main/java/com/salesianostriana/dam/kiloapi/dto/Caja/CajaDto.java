@@ -70,7 +70,8 @@ public class CajaDto {
             TipoAlimentoDto t = TipoAlimentoDto.builder()
                     .id(l.getTipoAlimento().getId())
                     .nombre(l.getTipoAlimento().getNombre())
-                    .kilosDisponibles(l.getTipoAlimento().getKilosDisponibles().getCantidadDisponible())
+                    .kilosEnviados(l.getCantidadKgs())
+                    .kilosDisponibles(null)
                     .build();
             listado.add(t);
         });
