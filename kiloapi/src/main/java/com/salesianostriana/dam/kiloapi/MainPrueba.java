@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi;
 
+import com.salesianostriana.dam.kiloapi.repository.ClaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
