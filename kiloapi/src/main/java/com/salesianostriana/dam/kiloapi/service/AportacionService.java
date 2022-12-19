@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
 import com.salesianostriana.dam.kiloapi.model.DetallesPK;
@@ -114,6 +115,10 @@ public class AportacionService {
 
         listAux.forEach(a::addDetalleAportacion);
         this.edit(a);
+    }
+
+    public List<Aportacion> getDetallesAportaciones(Long id) {
+        return repository.getDetallesAportaciones(id);
     }
 
 }

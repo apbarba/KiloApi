@@ -190,7 +190,13 @@ public class MainPrueba {
 
         DetalleAportacion da7 = DetalleAportacion.builder()
                 .detallesPK(det6)
-                .cantidadKg(0)
+                .cantidadKg(40)
+                .tipoAlimento(ta4)
+                .build();
+
+        DetalleAportacion da8 = DetalleAportacion.builder()
+                .detallesPK(det3)
+                .cantidadKg(20)
                 .tipoAlimento(ta4)
                 .build();
 
@@ -201,6 +207,7 @@ public class MainPrueba {
         a2.addDetalleAportacion(da5);
         a3.addDetalleAportacion(da6);
         a4.addDetalleAportacion(da7);
+        a3.addDetalleAportacion(da8);
 
         aportacionRepository.saveAll(List.of(a1, a2, a3, a4));
 
