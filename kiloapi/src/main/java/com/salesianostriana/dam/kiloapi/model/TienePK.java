@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @Embeddable
 @Data
-public class TienePK {
+public class TienePK implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

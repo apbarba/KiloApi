@@ -23,5 +23,10 @@ public class TipoAlimentoDto {
     private Double kilosDisponibles;
     @JsonView({TipoAlimentoViews.MostrarEnviado.class, CajaViews.Master.class})
     private double kilosEnviados;
+    public TipoAlimentoDto(Long id, String nombre, Double kilosDisponibles){
+        this.id = id;
+        this.nombre = nombre;
+        this.kilosDisponibles = kilosDisponibles;
+    }
 
 }
