@@ -35,6 +35,9 @@ public class MainPrueba {
         TipoAlimento ta3 = TipoAlimento.builder()
                 .nombre("Lentejas")
                 .build();
+        TipoAlimento ta4 = TipoAlimento.builder()
+                .nombre("Dodotis")
+                .build();
 
         KilosDisponibles kd1 = KilosDisponibles.builder()
                 .cantidadDisponible(12)
@@ -45,6 +48,9 @@ public class MainPrueba {
         KilosDisponibles kd3 = KilosDisponibles.builder()
                 .cantidadDisponible(6)
                 .build();
+        KilosDisponibles kd4 = KilosDisponibles.builder()
+                .cantidadDisponible(0)
+                .build();
 
         Caja c1 = new Caja("http://www.caja1.com", 1);
         Caja c2 = new Caja("http://www.caja2.com", 2);
@@ -53,10 +59,11 @@ public class MainPrueba {
         ta1.addKilosToTipo(kd1);
         ta2.addKilosToTipo(kd2);
         ta3.addKilosToTipo(kd3);
+        ta4.addKilosToTipo(kd4);
 
-        tipoAlimentoRepository.saveAll(List.of(ta1, ta2, ta3));
+        tipoAlimentoRepository.saveAll(List.of(ta1, ta2, ta3, ta4));
 
-        kilosDisponiblesRepository.saveAll(List.of(kd1, kd2, kd3));
+        kilosDisponiblesRepository.saveAll(List.of(kd1, kd2, kd3, kd4));
 
         cajaRepository.saveAll(List.of(c1, c2, c3));
 
@@ -131,12 +138,16 @@ public class MainPrueba {
         Aportacion a3 = Aportacion.builder()
                 .fecha(LocalDate.of(2022, 12, 15))
                 .build();
+        Aportacion a4 = Aportacion.builder()
+                .fecha(LocalDate.of(2022, 12, 16))
+                .build();
 
         a1.addAportacionToClase(cl1);
         a2.addAportacionToClase(cl2);
         a3.addAportacionToClase(cl1);
+        a4.addAportacionToClase(cl2);
 
-        aportacionRepository.saveAll(List.of(a1, a2, a3));
+        aportacionRepository.saveAll(List.of(a1, a2, a3, a4));
 
         DetallesPK det1 = new DetallesPK(a1.getId(), 1);
         DetallesPK det2 = new DetallesPK(a1.getId(), 2);
@@ -144,6 +155,7 @@ public class MainPrueba {
         DetallesPK det4 = new DetallesPK(a2.getId(), 1);
         DetallesPK det5 = new DetallesPK(a2.getId(), 2);
         DetallesPK det6 = new DetallesPK(a3.getId(), 1);
+        DetallesPK det7 = new DetallesPK(a4.getId(), 1);
 
         DetalleAportacion da1 = DetalleAportacion.builder()
                 .detallesPK(det1)
@@ -176,14 +188,21 @@ public class MainPrueba {
                 .tipoAlimento(ta3)
                 .build();
 
+        DetalleAportacion da7 = DetalleAportacion.builder()
+                .detallesPK(det6)
+                .cantidadKg(0)
+                .tipoAlimento(ta4)
+                .build();
+
         a1.addDetalleAportacion(da1);
         a1.addDetalleAportacion(da2);
         a1.addDetalleAportacion(da3);
         a2.addDetalleAportacion(da4);
         a2.addDetalleAportacion(da5);
         a3.addDetalleAportacion(da6);
+        a4.addDetalleAportacion(da7);
 
-        aportacionRepository.saveAll(List.of(a1, a2, a3));
+        aportacionRepository.saveAll(List.of(a1, a2, a3, a4));
 
     }
 }

@@ -6,6 +6,10 @@ import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
+import com.salesianostriana.dam.kiloapi.service.CajaService;
+import com.salesianostriana.dam.kiloapi.service.CajaServiceLogica;
+import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
+import com.salesianostriana.dam.kiloapi.service.TieneService;
 import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.service.*;
@@ -36,8 +40,9 @@ public class CajaController {
 
     private final CajaServiceLogica cajaServiceLogica;
 
-    private final CajaDtoConverter cajaDtoConverter;
     private final TieneService tieneService;
+
+    private final CajaDtoConverter cajaDtoConverter;
     private final TipoAlimentoService tipoAlimentoService;
     private final DestinatarioService destinatarioService;
 
@@ -273,9 +278,9 @@ public class CajaController {
         Optional<Caja> c = cajaService.findById(id);
         if (c.isPresent()) {
             Caja caja = c.get();
-            if (cajaServiceLogica.comprobarCantidad(id, idTipoAlim, cantidad)) {
-                cajaServiceLogica.addKilostoCaja(caja, id, idTipoAlim, cantidad);
-
+            if (cajaServiceLogica.comprobarCantidad(idTipoAlim, cantidad)) {
+                cajaServiceLogica.addKilostoCaja(caja, idTipoAlim, cantidad);
+                tieneService.modificarKilos(caja);
                 return ResponseEntity.status(HttpStatus.CREATED).body(CajaDto.of(caja));
             }
         }

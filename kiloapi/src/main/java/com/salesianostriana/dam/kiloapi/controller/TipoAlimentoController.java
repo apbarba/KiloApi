@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.CrearTipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoViews;
+import com.salesianostriana.dam.kiloapi.model.KilosDisponibles;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.KilosDisponiblesRepository;
 import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
-import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import com.salesianostriana.dam.kiloapi.service.TieneService;
 import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -132,6 +132,12 @@ public class TipoAlimentoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } else {
             tipoAlimentoService.add(tipoAlimento);
+            KilosDisponibles kd = KilosDisponibles
+                    .builder()
+                    .tipoAlimento(tipoAlimento)
+                    .cantidadDisponible(0.0)
+                    .build();
+            kilosDisponiblesRepository.save(kd);
 
             return ResponseEntity.status(HttpStatus.CREATED).body(repository.detallesAlimento(tipoAlimento.getId()));
         }
