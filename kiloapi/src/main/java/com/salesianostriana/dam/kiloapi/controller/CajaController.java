@@ -94,7 +94,7 @@ public class CajaController {
         Optional<Destinatario> d1 = destinatarioService.findById(id2);
 
         if (c1.isPresent() && d1.isPresent()) {
-            c1.get().addDestinatario(d1.get());
+            c1.get().addCajaToDestinatario(d1.get());
             cajaService.add(c1.get());
             return ResponseEntity.status(HttpStatus.CREATED).body(cajaService.getCajaDto(id1).get());
         } else {

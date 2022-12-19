@@ -96,14 +96,5 @@ public class Caja {
                 ", destinatario=" + destinatario +
                 '}';
     }
-    public void  addDestinatario(Destinatario d) {
-        this.destinatario = d;
-        d.getCajaList().add(this);
-    }
-
-    public void removeDestinatario(Destinatario d) {
-        d.getCajaList().remove(this);
-        this.destinatario= null;
-    }
 
 }
