@@ -4,6 +4,7 @@ import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
 import com.salesianostriana.dam.kiloapi.model.DetallesPK;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
+import com.salesianostriana.dam.kiloapi.repository.AportacionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class AportacionService {
 
 
     private final AportacionRepository repository;
+    private final TipoAlimentoService tipoAlimentoService;
 
     public Aportacion add(Aportacion aportacion) {
         return repository.save(aportacion);
