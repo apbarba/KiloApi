@@ -27,7 +27,7 @@ public class CajaServiceLogica {
             Optional<Tiene> ti = tieneService.findById(new TienePK(tipoAl.getId(), caja.getId()));
             if (ti.isPresent()) {
                 Tiene tiene = ti.get();
-                caja.setKilosTotales(tiene.getCantidadKgs() + cantidad);
+                caja.setKilosTotales(caja.getKilosTotales() + cantidad);
                 tiene.setCantidadKgs(tiene.getCantidadKgs()+cantidad);
                 tipoAl.getKilosDisponibles().setCantidadDisponible(tipoAl.getKilosDisponibles()
                         .getCantidadDisponible() - cantidad);
