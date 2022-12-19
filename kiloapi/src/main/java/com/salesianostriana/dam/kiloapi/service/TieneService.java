@@ -56,5 +56,13 @@ public class TieneService {
 
         this.cajaService.modificarTieneList(listAux);
     }
+    public Optional<Tiene> findByPk(Long id1, Long id2) {
 
+        TienePK t = TienePK.builder()
+                .caja_id(id1)
+                .tipoAlimento_id(id2)
+                .build();
+
+        return repository.findById(t);
+    }
 }

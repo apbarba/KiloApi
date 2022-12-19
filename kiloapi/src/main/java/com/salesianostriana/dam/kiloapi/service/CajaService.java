@@ -35,4 +35,9 @@ public class CajaService {
         });
     }
 
+    public Optional<GetCajaDto> getCajaDto(Long id) {
+        return repository.getCajaDto(id);
+
+    }
+
 }
