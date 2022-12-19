@@ -10,10 +10,10 @@ import java.util.Optional;
 
 public interface CajaRepository extends JpaRepository<Caja, Long> {
     @Query("""
-            select new com.salesianostriana.dam.kiloapi.dtos.GetCajaDto(
+            select new com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto(
                 c.qr, c.numCaja, c.kilosTotales,d.id,d.nombre
             )
-            from Caja c LEFT JOIN c.destinatario d
+            from Caja c LEFT JOIN c.destinatario d 
             where c.id =:id
             """
     )
