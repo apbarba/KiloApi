@@ -59,7 +59,7 @@ public class TieneService {
 
     public Optional<Tiene> findByPk(Long id1, Long id2) {
 
-        TienePK t = new TienePK(id2, id1);
+        TienePK t = new TienePK(id1, id2);
 
         return repository.findById(t);
     }

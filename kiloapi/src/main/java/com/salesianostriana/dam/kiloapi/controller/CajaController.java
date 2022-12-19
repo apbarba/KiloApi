@@ -49,7 +49,7 @@ public class CajaController {
                     schema = @Schema(implementation = TipoAlimento.class))}),
             @ApiResponse(responseCode = "404", description = "No se encuentra un alimento relacionado con este ID", content = @Content),})
     @DeleteMapping("/caja/{id1}/tipoAlimento/{id2}")
-    public ResponseEntity<Caja> deleteAlimento(@PathVariable Long id1, @PathVariable Long id2) {
+    public ResponseEntity<CajaDto> deleteAlimento(@PathVariable Long id1, @PathVariable Long id2) {
 
         Optional<Caja> c1 = cajaService.findById(id1);
         Optional<TipoAlimento> t1 = tipoAlimentoService.findById(id2);
@@ -59,15 +59,16 @@ public class CajaController {
 
         if (t1.isPresent() && c1.isPresent() && tiene.isPresent()) {
 
-            //tiene.get().removeCajaYAlimento(c1.get(), t1.get());
+            tiene.get().removeCaja(c1.get());
             cajaService.add(c1.get());
-            tipoAlimentoService.add(t1.get());
             tieneService.delete(tiene.get());
 
-            return ResponseEntity.status(HttpStatus.OK).body(c1.get());
+            return ResponseEntity.status(HttpStatus.OK).body(CajaDto.of(c1.get()));
         } else {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
+
+        //helpers
     }
 
     @Operation(summary = "Se añade un destinatario a una caja por ID")
@@ -98,7 +99,8 @@ public class CajaController {
         if (c1.isPresent() && d1.isPresent()) {
             c1.get().addCajaToDestinatario(d1.get());
             cajaService.add(c1.get());
-            return ResponseEntity.status(HttpStatus.CREATED).body(cajaService.getCajaDto(id1).get());
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(cajaService.getCajaDto(id1).get());
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

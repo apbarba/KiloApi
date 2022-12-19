@@ -85,13 +85,13 @@ public class KilosDisponiblesController {
                     content = @Content),
     })
     @GetMapping("/kilosDisponibles/{idTipoAlimento}")
-    public ResponseEntity<KilosDisponibles> findById(@PathVariable Long id) {
+    public ResponseEntity<KilosDisponibles> findById(@PathVariable TipoAlimento id) {
 
-        Optional<KilosDisponibles> kilosDisponibles = kgDService.findById1(id);
+        Optional<KilosDisponibles> kilosDisponibles = kgDService.findById(id);
 
         return kilosDisponibles.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.of(kgDService.findById1(id));
+                : ResponseEntity.of(kgDService.findById(id));
         //falta completar
     }
 }

@@ -15,5 +15,4 @@ public interface KilosDisponiblesRepository extends JpaRepository<KilosDisponibl
     List<TipoAlimentoDto> crearTipoAlimentoDto();
 
 
-    Optional<KilosDisponibles> findById1(Long id);
 }
