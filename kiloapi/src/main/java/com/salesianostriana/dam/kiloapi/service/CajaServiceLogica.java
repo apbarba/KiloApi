@@ -18,8 +18,6 @@ public class CajaServiceLogica {
 
     private final TieneService tieneService;
 
-    private final KilosDisponiblesService kilosDisponiblesService;
-
     public Caja addKilostoCaja(Caja caja, Long id, Long idTipoAlim, double cantidad) {
         Optional<TipoAlimento> tp = tipoAlimentoService.findById(idTipoAlim);
         Optional<Caja> cj = Optional.of(caja);
