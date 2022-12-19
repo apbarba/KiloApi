@@ -43,5 +43,6 @@ public class KilosDisponiblesController {
         return kilosDisponibles.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
                 : ResponseEntity.of(kgDService.findById(id));
+        //falta completar
     }
 }

@@ -39,8 +39,8 @@ public class CajaService {
         repository.deleteById(id);
     }
 
-    public Optional<GetCajaDto> getCajaDto(Long id){
-    return repository.getCajaDto(id);
+    public Optional<GetCajaDto> getCajaDto(Long id) {
+        return repository.getCajaDto(id);
 
     }
 }

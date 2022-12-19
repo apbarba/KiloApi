@@ -2,7 +2,10 @@ package com.salesianostriana.dam.kiloapi.controller;
 
 import com.salesianostriana.dam.kiloapi.dtos.CajaDtoConverter;
 import com.salesianostriana.dam.kiloapi.dtos.GetCajaDto;
-import com.salesianostriana.dam.kiloapi.model.*;
+import com.salesianostriana.dam.kiloapi.model.Caja;
+import com.salesianostriana.dam.kiloapi.model.Destinatario;
+import com.salesianostriana.dam.kiloapi.model.Tiene;
+import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.DestinatarioService;
 import com.salesianostriana.dam.kiloapi.service.TieneService;
@@ -16,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,11 +36,14 @@ public class CajaController {
 
     private final TieneService tieneService;
 
-    private final CajaDtoConverter cajaDtoConverter;
 
 
     @Operation(summary = "Elimina un tipo de alimento de una caja por ID")
-    @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "El alimento ha sido eliminado de la caja correctamente", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TipoAlimento.class))}), @ApiResponse(responseCode = "404", description = "No se encuentra un alimento relacionado con este ID", content = @Content),})
+    @ApiResponses(value = {@ApiResponse(responseCode = "204",
+            description = "El alimento ha sido eliminado de la caja correctamente",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = TipoAlimento.class))}),
+            @ApiResponse(responseCode = "404", description = "No se encuentra un alimento relacionado con este ID", content = @Content),})
     @DeleteMapping("/caja/{id1}/tipoAlimento/{id2}")
     public ResponseEntity<Caja> deleteAlimento(@PathVariable Long id1, @PathVariable Long id2) {
 

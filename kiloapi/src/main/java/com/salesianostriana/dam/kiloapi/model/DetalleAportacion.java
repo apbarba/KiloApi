@@ -26,7 +26,7 @@ public class DetalleAportacion {
     private double cantidadKg;
 
     @ManyToOne
-    @MapsId("id_aportacion")
+   // @MapsId("id_aportacion")
     @JoinColumn(name = "aportacion_id",
             foreignKey = @ForeignKey(name = "FK_DETALLE_APORTACION_APORTACION"))
     private Aportacion aportacion;
