@@ -14,5 +14,18 @@ public class ClaseDtoConverter {
                 .nombre(createClase.getNombre())
                 .tutor(createClase.getTutor())
                 .build();
+
+
+        }
+
+    public ClaseDto claseToGetClaseDto(Clase clase){
+
+        return ClaseDto
+                .builder()
+                .nombre(clase.getNombre())
+                .idAportacion(clase.getId())
+                .numAportaciones(clase.getAportacionList().size())
+                //   .totalKilos(kilos)
+                .build();
     }
 }

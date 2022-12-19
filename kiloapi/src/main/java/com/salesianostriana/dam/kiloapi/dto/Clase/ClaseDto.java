@@ -17,4 +17,6 @@ public class ClaseDto {
     private String tutor;
 
     private double totalKilos;
+
+    private Integer numAportaciones;
 }

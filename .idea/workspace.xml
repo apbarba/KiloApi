@@ -4,32 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c575798d-2018-4a2e-9f48-6a01ec33fca6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/GetAportacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/GetAportacion.java" afterDir="false" />
+    <list default="true" id="52fab0f9-1b15-4107-aff3-d7b05fbaeab8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/AportacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/AportacionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/ClaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/ClaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/DestinatarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/DestinatarioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/Clase/ClaseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/Clase/ClaseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/Clase/ClaseDtoConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/Clase/ClaseDtoConverter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="ana_get_id_aportacion" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="JpbToolWindowState">
-    <option name="isToolWindowVisible" value="false" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -37,12 +32,12 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
         <option name="useMavenConfig" value="true" />
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="2J7nzAeHlVpoohG1msuqlCiI7y1" />
+  <component name="ProjectId" id="2J8bPdMs8nFdgHi2bs7sscE1DQ3" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -51,18 +46,17 @@
   "keyToString": {
     "Git.Branch.Popup.ShowAllRemotes": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Ana Pilar/Desktop/KiloApi"
+    "RunOnceActivity.ShowReadmeOnStart": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c575798d-2018-4a2e-9f48-6a01ec33fca6" name="Changes" comment="" />
-      <created>1671438251000</created>
+      <changelist id="52fab0f9-1b15-4107-aff3-d7b05fbaeab8" name="Changes" comment="" />
+      <created>1671462637227</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1671438251000</updated>
+      <updated>1671462637227</updated>
     </task>
     <servers />
   </component>

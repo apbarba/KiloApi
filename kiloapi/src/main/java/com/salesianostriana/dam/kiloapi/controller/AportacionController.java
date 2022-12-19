@@ -5,6 +5,7 @@ import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionViews;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.CrearAportacionDto;
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionDto;
 import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
 import com.salesianostriana.dam.kiloapi.service.ClaseService;
@@ -23,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +34,8 @@ public class AportacionController {
     private final AportacionService aportacionService;
     private final KilosDisponiblesService kilosDisponiblesService;
     private final ClaseService claseService;
+
+    private final DetalleAportacionDto detalleAportacionDto;
 
     private final AportacionDtoConverter aportacionDtoConverter;
 
@@ -61,6 +65,95 @@ public class AportacionController {
                 : ResponseEntity.status(HttpStatus.OK).body(aportacionList);
 
     }
+
+
+    @Operation(summary = "Obtener una lista con todas las aportaciones de una clase correspondiente")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Clase Encontrada",
+                    content = {@Content(mediaType = "aplication/json",
+                            schema = @Schema(implementation = AportacionDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                    
+                                    [Luego lo termino]
+                                    
+                                    """
+                            )}
+
+                    )}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Clase inexistente",
+                    content = @Content)})
+    @GetMapping("/aportacion/clase/{id}")
+    public ResponseEntity<List<AportacionDto>> findAll(@PathVariable Long id) {
+
+        List<Aportacion> lista = aportacionService.getAportacionDto(id);
+
+        if (lista.isEmpty()) {
+
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .build();
+
+        } else {
+            List<AportacionDto> listaAport = new ArrayList<>();
+
+            for (Aportacion a:lista) {
+                Map<String, Double> mapa = new HashMap<>();
+
+                for (DetalleAportacion d: a.getDetalleAportacionList()) {
+                    mapa.put(d.getTipoAlimento().getNombre(), d.getCantidadKg());
+                }
+                listaAport.add(aportacionDtoConverter.aportacionToGetAportacionDto(a, mapa));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).
+                    body(listaAport);
+        }
+    }
+    @Operation(summary = "Se ha encontrado la aportacion y muestra todos sus detalles")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Clase Encontrada",
+                    content = {@Content(mediaType = "aplication/json",
+                            schema = @Schema(implementation = AportacionDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                    
+                                    [Luego lo termino]
+                                    
+                                    """
+                            )}
+
+                    )}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Aportacion inexistente",
+                    content = @Content)})
+     @GetMapping("/aportacion/{id}")
+     public ResponseEntity<List<AportacionDto>> findById(@PathVariable Long id) {
+
+       if (aportacionService.findById(id).isEmpty()) {
+
+         return ResponseEntity
+               .ok()
+             .build();
+    }
+     List<AportacionDto> getAportacionList =
+           aportacionService.findById(id).stream()
+             //    .map(detalleAportacionDto ->
+            //             )
+            //   .collect(Collectors.toList());
+
+    return ResponseEntity
+          .ok()
+        .body(getAportacionList);
+    }
+
 
 
     @Operation(summary = "Crear nueva aportación")

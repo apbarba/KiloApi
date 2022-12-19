@@ -1,12 +1,17 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
 import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioViews;
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
+import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.DestinatarioService;
+import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,7 +23,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +33,10 @@ import java.util.Optional;
 public class DestinatarioController {
 
     private final DestinatarioService destinatarioService;
+
+    private final CajaService cajaService;
+
+    private final TipoAlimentoService tipoAlimentoService;
 
     private final DestinatarioRepository destinatarioRepository;
 
@@ -155,6 +166,128 @@ public class DestinatarioController {
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
                 : ResponseEntity.of(destinatarioService.findById(id));
 
+    }
+
+    @Operation(summary = "Devolverá la lista de los destinatarios más completa")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha podido encontrar la lista de los destinatarios",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Destinatario.class)),
+                            examples = {@ExampleObject(
+
+                                    value = """
+                                    [Luego termino]
+                                    """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado una lista de destinatarios",
+                    content = @Content
+            )   ,
+    })
+    //Método utilizado con la consulta realizada en el DestinatarioReposity
+    @GetMapping("/destinatario/")
+    public ResponseEntity<List<DestinatarioDto>> findAll(Long id){
+
+        return ResponseEntity
+                .ok()
+                .body(destinatarioService.findAll(id));
+    }
+
+    @Operation(summary = "Devolverá al destinatario específico con los detalles completos de las cajas asignadas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha podido encontrar al destinatario específico",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Destinatario.class)),
+                            examples = {@ExampleObject(
+
+                                    value = """
+                                    {
+                                    "id":1
+                                    "nombre" : "Ana"
+                                    "direccion" : "Calle Conde Bustillo"
+                                    "telefono" : "111-111-111"
+                                    "personaContacto" : "Lola Barba"
+                                    "cajasDetalles" : [
+                                       
+                                        {
+                                            "NumCaja" : 1,
+                                            "kilosTotales" : 20.00
+                                            "alimentos" : [
+                                               
+                                                {
+                                                    "nombre" : "Legumbres",
+                                                    "cantidadKilos" : 3.0
+                                                }
+                                            ]
+                                        }
+                                         
+                                       ]
+                                    }
+                                    """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado al destinatario especificado",
+                    content = @Content
+            )   ,
+    })
+    @GetMapping("/destinatario/{id}/detalle")
+    public ResponseEntity<DestinatarioDto> findByIdDestinatarioDetalles(@PathVariable Long id) {
+
+        Optional<Destinatario> destinatario = destinatarioService.findById(id);
+
+        if (destinatario.isEmpty()) {
+
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        } else {
+
+            DestinatarioDto getDestinatarios = new DestinatarioDto();
+
+            getDestinatarios.setNombre(destinatario.get().getNombre());
+
+            getDestinatarios.setDireccion(destinatario.get().getDireccion());
+
+            getDestinatarios.setTelefono(destinatario.get().getTelefono());
+
+            getDestinatarios.setPersonaContacto(destinatario.get().getPersonaContacto());
+
+            List<CajaDto> cajaDetalles = destinatario.get().getCajaList().stream()
+
+                    .map(caja -> {
+                        CajaDto getCaja = new CajaDto();
+                        getCaja.setNumCaja(caja.getNumCaja());
+                        getCaja.setKilosTotales(caja.getKilosTotales());
+
+                        List<TipoAlimentoDto> alimentos = caja.getTieneList().stream()
+
+                                .map(alimento -> {
+                                    TipoAlimentoDto getDetalleAlimento = new TipoAlimentoDto();
+                                    getDetalleAlimento.setNombre(getDetalleAlimento.getNombre());
+                                  //  getDetalleAlimento.getKilosEnviados(alimento.getCantidadKgs()); Kilos enviados es double mientras yo lo utilicé con un integer
+
+                                    return getDetalleAlimento;
+                                })
+
+                                .collect(Collectors.toList());
+
+                        getCaja.setAlimentos(alimentos);
+
+                        return getCaja;
+                    })
+
+                    .collect(Collectors.toList());
+
+            getDestinatarios.setCajas(cajaDetalles);
+
+            return ResponseEntity
+                    .ok()
+                    .body(getDestinatarios);
+        }
     }
 
 

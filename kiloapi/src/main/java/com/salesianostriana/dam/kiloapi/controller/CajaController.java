@@ -22,7 +22,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -101,6 +103,45 @@ public class CajaController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
+    }
+
+    @Operation(summary = "Obtiene un listado de cajas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado un listado de cajas",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CajaDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                           
+                                           [Luego termino comprobado]
+                                                                                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el listado de cajas",
+                    content = @Content),
+    })
+    @GetMapping("/caja/")
+    public ResponseEntity<List<CajaDto>> findAll(){
+
+        if (cajaService.findAll().isEmpty()){
+
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
+
+        List<CajaDto> list =
+                cajaService.findAll()
+                        .stream()
+                        .map(cajaDtoConverter::cajaToGetCajaDto)
+                        .collect(Collectors.toList());
+
+        return ResponseEntity
+                .ok()
+                .body(list);
     }
 
     @Operation(summary = "Obtiene una caja en base a su ID")

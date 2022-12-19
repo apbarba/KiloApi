@@ -1,5 +1,8 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
+import com.salesianostriana.dam.kiloapi.dto.Clase.ClaseDto;
+import com.salesianostriana.dam.kiloapi.dto.Clase.ClaseDtoConverter;
 import com.salesianostriana.dam.kiloapi.model.Clase;
 import com.salesianostriana.dam.kiloapi.service.ClaseService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,12 +20,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Clase", description = "Controlador para gestionar las clases")
 public class ClaseController {
     private final ClaseService claseService;
+
+    private final ClaseDtoConverter claseDtoConverter;
+
 
     @Operation(summary = "Borra una clase en base a su ID")
     @ApiResponses(value = {
@@ -60,6 +67,72 @@ public class ClaseController {
                 ResponseEntity.status(HttpStatus.OK).body(claseList);
 
 
+    }
+
+    @Operation(summary = "Crear una nueva clase")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Clase creado",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Clase.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {"id": 1, "nombre": "2DAM", "Tutor": ""Luismi}
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400", description = "DATOS ERRÓNEOS",
+                    content = @Content)})
+    @PostMapping("/clase/")
+    public ResponseEntity<Clase> newClase(@RequestBody Clase clase){
+
+        if (clase.getNombre().isEmpty() && clase.getTutor().isEmpty()){
+
+            return ResponseEntity
+                    .badRequest()
+                    .build();
+        }else {
+
+            return  ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(claseService.add(clase));
+        }
+    }
+    @Operation(summary = "Encuenta la clase solicitada con sus detalles de aportaiones")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado la clase",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CajaDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                           
+                                           [Luego termino comprobado]
+                                                                                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado la clase",
+                    content = @Content),
+    })
+    @GetMapping("/clase/{id}")
+    public ResponseEntity<List<ClaseDto>> findById(@RequestBody Clase clase,
+                                                   @PathVariable Long id){
+
+        if (claseService.findById(id).isEmpty()){
+
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
+        List<ClaseDto> getClases =
+                claseService.findById(id).stream()
+                        .map(claseDtoConverter::claseToGetClaseDto)
+                        .collect(Collectors.toList());
+
+        return ResponseEntity
+                .ok()
+                .body(getClases);
     }
 
     @Operation(summary = "Edita las propiedades de una clase por ID")
