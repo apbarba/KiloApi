@@ -34,3 +34,4 @@ build/
 
 ### DB ###
 .db/
+.db/basededatos.mv.db

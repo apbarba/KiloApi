@@ -19,7 +19,7 @@ public class TipoAlimento {
 
     private String nombre;
 
-    @OneToOne(mappedBy = "tipoAlimento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "tipoAlimento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private KilosDisponibles kilosDisponibles;
 
     // HELPERS GESTIÓN TIPO-KILOS

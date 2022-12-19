@@ -57,13 +57,21 @@ public class CajaDto {
                 .alimentos(listado)
                 .build();
     }
+    public CajaDto(String qr, int numCaja, Double kilosTotales, Long id, String destinatario){
+        this.qr = qr;
+        this.numCaja = numCaja;
+        this.kilosTotales = kilosTotales;
+        this.id = id;
+        this.destinatario = destinatario;
+    }
     public static CajaDto of(Caja c) {
         List<TipoAlimentoDto> listado = new ArrayList<>();
         c.getTieneList().forEach(l -> {
             TipoAlimentoDto t = TipoAlimentoDto.builder()
                     .id(l.getTipoAlimento().getId())
                     .nombre(l.getTipoAlimento().getNombre())
-                    .kilosDisponibles(l.getTipoAlimento().getKilosDisponibles().getCantidadDisponible())
+                    .kilosEnviados(l.getCantidadKgs())
+                    .kilosDisponibles(null)
                     .build();
             listado.add(t);
         });

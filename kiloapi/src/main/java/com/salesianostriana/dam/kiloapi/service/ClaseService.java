@@ -40,7 +40,7 @@ public class ClaseService {
     }
 
     public void deleteById(Long id) {
-
+        claseRepository.deleteById(id);
     }
 
 }

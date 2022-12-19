@@ -53,6 +53,11 @@ public class Caja {
         d.getCajaList().remove(this);
     }
 
+    public Caja(Long id, String qr, int numCaja){
+        this.id = id;
+        this.qr = qr;
+        this.numCaja = numCaja;
+    }
 
     // MÉTODOS HELPERS GESTIÓN CAJA-TIENE
     public void addTieneToCaja(Tiene t) {
