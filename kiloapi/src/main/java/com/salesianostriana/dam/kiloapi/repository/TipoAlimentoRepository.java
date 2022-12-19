@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.repository;
 
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
