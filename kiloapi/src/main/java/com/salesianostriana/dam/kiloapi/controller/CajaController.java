@@ -4,14 +4,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
-import com.salesianostriana.dam.kiloapi.model.Caja;
-import com.salesianostriana.dam.kiloapi.model.Destinatario;
+import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.CajaServiceLogica;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import com.salesianostriana.dam.kiloapi.service.TieneService;
-import com.salesianostriana.dam.kiloapi.model.Tiene;
-import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -313,6 +310,37 @@ public class CajaController {
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    @Operation(summary = "Modificar la cantidad de un tipo de Alimento de una determinada caja")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Cantidad modificada correctamente",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CajaDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                               [Cuando se compruebe]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos",
+                    content = @Content)})
+    @PutMapping("/caja/{id1}/tipo/{id2}/kg/{cantidad}")
+
+    public ResponseEntity<CajaDto> editarKilos
+            (@PathVariable Long id1, @PathVariable Long id2, @PathVariable Double cantidad) {
+
+        TienePK t = new TienePK(id2, id1);
+        Optional<Tiene> tiene = tieneService.findById(t);
+
+        if(tiene.isPresent()){
+            tiene.get().setCantidadKgs(cantidad);
+            tieneService.add(tiene.get());
+
+            return ResponseEntity.status(HttpStatus.OK).body(CajaDto.of(tiene.get().getCaja()));
+        }else{
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
     }
 
     @Operation(summary = "Modificar una caja, buscada por su ID")
