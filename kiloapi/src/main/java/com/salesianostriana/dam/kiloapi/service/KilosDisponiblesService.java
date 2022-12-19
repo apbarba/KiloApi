@@ -23,6 +23,10 @@ public class KilosDisponiblesService {
     public Optional<KilosDisponibles> findById(TipoAlimento tipoAlimento) {
         return kilosDisponiblesRepository.findById(tipoAlimento);
     }
+    //metodo creado para arreglar
+    public Optional<KilosDisponibles> findById1(Long id) {
+        return kilosDisponiblesRepository.findById1(id);
+    }
 
     public List<KilosDisponibles> findAll() {
         return kilosDisponiblesRepository.findAll();

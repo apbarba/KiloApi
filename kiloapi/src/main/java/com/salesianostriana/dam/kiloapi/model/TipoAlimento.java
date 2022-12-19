@@ -3,6 +3,7 @@ package com.salesianostriana.dam.kiloapi.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity
@@ -60,5 +61,6 @@ public class TipoAlimento {
                 ", kilosDisponibles=" + kilosDisponibles +
                 '}';
     }
+
 
 }
