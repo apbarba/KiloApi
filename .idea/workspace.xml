@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="52fab0f9-1b15-4107-aff3-d7b05fbaeab8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/DestinatarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/DestinatarioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/AportacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/AportacionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/TieneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/repository/TieneRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/TieneService.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/service/TieneService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +19,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,6 +47,55 @@
     "RunOnceActivity.ShowReadmeOnStart": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="Application.KiloapiApplication">
+    <configuration name="KiloapiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.salesianostriana.dam.kiloapi.KiloapiApplication" />
+      <module name="kiloapi" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.salesianostriana.dam.kiloapi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="kiloapi [spring-boot:start]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="spring-boot:start" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/kiloapi" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.KiloapiApplication" />
+      <item itemvalue="Maven.kiloapi [spring-boot:start]" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.KiloapiApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

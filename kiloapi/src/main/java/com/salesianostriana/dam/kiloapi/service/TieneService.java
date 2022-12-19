@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
+import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.model.TienePK;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
@@ -62,5 +64,10 @@ public class TieneService {
         TienePK t = new TienePK(id2, id1);
 
         return repository.findById(t);
+    }
+
+    public Optional<Tiene> findByCajaAndTipoAlimento(Caja caja, TipoAlimento tipoAlimento){
+
+        return repository.findByCajaAndTipoAlimento(caja, tipoAlimento);
     }
 }

@@ -8,6 +8,7 @@ import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
+import com.salesianostriana.dam.kiloapi.repository.TieneRepository;
 import com.salesianostriana.dam.kiloapi.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -40,6 +41,8 @@ public class CajaController {
     private final TieneService tieneService;
     private final TipoAlimentoService tipoAlimentoService;
     private final DestinatarioService destinatarioService;
+
+    private final TieneRepository tieneRepository;
 
 
     @Operation(summary = "Elimina un tipo de alimento de una caja por ID")
@@ -278,6 +281,43 @@ public class CajaController {
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+    @PutMapping("/caja/{id}/tipo/{idTipoAlim}/kg/{cantidad}")
+    public ResponseEntity<CajaDto> actualizarCantidadKgCaja(@PathVariable Long id,
+                                                            @PathVariable Long idTipoAlim, @PathVariable Double cantidad){
+
+        Optional<Caja> caja = cajaService.findById(id);
+
+        Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(idTipoAlim);
+
+        if ((caja.isEmpty())){
+
+            return ResponseEntity
+                    .badRequest()
+                    .build();
+
+        } else if (tipoAlimento.isEmpty(){
+
+            return ResponseEntity
+                    .badRequest().
+                    build();
+        }
+            Tiene tiene = tieneService.findByCajaAndTipoAlimento(caja.get(), tipoAlimento.get()).orElse(null);
+
+            if (tiene == null){
+
+                return ResponseEntity
+                        .badRequest()
+                        .build();
+            }
+
+            tiene.setCantidadKgs(cantidad);
+            tieneRepository.save(tiene);
+
+            return ResponseEntity
+                    .ok()
+
+
     }
 
     @Operation(summary = "Modificar una caja, buscada por su ID")
