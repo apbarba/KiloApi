@@ -28,6 +28,7 @@ public class CajaServiceLogica {
             if (ti.isPresent()) {
                 Tiene tiene = ti.get();
                 caja.setKilosTotales(tiene.getCantidadKgs() + cantidad);
+                tiene.setCantidadKgs(tiene.getCantidadKgs()+cantidad);
                 tipoAl.getKilosDisponibles().setCantidadDisponible(tipoAl.getKilosDisponibles()
                         .getCantidadDisponible() - cantidad);
             }

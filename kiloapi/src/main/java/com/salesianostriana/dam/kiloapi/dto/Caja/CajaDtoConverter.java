@@ -15,4 +15,12 @@ public class CajaDtoConverter {
                 .destinatario(caja.getDestinatario().getNombre())
                 .build();
     }
+
+    public Caja of (CajaDto cajaDto) {
+        return new Caja(
+                cajaDto.getId(),
+                cajaDto.getQr(),
+                cajaDto.getNumCaja()
+        );
+    }
 }

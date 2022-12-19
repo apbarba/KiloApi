@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
 import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioViews;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
+import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
 import com.salesianostriana.dam.kiloapi.service.DestinatarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,10 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -28,6 +26,56 @@ import java.util.Optional;
 public class DestinatarioController {
 
     private final DestinatarioService destinatarioService;
+
+    private final DestinatarioRepository destinatarioRepository;
+
+    @Operation(summary = "Agrega un nuevo destinatario")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha agregado el destinatario",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Destinatario.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                                                        
+                                                {
+                                                    "id": 12,
+                                                    "nombre": "Asociación 3000 viviendas",
+                                                    "direccion": "Avenida Diputación",
+                                                    "personaContacto": "Miguel Campos",
+                                                    "telefono": "954954954",
+                                                    "cajasList": []
+                                                }
+                                                                                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "No se ha agregado el destinatario",
+                    content = @Content),
+    })
+    @PostMapping("/destinatario/")
+    public ResponseEntity<DestinatarioDto> newClase(@RequestBody Destinatario destinatario) {
+        if (destinatario.getNombre() == null || destinatario.getDireccion() == null ||
+                destinatario.getPersonaContacto() == null || destinatario.getTelefono() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+//            Destinatario dto = destinatarioRepository.crearDestinatarioDto(destinatario.getId());
+        destinatarioService.add(destinatario);
+        DestinatarioDto dto = DestinatarioDto.mostrarDatos(destinatario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+
+
+            /*        if (cajaDto.getNumCaja() == 0 || cajaDto.getQr() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        Caja caja = Caja.of(cajaDto);
+        caja = cajaService.add(caja);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(CajaDto.of(caja));*/
+    }
 
     @Operation(summary = "Modificar un destinatario, buscado por su ID")
     @ApiResponses(value = {
