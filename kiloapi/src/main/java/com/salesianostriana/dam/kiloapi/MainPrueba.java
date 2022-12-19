@@ -1,6 +1,8 @@
 package com.salesianostriana.dam.kiloapi;
 
-import com.salesianostriana.dam.kiloapi.repository.ClaseRepository;
+import com.salesianostriana.dam.kiloapi.model.*;
+import com.salesianostriana.dam.kiloapi.repository.*;
+import com.salesianostriana.dam.kiloapi.service.CajaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,15 +14,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MainPrueba {
 
-    public final TipoAlimentoService tipoAlimentoService;
     public final TipoAlimentoRepository tipoAlimentoRepository;
-
-    public final KilosDisponiblesService kilosDiposniblesService;
     public final KilosDisponiblesRepository kilosDisponiblesRepository;
-
     public final CajaService cajaService;
     public final CajaRepository cajaRepository;
-    public final TieneService tieneService;
     public final TieneRepository tieneRepository;
     public final DestinatarioRepository destinatarioRepository;
     private final ClaseRepository claseRepository;
@@ -187,5 +184,6 @@ public class MainPrueba {
         a3.addDetalleAportacion(da6);
 
         aportacionRepository.saveAll(List.of(a1, a2, a3));
+
     }
 }
