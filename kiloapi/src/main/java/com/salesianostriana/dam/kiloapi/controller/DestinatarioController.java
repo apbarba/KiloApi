@@ -1,7 +1,8 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
-import com.salesianostriana.dam.kiloapi.dto.DestinatarioDto;
+import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
+import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
 import com.salesianostriana.dam.kiloapi.service.DestinatarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,15 +23,17 @@ public class DestinatarioController {
 
     private final DestinatarioService destinatarioService;
 
+    private final DestinatarioRepository destinatarioRepository;
+
     @Operation(summary = "Agrega un nuevo destinatario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Se ha agregado el destinatario",
-                    content = { @Content(mediaType = "application/json",
+                    content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = Destinatario.class),
                             examples = {@ExampleObject(
                                     value = """
-                                            
+                                                                                        
                                                 {
                                                     "id": 12,
                                                     "nombre": "Asociación 3000 viviendas",
@@ -48,12 +51,28 @@ public class DestinatarioController {
                     content = @Content),
     })
     @PostMapping("/destinatario/")
-    public ResponseEntity<Destinatario> newClase(@RequestBody Destinatario destinatario) {
-        if (destinatario.getNombre() == null || destinatario.getDireccion() == null||
+    public ResponseEntity<DestinatarioDto> newClase(@RequestBody Destinatario destinatario) {
+        if (destinatario.getNombre() == null || destinatario.getDireccion() == null ||
                 destinatario.getPersonaContacto() == null || destinatario.getTelefono() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        } else
-            return ResponseEntity.status(HttpStatus.CREATED).body(destinatarioService.add(destinatario));
+        }
+
+//            Destinatario dto = destinatarioRepository.crearDestinatarioDto(destinatario.getId());
+        destinatarioService.add(destinatario);
+        DestinatarioDto dto = DestinatarioDto.mostrarDatos(destinatario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+
+
+            /*        if (cajaDto.getNumCaja() == 0 || cajaDto.getQr() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        Caja caja = Caja.of(cajaDto);
+
+        caja = cajaService.add(caja);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(CajaDto.of(caja));*/
     }
 
     @Operation(summary = "Modificar un destinatario, buscado por su ID")

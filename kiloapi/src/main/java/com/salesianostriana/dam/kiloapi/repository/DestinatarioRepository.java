@@ -1,7 +1,13 @@
 package com.salesianostriana.dam.kiloapi.repository;
 
+import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface DestinatarioRepository extends JpaRepository<Destinatario, Long> {
+    @Query("select new com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto(d. id, d.nombre, d.direccion, d.personaContacto, d.telefono) " +
+            "from Destinatario d where d.id = :id")
+    DestinatarioDto crearDestinatarioDto(@Param("id")Long id);
 }

@@ -1,6 +1,7 @@
-package com.salesianostriana.dam.kiloapi.dto;
+package com.salesianostriana.dam.kiloapi.dto.Destinatario;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import lombok.AllArgsConstructor;
@@ -18,10 +19,15 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class DestinatarioDto {
 
+    @JsonView(DestinatarioViews.Master.class)
     private Long id;
+    @JsonView(DestinatarioViews.Master.class)
     private String nombre;
+    @JsonView(DestinatarioViews.Master.class)
     private String direccion;
+    @JsonView(DestinatarioViews.Master.class)
     private String personaContacto;
+    @JsonView(DestinatarioViews.Master.class)
     private String telefono;
     private double kgTotales;
     private List<Integer> numCajas;
@@ -49,6 +55,25 @@ public class DestinatarioDto {
                 .build();
     }
 
+    public DestinatarioDto(Long id, String nombre, String direccion, String personaContacto, String telefono){
+        this.id = id;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.personaContacto = personaContacto;
+        this.telefono = telefono;
+    }
+
+    public static DestinatarioDto mostrarDatos(Destinatario d){
+        return DestinatarioDto
+                .builder()
+                .id(d.getId())
+                .nombre(d.getNombre())
+                .direccion(d.getDireccion())
+                .personaContacto(d.getPersonaContacto())
+                .telefono(d.getTelefono())
+                .build();
+
+    }
     public static DestinatarioDto mostrarIdYNombre(Destinatario d) {
         if (d != null) {
             return DestinatarioDto
