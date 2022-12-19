@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public class DestinatarioService {
     }
 
     //Implementación de ls consulta realizada en el repositorio
-    public List<GetDestinatario> findAll(Long id){
+    public List<DestinatarioDto> findAll(Long id){
 
         return destinatarioRepository.getDestinatario(id);
     }

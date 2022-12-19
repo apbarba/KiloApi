@@ -1,9 +1,12 @@
 package com.salesianostriana.dam.kiloapi.repository;
 
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface CajaRepository extends JpaRepository<Caja, Long> {
     @Query("""
@@ -14,6 +17,6 @@ public interface CajaRepository extends JpaRepository<Caja, Long> {
             where c.id =:id
             """
     )
-    Optional<GetCajaDto> getCajaDto(@Param("id") Long id);
+    Optional<CajaDto> getCajaDto(@Param("id") Long id);
 
 }

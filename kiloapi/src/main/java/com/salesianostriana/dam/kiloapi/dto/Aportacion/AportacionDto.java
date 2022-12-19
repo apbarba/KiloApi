@@ -38,6 +38,17 @@ public class AportacionDto {
     @Builder.Default
     private Map<String,Double> listaAlimentos= new HashMap<String, Double>();
 
+//    private List<AbstractMap.SimpleEntry<String,Integer>> alimentos;
+//
+//    //Constructor para que funcione correctamente
+//    public GetAportacion(LocalDate fecha, List<AbstractMap.SimpleEntry<String, Integer>> alimentos){
+//
+//        this.fecha = fecha;
+//
+//        this.alimentos = alimentos;
+//    }
+
+
     public static AportacionDto of(Aportacion a) {
 
         return AportacionDto.builder()

@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
@@ -63,7 +64,7 @@ public class CajaService {
         });
     }
 
-    public Optional<GetCajaDto> getCajaDto(Long id) {
+    public Optional<CajaDto> getCajaDto(Long id) {
         return repository.getCajaDto(id);
 
     }

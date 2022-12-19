@@ -2,6 +2,7 @@ package com.salesianostriana.dam.kiloapi.dto.Destinatario;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,11 @@ public class DestinatarioDto {
     private String telefono;
     private Double kgTotales;
     private List<Integer> numCajas;
+
+    //Array de enteros para saber el numero de las cajas asignadas del destinatario correspondiente
+    private List<Caja> numCajasAsignadasDestinatario = new ArrayList<>();
+
+    private List<CajaDto> cajas = new ArrayList<>();
 
     private static double kg = 0;
 
