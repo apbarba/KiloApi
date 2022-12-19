@@ -177,7 +177,7 @@ public class DestinatarioController {
                             examples = {@ExampleObject(
 
                                     value = """
-                                    [Luego termino]
+                                    [Luego termino cuando compruebe]
                                     """
                             )}
                     )}),
