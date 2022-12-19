@@ -22,12 +22,26 @@ public class Aportacion {
     private LocalDate fecha;
 
     @ManyToOne
+    @JoinColumn(name = "clase_id",
+            foreignKey = @ForeignKey(name = "FK_APORTACION_CLASE"))
     private Clase clase;
 
     @JsonIgnore
     @OneToMany(mappedBy = "aportacion",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
     @Builder.Default
     private List<DetalleAportacion> detalleAportacionList = new ArrayList<>();
+
+
+    // HELPERS DE GESTIÓN APORTACIÓN-DETALLEAPORTACIÓN
+    public void addDetalleAportacion(DetalleAportacion detalleAportacion) {
+        detalleAportacion.setAportacion(this);
+        this.detalleAportacionList.add(detalleAportacion);
+    }
+
+    public void removeDetalleAportacion(DetalleAportacion detalleAportacion) {
+        this.detalleAportacionList.remove(detalleAportacion);
+        detalleAportacion.setAportacion(null);
+    }
 
 
     // HELPERS GESTIÓN APORTACIÓN-CLASE

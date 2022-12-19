@@ -65,6 +65,7 @@ public class AportacionService {
         return aportacion;
     }
 
+
     public void addListadoDetalles(Map<TipoAlimento, Double> aportacion, Aportacion a) {
         List<DetalleAportacion> listAux = new ArrayList<>();
         aportacion.keySet().forEach(tipo -> {

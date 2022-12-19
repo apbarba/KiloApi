@@ -30,4 +30,7 @@ public class Destinatario {
     @OneToMany(mappedBy = "destinatario", fetch = FetchType.EAGER)
     @Builder.Default
     private List<Caja> cajaList = new ArrayList<>();
+
+    @PreRemove
+    public void setNullCajas(){cajaList.forEach(c -> c.setDestinatario(null));}
 }

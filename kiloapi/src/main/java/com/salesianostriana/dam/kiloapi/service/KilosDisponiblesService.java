@@ -1,16 +1,44 @@
 package com.salesianostriana.dam.kiloapi.service;
 
 import com.salesianostriana.dam.kiloapi.model.*;
+import com.salesianostriana.dam.kiloapi.repository.KilosDisponiblesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class KilosDisponiblesService {
 
+
+    private final KilosDisponiblesRepository kilosDisponiblesRepository;
+
+    public KilosDisponibles add(KilosDisponibles kilosDisponibles) {
+        return kilosDisponiblesRepository.save(kilosDisponibles);
+    }
+
+    public Optional<KilosDisponibles> findById(TipoAlimento tipoAlimento) {
+        return kilosDisponiblesRepository.findById(tipoAlimento);
+    }
+
+    public List<KilosDisponibles> findAll() {
+        return kilosDisponiblesRepository.findAll();
+    }
+
+    public KilosDisponibles edit(KilosDisponibles kilosDisponibles) {
+        return kilosDisponiblesRepository.save(kilosDisponibles);
+    }
+
+    public void delete(KilosDisponibles kilosDisponibles) {
+        kilosDisponiblesRepository.delete(kilosDisponibles);
+    }
+
+    public void deleteById(TipoAlimento tipoAlimento) {
+        kilosDisponiblesRepository.deleteById(tipoAlimento);
+    }
     public void devolverKilos(Caja c) {
         List<KilosDisponibles> listado = this.findAll();
         List<Tiene> listadoTiene = c.getTieneList();
@@ -59,6 +87,15 @@ public class KilosDisponiblesService {
                     this.edit(l);
                 }
             });
+        });
+    }
+
+    public void restarKilos(DetalleAportacion detalleAportacion){
+        this.findAll().forEach(k -> {
+            if (k.getTipoAlimento().equals(detalleAportacion.getTipoAlimento())) {
+                k.setCantidadDisponible(k.getCantidadDisponible() - detalleAportacion.getCantidadKg());
+                this.edit(k);
+            }
         });
     }
 
