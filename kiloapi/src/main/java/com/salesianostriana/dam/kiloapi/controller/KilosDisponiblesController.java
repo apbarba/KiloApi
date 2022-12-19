@@ -45,7 +45,7 @@ public class KilosDisponiblesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se han encontrado todos los kilos disponibles de cada tipo de alimento",
-                    content = { @Content(mediaType = "application/json",
+                    content = {@Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = TipoAlimentoDto.class)),
                             examples = {@ExampleObject(
                                     value = """
@@ -98,7 +98,7 @@ public class KilosDisponiblesController {
 
         List<Aportacion> lista = aportacionService.getDetallesAportaciones(id);
 
-        return  lista.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).build():
+        return lista.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
                 ResponseEntity.ok().body(lista.stream()
                         .map(aportacionDtoConverter::aportacionToGetAportacionDto2)
                         .collect(Collectors.toList()));
