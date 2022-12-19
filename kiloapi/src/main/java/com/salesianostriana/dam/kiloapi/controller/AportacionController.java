@@ -2,6 +2,7 @@ package com.salesianostriana.dam.kiloapi.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionViews;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.CrearAportacionDto;
 import com.salesianostriana.dam.kiloapi.model.*;
@@ -9,6 +10,7 @@ import com.salesianostriana.dam.kiloapi.service.AportacionService;
 import com.salesianostriana.dam.kiloapi.service.ClaseService;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,8 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,6 +32,35 @@ public class AportacionController {
     private final AportacionService aportacionService;
     private final KilosDisponiblesService kilosDisponiblesService;
     private final ClaseService claseService;
+
+    private final AportacionDtoConverter aportacionDtoConverter;
+
+    @Operation(summary = "Obtiene todas las aportaciones")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado aportaciones realizadas",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Clase.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                
+                                            ]                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna aportación",
+                    content = @Content),
+    })
+    @GetMapping("/aportacion/")
+    public ResponseEntity<List<Aportacion>> findAll() {
+        List<Aportacion> aportacionList = aportacionService.findAll();
+        return aportacionList.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+                : ResponseEntity.status(HttpStatus.OK).body(aportacionList);
+
+    }
 
 
     @Operation(summary = "Crear nueva aportación")
@@ -189,15 +219,15 @@ public class AportacionController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Se ha borrado la aportación",
-                    content = { @Content(mediaType = "application/json",
+                    content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = Aportacion.class))})
     })
 
     @DeleteMapping("/aportacion/{id}")
-    public ResponseEntity<Aportacion> deleteAportacion(@PathVariable Long id){
+    public ResponseEntity<Aportacion> deleteAportacion(@PathVariable Long id) {
         Optional<Aportacion> ap = aportacionService.findById(id);
-        if(ap.isPresent()){
-            ap.get().getDetalleAportacionList().forEach(d ->{
+        if (ap.isPresent()) {
+            ap.get().getDetalleAportacionList().forEach(d -> {
                 kilosDisponiblesService.restarKilos(d);
             });
             aportacionService.deleteById(id);

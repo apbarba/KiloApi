@@ -6,10 +6,11 @@ import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
-import com.salesianostriana.dam.kiloapi.service.CajaService;
-import com.salesianostriana.dam.kiloapi.service.CajaServiceLogica;
-import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
+import com.salesianostriana.dam.kiloapi.model.Tiene;
+import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
+import com.salesianostriana.dam.kiloapi.service.*;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -34,6 +35,74 @@ public class CajaController {
     private final CajaServiceLogica cajaServiceLogica;
 
     private final CajaDtoConverter cajaDtoConverter;
+    private final TieneService tieneService;
+    private final TipoAlimentoService tipoAlimentoService;
+    private final DestinatarioService destinatarioService;
+
+
+    @Operation(summary = "Elimina un tipo de alimento de una caja por ID")
+    @ApiResponses(value = {@ApiResponse(responseCode = "204",
+            description = "El alimento ha sido eliminado de la caja correctamente",
+            content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = TipoAlimento.class))}),
+            @ApiResponse(responseCode = "404", description = "No se encuentra un alimento relacionado con este ID", content = @Content),})
+    @DeleteMapping("/caja/{id1}/tipoAlimento/{id2}")
+    public ResponseEntity<Caja> deleteAlimento(@PathVariable Long id1, @PathVariable Long id2) {
+
+        Optional<Caja> c1 = cajaService.findById(id1);
+        Optional<TipoAlimento> t1 = tipoAlimentoService.findById(id2);
+
+        Optional<Tiene> tiene = tieneService.findByPk(id2, id1);
+
+
+        if (t1.isPresent() && c1.isPresent() && tiene.isPresent()) {
+
+            //tiene.get().removeCajaYAlimento(c1.get(), t1.get());
+            cajaService.add(c1.get());
+            tipoAlimentoService.add(t1.get());
+            tieneService.delete(tiene.get());
+
+            return ResponseEntity.status(HttpStatus.OK).body(c1.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+    }
+
+    @Operation(summary = "Se añade un destinatario a una caja por ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha añadido la caja correctamente",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = CajaDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                              
+                                                                                 
+                                            ]                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "Datos inválidos",
+                    content = @Content),
+    })
+    @PostMapping("/caja/{id1}/destinatario/{id2}")
+    public ResponseEntity<CajaDto> aniadirDestinatario(@PathVariable Long id1, @PathVariable Long id2) {
+
+        Optional<Caja> c1 = cajaService.findById(id1);
+        Optional<Destinatario> d1 = destinatarioService.findById(id2);
+
+        if (c1.isPresent() && d1.isPresent()) {
+            c1.get().addDestinatario(d1.get());
+            cajaService.add(c1.get());
+            return ResponseEntity.status(HttpStatus.CREATED).body(cajaService.getCajaDto(id1).get());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+    }
+
     @Operation(summary = "Obtiene una caja en base a su ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
