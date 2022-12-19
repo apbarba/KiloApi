@@ -4,6 +4,7 @@ import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
+import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class CajaService {
 
     private final CajaRepository repository;
+    private final TipoAlimentoRepository alimentoRepository;
 
     public Caja add(Caja caja) {
         return repository.save(caja);
@@ -67,6 +69,13 @@ public class CajaService {
     public Optional<CajaDto> getCajaDto(Long id) {
         return repository.getCajaDto(id);
 
+    }
+
+    public CajaDto devolverCajaDto(Caja c) {
+        CajaDto cdto = repository.generarCajaDto(c.getId());
+        cdto.setAlimentos(alimentoRepository.generarListadoTipoAlimento(c.getId()));
+
+        return cdto;
     }
 
     //Método para recuperar las cajas asignadas a un destinatario(id) a partir de una consulta

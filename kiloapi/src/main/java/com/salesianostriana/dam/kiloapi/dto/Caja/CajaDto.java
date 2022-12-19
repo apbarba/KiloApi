@@ -86,4 +86,12 @@ public class CajaDto {
                 .build();
 
     }
+
+    public CajaDto(Long id, String qr, int numCaja, double kilosTotales, String destinatario) {
+        this.id = id;
+        this.qr = qr;
+        this.numCaja = numCaja;
+        this.kilosTotales = kilosTotales;
+        this.destinatario = destinatario;
+    }
 }

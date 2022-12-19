@@ -359,7 +359,7 @@ public class CajaController {
                         cj.setNumCaja(c.getNumCaja());
                         cajaService.edit(cj);
 
-                        return CajaDto.of(cj);
+                        return cajaService.devolverCajaDto(cj);
                     }));
         }
     }
