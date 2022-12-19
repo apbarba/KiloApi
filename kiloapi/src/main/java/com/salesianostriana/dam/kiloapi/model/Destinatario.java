@@ -27,7 +27,7 @@ public class Destinatario {
 
     private String telefono;
 
-    @OneToMany(mappedBy = "destinatario", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = false)
+    @OneToMany(mappedBy = "destinatario", fetch = FetchType.EAGER)
     @Builder.Default
     private List<Caja> cajaList = new ArrayList<>();
 }

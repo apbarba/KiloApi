@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +24,20 @@ public class Aportacion {
     @ManyToOne
     private Clase clase;
 
-    @OneToMany(mappedBy = "aportacion",cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "aportacion",cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
+    @Builder.Default
     private List<DetalleAportacion> detalleAportacionList = new ArrayList<>();
 
+
+    // HELPERS GESTIÓN APORTACIÓN-CLASE
+    public void addAportacionToClase(Clase clase) {
+        this.clase = clase;
+        clase.getAportacionList().add(this);
+    }
+
+    public void removeAportacionFromClase(Clase clase) {
+        clase.getAportacionList().remove(this);
+        this.clase = null;
+    }
 }

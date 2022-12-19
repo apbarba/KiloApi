@@ -23,8 +23,15 @@ public class Clase {
 
     private String tutor;
 
-    @OneToMany( mappedBy = "clase",fetch = FetchType.EAGER,  cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(mappedBy = "clase",fetch = FetchType.EAGER)
     @Builder.Default
     private List<Aportacion> aportacionList = new ArrayList<>();
 
+
+    @PreRemove
+    public void setNullAportacion() {
+        aportacionList.forEach(a -> {
+            a.setClase(null);
+        });
+    }
 }
