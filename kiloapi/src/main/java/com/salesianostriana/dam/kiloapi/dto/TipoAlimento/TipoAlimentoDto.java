@@ -2,6 +2,7 @@ package com.salesianostriana.dam.kiloapi.dto.TipoAlimento;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
