@@ -54,34 +54,19 @@ public class Tiene {
                 ", cantidadKgs=" + cantidadKgs +
                 '}';
     }
-//    public void addTipoAlimento(TipoAlimento tipoAlimento) {
-//        this.tipoAlimento = tipoAlimento;
-//        if (tipoAlimento.get() == null)
-//            tipoAlimento.setTieneList(new ArrayList<>());
-//        tipoAlimento.getTieneList().add(this);
-//    }
-//
-//    public void removeTipoAlimento(TipoAlimento tipoAlimento) {
-//        tipoAlimento.getTieneList().remove(this);
-//        this.tipoAlimento = null;
-//    }
-//
-//    public void addCaja(Caja caja) {
-//        this.caja = caja;
-//        if (caja.getTieneList() == null)
-//            caja.setTieneList(new ArrayList<>());
-//        caja.getTieneList().add(this);
-//    }
-//
-//    public void removeCaja(Caja caja) {
-//        caja.getTieneList().remove(this);
-//        this.caja = null;
-//    }
-//
-//    public void removeCajaYAlimento(Caja caja, TipoAlimento tipoAlimento) {
-//        removeCaja(caja);
-//        removeTipoAlimento(tipoAlimento);
-//
-//    }
+
+
+    public void addCaja(Caja caja) {
+        this.caja = caja;
+        if (caja.getTieneList() == null)
+            caja.setTieneList(new ArrayList<>());
+        caja.getTieneList().add(this);
+    }
+
+    public void removeCaja(Caja caja) {
+        caja.getTieneList().remove(this);
+        this.caja = null;
+    }
+
 
 }
