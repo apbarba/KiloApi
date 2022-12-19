@@ -40,4 +40,12 @@ public class CajaService {
 
     }
 
+    //Método para recuperar las cajas asignadas a un destinatario(id) a partir de una consulta
+    //Endpoint de get /destinatario/{id}/detalles
+
+    // public List<Caja> findByDestinatario(Destinatario destinatario){
+
+    //   return repository.findByDestinatario(destinatario);
+    // }
+
 }
