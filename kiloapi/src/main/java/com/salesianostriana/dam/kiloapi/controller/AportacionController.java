@@ -89,8 +89,10 @@ public class AportacionController {
 
         } else {
             List<GetAportacionDto> listaAport = new ArrayList<>();
+
             for (Aportacion a:lista) {
                 Map<String, Double> mapa = new HashMap<>();
+
                 for (DetalleAportacion d: a.getDetalleAportacionList()) {
                     mapa.put(d.getTipoAlimento().getNombre(), d.getCantidadKg());
                 }
