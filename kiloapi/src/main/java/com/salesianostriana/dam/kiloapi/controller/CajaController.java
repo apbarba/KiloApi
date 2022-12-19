@@ -48,11 +48,39 @@ public class CajaController {
 
 
     @Operation(summary = "Elimina un tipo de alimento de una caja por ID")
-    @ApiResponses(value = {@ApiResponse(responseCode = "204",
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",
             description = "El alimento ha sido eliminado de la caja correctamente",
             content = {@Content(mediaType = "application/json",
-                    schema = @Schema(implementation = TipoAlimento.class))}),
-            @ApiResponse(responseCode = "404", description = "No se encuentra un alimento relacionado con este ID", content = @Content),})
+                    array = @ArraySchema(schema = @Schema(implementation = CajaDto.class)),
+                    examples = {@ExampleObject(
+                            value = """
+                                    [
+                                      {
+                                          "id": 4,
+                                          "qr": "http://www.caja1.com",
+                                          "numCaja": 1,
+                                          "kilosTotales": 8.0,
+                                          "alimentos": [
+                                              {
+                                                  "id": 2,
+                                                  "nombre": "Leche",
+                                                  "kilosEnviados": 2.0
+                                              }
+                                          ],
+                                          "destinatarioDto": {
+                                              "id": 7,
+                                              "nombre": "Banco Alimentos Triana"
+                                          }
+                                      }
+                                                                         
+                                    ]                                          
+                                    """
+                    )}
+            )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No encontrado",
+                    content = @Content),
+    })
     @DeleteMapping("/caja/{id1}/tipoAlimento/{id2}")
     public ResponseEntity<CajaDto> deleteAlimento(@PathVariable Long id1, @PathVariable Long id2) {
 
@@ -70,7 +98,7 @@ public class CajaController {
 
             return ResponseEntity.status(HttpStatus.OK).body(CajaDto.of(c1.get()));
         } else {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         //helpers
