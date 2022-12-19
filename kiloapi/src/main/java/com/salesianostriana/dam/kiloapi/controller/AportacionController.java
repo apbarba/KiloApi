@@ -1,8 +1,12 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
+import com.salesianostriana.dam.kiloapi.dtos.AportacionDtoConverter;
+import com.salesianostriana.dam.kiloapi.dtos.GetAportacionDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import com.salesianostriana.dam.kiloapi.model.Clase;
+import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
+import com.salesianostriana.dam.kiloapi.service.ClaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,8 +19,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
+import java.util.*;
 
 
 @Controller
@@ -24,6 +29,10 @@ import java.util.List;
 public class AportacionController {
 
     private final AportacionService aportacionService;
+
+    private final ClaseService claseService;
+
+    private final AportacionDtoConverter aportacionDtoConverter;
 
     @Operation(summary = "Obtiene todas las aportaciones")
     @ApiResponses(value = {
@@ -51,6 +60,31 @@ public class AportacionController {
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
                 : ResponseEntity.status(HttpStatus.OK).body(aportacionList);
 
+    }
+
+
+    @GetMapping("/aportacion/clase/{id}")
+    public ResponseEntity<List<GetAportacionDto>> findAll(@PathVariable Long id) {
+
+        List<Aportacion> lista = aportacionService.getAportacionDto(id);
+
+        if (lista.isEmpty()) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        } else {
+            List<GetAportacionDto> listaAport = new ArrayList<>();
+            for (Aportacion a:lista) {
+                Map<String, Double> mapa = new HashMap<>();
+                for (DetalleAportacion d: a.getDetalleAportacionList()) {
+                    mapa.put(d.getTipoAlimento().getNombre(), d.getCantidadKg());
+                }
+                listaAport.add(aportacionDtoConverter.aportacionToGetAportacionDto(a, mapa));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).
+                    body(listaAport);
+        }
     }
 
 

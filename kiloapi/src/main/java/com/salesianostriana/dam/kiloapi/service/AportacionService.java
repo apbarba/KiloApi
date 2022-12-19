@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dtos.GetAportacionDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import com.salesianostriana.dam.kiloapi.model.Clase;
 import com.salesianostriana.dam.kiloapi.repository.AportacionRepository;
@@ -37,6 +38,12 @@ public class AportacionService {
 
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+
+    public List<Aportacion> getAportacionDto(Long id){
+
+        return  repository.findAportacionByClase(id);
     }
 
 }

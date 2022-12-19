@@ -23,7 +23,7 @@ public class Aportacion {
     @ManyToOne
     private Clase clase;
 
-    @OneToMany(mappedBy = "aportaciones", orphanRemoval = true)
+    @OneToMany(mappedBy = "aportacion",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<DetalleAportacion> detalleAportacionList = new ArrayList<>();
 
 }

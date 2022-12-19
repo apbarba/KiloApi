@@ -30,44 +30,28 @@ public class ClaseController {
 
 
     @Operation(summary = "Obtiene todas las clases")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Se han encontrado clases",
-                    content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Clase.class)),
-                            examples = {@ExampleObject(
-                                    value = """
-                                            [
-                                                {"id": 1, "nombre": "1ºDAM","tutor": "Miguel Campos"},
-                                                {"id": 2, "nombre": "2ºDAM","tutor": "Luis Miguel López Magaña"}
-                                            ]                                          
-                                            """
-                            )}
-                    )}),
-            @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ninguna clase",
-                    content = @Content),
-    })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Se han encontrado clases",
+            content = {@Content(mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = Clase.class)),
+                    examples = {@ExampleObject(value = """
+            [
+                {"id": 1, "nombre": "1ºDAM","tutor": "Miguel Campos"},
+                {"id": 2, "nombre": "2ºDAM","tutor": "Luis Miguel López Magaña"}
+            ]                                          
+            """)})}), @ApiResponse(responseCode = "404", description = "No se ha encontrado ninguna clase", content = @Content),})
     @GetMapping("/clase/")
     public ResponseEntity<List<Clase>> findAll() {
         List<Clase> claseList = claseService.findAll();
-        return claseList.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.status(HttpStatus.OK).body(claseList);
+        return claseList.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() : ResponseEntity.status(HttpStatus.OK).body(claseList);
 
 
     }
 
     @Operation(summary = "Edita las propiedades de una clase por ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "La clase ha sido modificada correctamente",
-                    content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Clase.class))}),
-            @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ninguna clase relacionada con ese ID",
-                    content = @Content),
-    })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",
+            description = "La clase ha sido modificada correctamente",
+            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Clase.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado ninguna clase relacionada con ese ID", content = @Content),})
     @PutMapping("/clase/{id}")
     public ResponseEntity<Clase> editClase(@RequestBody Clase clase, @PathVariable Long id) {
         Optional<Clase> c1 = claseService.findById(id);
@@ -75,13 +59,12 @@ public class ClaseController {
         return c1.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
                 : ResponseEntity.of(c1.map(old -> {
-                    old.setAportacion(c1.get().getAportacion());
+                    old.setAportacionList(c1.get().getAportacionList());
                     old.setNombre(c1.get().getNombre());
                     old.setTutor(c1.get().getTutor());
                     claseService.add(old);
-                    return old;
-                })
-        );
+            return old;
+        }));
 
 
     }

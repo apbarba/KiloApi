@@ -7,20 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@ToString
 public class Clase {
+
     @Id
     @GeneratedValue
     private Long id;
 
     private String nombre;
+
     private String tutor;
 
-    @OneToMany
-    private List <Aportacion> aportacionList = new ArrayList<>();
+    @OneToMany(mappedBy = "clase", fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<Aportacion> aportacionList = new ArrayList<>();
 
 }

@@ -2,16 +2,16 @@ package com.salesianostriana.dam.kiloapi.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Builder
 public class Caja {
 
     @Id
@@ -20,9 +20,38 @@ public class Caja {
 
     private String qr;
 
-    private Integer numCajas;
+    private int numCaja;
 
-    private Double kilosTotales;
+    // Se generan sumando de la lista de Tiene
+    private double kilosTotales;
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "caja", fetch = FetchType.EAGER)
+    private List<Tiene> tieneList = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "destinatario_id", foreignKey = @ForeignKey(name = "FK_CAJA_DESTINATARIO"))
+    private Destinatario destinatario;
+
+    // CONSTRUCTOR
+    public Caja(String qr, int numCaja) {
+        this.qr = qr;
+        this.numCaja = numCaja;
+    }
+
+    //HELPERS Arturo
+    public void  addDestinatario(Destinatario d) {
+        this.destinatario = d;
+        d.getCajaList().add(this);
+    }
+
+    public void removeDestinatario(Destinatario d) {
+        d.getCajaList().remove(this);
+        this.destinatario= null;
+    }
 
 
 }
+
+
+
