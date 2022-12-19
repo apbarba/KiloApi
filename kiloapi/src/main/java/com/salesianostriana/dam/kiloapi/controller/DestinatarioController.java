@@ -72,20 +72,8 @@ public class DestinatarioController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-//            Destinatario dto = destinatarioRepository.crearDestinatarioDto(destinatario.getId());
         destinatarioService.add(destinatario);
-        DestinatarioDto dto = DestinatarioDto.mostrarDatos(destinatario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
-
-
-            /*        if (cajaDto.getNumCaja() == 0 || cajaDto.getQr() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        Caja caja = Caja.of(cajaDto);
-        caja = cajaService.add(caja);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(CajaDto.of(caja));*/
+        return ResponseEntity.status(HttpStatus.CREATED).body(destinatarioRepository.crearDestinatarioDto(destinatario.getId()));
     }
 
     @Operation(summary = "Modificar un destinatario, buscado por su ID")

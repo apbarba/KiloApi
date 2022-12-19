@@ -19,7 +19,7 @@ public class CajaServiceLogica {
 
     private final TieneService tieneService;
 
-    public Caja addKilostoCaja(Caja caja, Long id, Long idTipoAlim, double cantidad) {
+    public Caja addKilostoCaja(Caja caja, Long idTipoAlim, double cantidad) {
         Optional<TipoAlimento> tp = tipoAlimentoService.findById(idTipoAlim);
         Optional<Caja> cj = Optional.of(caja);
         if (cj.isPresent() & tp.isPresent()) {
@@ -36,12 +36,13 @@ public class CajaServiceLogica {
         return repository.save(caja);
     }
 
-    public boolean comprobarCantidad(Long id, Long idTipoAlim, double cantidad) {
+    public boolean comprobarCantidad(Long idTipoAlim, double cantidad) {
 
         Optional<TipoAlimento> tipoAl = tipoAlimentoService.findById(idTipoAlim);
         if (tipoAl.isPresent()) {
             TipoAlimento tp = tipoAl.get();
-            return tp.getKilosDisponibles().getCantidadDisponible() >= cantidad;
+            return tp.getKilosDisponibles().getCantidadDisponible() >= cantidad
+                    && tp.getKilosDisponibles().getCantidadDisponible() > 0;
         }
         return false;
     }
