@@ -325,19 +325,24 @@ public class CajaController {
             @ApiResponse(responseCode = "400", description = "Datos inválidos",
                     content = @Content)})
     @PutMapping("/caja/{id1}/tipo/{id2}/kg/{cantidad}")
-
-    public ResponseEntity<CajaDto> editarKilos
-            (@PathVariable Long id1, @PathVariable Long id2, @PathVariable Double cantidad) {
+    public ResponseEntity<CajaDto> editarKilos (@PathVariable Long id1,
+                                                @PathVariable Long id2,
+                                                @PathVariable Double cantidad) {
 
         TienePK t = new TienePK(id2, id1);
+
         Optional<Tiene> tiene = tieneService.findById(t);
 
         if(tiene.isPresent()){
+
             tiene.get().setCantidadKgs(cantidad);
+
             tieneService.add(tiene.get());
 
             return ResponseEntity.status(HttpStatus.OK).body(CajaDto.of(tiene.get().getCaja()));
+
         }else{
+
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
