@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -28,8 +30,13 @@ public class AportacionDto {
     private String tutor;
     @JsonView(AportacionViews.Master.class)
     private LocalDate fecha;
+    //Json()
+    @JsonView
+    private Double cantidadKg;
     @JsonView(AportacionViews.Master.class)
     private List<DetalleAportacionDto> aportaciones = new ArrayList<>();
+    @Builder.Default
+    private Map<String,Double> listaAlimentos= new HashMap<String, Double>();
 
     public static AportacionDto of(Aportacion a) {
 
@@ -41,5 +48,6 @@ public class AportacionDto {
                 .aportaciones(DetalleAportacionDto.of(a))
                 .build();
     }
+
 
 }

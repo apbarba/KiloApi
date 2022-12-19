@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c575798d-2018-4a2e-9f48-6a01ec33fca6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/GetAportacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/GetAportacion.java" afterDir="false" />
+    <list default="true" id="b05a4d2b-4871-418c-b284-ca6a26212f39" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,15 +15,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="ana_get_id_aportacion" />
+        <entry key="$PROJECT_DIR$" value="arturo_destinatario_deleteDestinatario" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,29 +42,75 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProjectId" id="2J7nzAeHlVpoohG1msuqlCiI7y1" />
+  <component name="ProjectId" id="2Iwf1cr901hw5yDDokhhk2g70YE" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Git.Branch.Popup.ShowAllRemotes": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Ana Pilar/Desktop/KiloApi"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Arturo/Desktop/Trianafy-clone-&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;3182fdc476284d4c673d943dbf9340da&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.salesianostriana.dam.kiloapi.model" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.KiloapiApplication">
+    <configuration name="KiloapiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.salesianostriana.dam.kiloapi.KiloapiApplication" />
+      <module name="kiloapi" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.salesianostriana.dam.kiloapi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KiloapiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="kiloapi" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.salesianostriana.dam.kiloapi.KiloapiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.KiloapiApplication" />
+      <item itemvalue="Spring Boot.KiloapiApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.KiloapiApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c575798d-2018-4a2e-9f48-6a01ec33fca6" name="Changes" comment="" />
-      <created>1671438251000</created>
+      <changelist id="b05a4d2b-4871-418c-b284-ca6a26212f39" name="Changes" comment="" />
+      <created>1671097353001</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1671438251000</updated>
+      <updated>1671097353001</updated>
+      <workItem from="1671097354343" duration="1723000" />
+      <workItem from="1671109166063" duration="925000" />
+      <workItem from="1671174929065" duration="10154000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
