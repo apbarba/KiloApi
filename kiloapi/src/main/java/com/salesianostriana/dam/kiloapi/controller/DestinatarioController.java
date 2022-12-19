@@ -85,7 +85,7 @@ public class DestinatarioController {
                                     "cajasDetalles" : [
                                        
                                         {
-                                            "NumCajas" : 1,
+                                            "NumCaja" : 1,
                                             "kilosTotales" : 20.00
                                             "alimentos" : [
                                                
