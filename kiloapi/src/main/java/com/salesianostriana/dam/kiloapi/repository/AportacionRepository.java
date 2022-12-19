@@ -22,7 +22,7 @@ public interface AportacionRepository extends JpaRepository<Aportacion, Long> {
     List<Aportacion> findAportacionByClase(Long id);
 
     @Query("""
-                 select new com.salesianostriana.dam.kiloapi.dto.aportacion.AportacionDto(
+                 select new com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto(
                      a.id, c.nombre, c.tutor, a.fecha
                  )
                  from Aportacion a LEFT JOIN a.clase c
@@ -32,7 +32,7 @@ public interface AportacionRepository extends JpaRepository<Aportacion, Long> {
 
 
     @Query("""
-                 select new com.salesianostriana.dam.kiloapi.dto.aportacion.DetalleAportacionDto(
+                 select new com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionDto(
                      d.detallesPK.numLinea_id, t.nombre, d.cantidadKg
                  )
                  from Aportacion a LEFT JOIN a.detalleAportacionList d LEFT JOIN d.tipoAlimento t
