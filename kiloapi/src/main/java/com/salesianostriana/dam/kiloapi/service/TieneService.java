@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.model.TienePK;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @RequiredArgsConstructor
@@ -62,5 +64,15 @@ public class TieneService {
         TienePK t = new TienePK(id2, id1);
 
         return repository.findById(t);
+    }
+
+    public void modificarKilos(Caja caja) {
+        AtomicReference<Double> newcant = new AtomicReference<>(0.0);
+        caja.getTieneList().forEach(t -> {
+            newcant.updateAndGet(v -> new Double((double) (v + t.getCantidadKgs())));
+        });
+
+        caja.setKilosTotales(newcant.get());
+
     }
 }
