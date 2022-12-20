@@ -26,6 +26,14 @@ public class DetalleAportacionDto {
     @JsonView(AportacionViews.Master.class)
     private double cantidadAportada;
 
+    public DetalleAportacionDto(long numLinea, String tipoAlimento, double kilosDisponibles) {
+        this.numLinea = numLinea;
+        this.tipoAlimento = tipoAlimento;
+        this.kilosDisponibles = kilosDisponibles;
+    }
+
+    private double kilosDisponibles;
+
     public static List<DetalleAportacionDto> of(Aportacion a) {
         List<DetalleAportacionDto> listado = new ArrayList<>();
 

@@ -45,9 +45,9 @@ public class AportacionService {
     }
 
 
-    public List<Aportacion> getAportacionDto(Long id){
+    public List<Aportacion> getAportacionDto(Long id) {
 
-        return  repository.findAportacionByClase(id);
+        return repository.findAportacionByClase(id);
     }
 
     public Optional<DetalleAportacion> devolverAportacion(Aportacion a, DetallesPK detallesPK) {
@@ -102,11 +102,17 @@ public class AportacionService {
         });
         return existe.get();
     }
-    public boolean comprobarKilos(DetalleAportacion detalleAportacion){
+
+    public boolean comprobarKilos(DetalleAportacion detalleAportacion) {
         boolean inKilos = false;
-        if(detalleAportacion.getTipoAlimento().getKilosDisponibles().getCantidadDisponible()>detalleAportacion.getCantidadKg()){
+        if (detalleAportacion.getTipoAlimento().getKilosDisponibles().getCantidadDisponible() > detalleAportacion.getCantidadKg()) {
             inKilos = true;
         }
         return inKilos;
     }
+
+    public List<Aportacion> getDetallesAportaciones(Long id) {
+        return repository.getDetallesAportaciones(id);
+    }
+
 }
