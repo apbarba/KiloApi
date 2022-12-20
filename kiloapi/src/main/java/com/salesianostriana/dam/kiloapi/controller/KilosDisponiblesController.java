@@ -1,9 +1,13 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
+import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import com.salesianostriana.dam.kiloapi.model.KilosDisponibles;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.KilosDisponiblesRepository;
+import com.salesianostriana.dam.kiloapi.service.AportacionService;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
 import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +37,9 @@ public class KilosDisponiblesController {
     private final KilosDisponiblesService kgDService;
     private final TipoAlimentoService tipoAlimentoService;
 
+    private final AportacionService aportacionService;
+
+    private final AportacionDtoConverter aportacionDtoConverter;
     @Operation(summary = "Obtiene todos los kilos disponibles")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -85,13 +93,16 @@ public class KilosDisponiblesController {
                     content = @Content),
     })
     @GetMapping("/kilosDisponibles/{idTipoAlimento}")
-    public ResponseEntity<KilosDisponibles> findById(@PathVariable Long id) {
+    public ResponseEntity<List<AportacionDto>> findById(@PathVariable Long id) {
 
-        Optional<KilosDisponibles> kilosDisponibles = kgDService.findById1(id);
 
-        return kilosDisponibles.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.of(kgDService.findById1(id));
+        List<Aportacion> lista = aportacionService.getDetallesAportaciones(id);
+
+        return lista.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+                ResponseEntity
+                        .status(HttpStatus.OK)
+                        .body(lista.stream()
+                                .map(aportacionDtoConverter::aportacionToGetAportacionDto2).collect(Collectors.toList()));
         //falta completar
     }
 }
