@@ -1,8 +1,10 @@
 package com.salesianostriana.dam.kiloapi.service;
 
+import com.salesianostriana.dam.kiloapi.dto.Clase.ClaseDto;
 import com.salesianostriana.dam.kiloapi.model.Clase;
 import com.salesianostriana.dam.kiloapi.repository.ClaseRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +44,11 @@ public class ClaseService {
     public void deleteById(Long id) {
         claseRepository.deleteById(id);
     }
+    public List<ClaseDto> getRanking(){
+        return claseRepository.getRanking();
+    }
 
+    public Optional<ClaseDto>getClaseById(Long id){
+        return  claseRepository.getClaseById(id);
+    }
 }

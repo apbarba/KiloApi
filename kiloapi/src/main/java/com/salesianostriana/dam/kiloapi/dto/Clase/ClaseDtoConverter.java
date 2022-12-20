@@ -24,8 +24,8 @@ public class ClaseDtoConverter {
                 .builder()
                 .nombre(clase.getNombre())
                 .idAportacion(clase.getId())
-                .numAportaciones(clase.getAportacionList().size())
-                //   .totalKilos(kilos)
+                .numAportaciones((long) clase.getAportacionList().size())
+                //.totalKilos()
                 .build();
     }
 }

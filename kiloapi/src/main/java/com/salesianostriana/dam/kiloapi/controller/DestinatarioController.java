@@ -73,7 +73,8 @@ public class DestinatarioController {
         }
 
         destinatarioService.add(destinatario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(destinatarioRepository.crearDestinatarioDto(destinatario.getId()));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(destinatarioRepository.crearDestinatarioDto(destinatario.getId()));
     }
 
     @Operation(summary = "Modificar un destinatario, buscado por su ID")
@@ -114,7 +115,7 @@ public class DestinatarioController {
                         des.setTelefono(d.getTelefono());
                         destinatarioService.edit(des);
 
-                        return DestinatarioDto.of(des);
+                        return destinatarioService.generarDto(des);
                     }));
         }
     }

@@ -16,6 +16,15 @@ public interface DestinatarioRepository extends JpaRepository<Destinatario, Long
     @Query("select new com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto(d. id, d.nombre, d.direccion, d.personaContacto, d.telefono) " +
             "from Destinatario d where d.id = :id")
     DestinatarioDto crearDestinatarioDto(@Param("id") Long id);
+
+    @Query("select new com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto(d.id, d.nombre, d.direccion, d.personaContacto, d.telefono, sum(c.kilosTotales)) " +
+            "from Destinatario d LEFT JOIN Caja c on c.destinatario = d where d.id = :id " +
+            "group by d.id")
+    DestinatarioDto crearDtoKgTotales(@Param("id") Long id);
+
+    @Query("select c.numCaja from Caja c where c.destinatario.id = :id")
+    List<Integer> crearListaNumCajas(@Param("id") Long id);
+
 }
 
 

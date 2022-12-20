@@ -60,8 +60,9 @@ public class ClaseController {
                             ]                                          
                             """)})}), @ApiResponse(responseCode = "404", description = "No se ha encontrado ninguna clase", content = @Content),})
     @GetMapping("/clase/")
-    public ResponseEntity<List<Clase>> findAll() {
-        List<Clase> claseList = claseService.findAll();
+    public ResponseEntity<List<ClaseDto>> findAll() {
+        List<ClaseDto> claseList = claseService.findAll()
+                .stream().map(claseDtoConverter::claseToGetClaseDto).toList();
         return claseList.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
                 ResponseEntity.status(HttpStatus.OK).body(claseList);
@@ -83,20 +84,21 @@ public class ClaseController {
             @ApiResponse(responseCode = "400", description = "DATOS ERRÓNEOS",
                     content = @Content)})
     @PostMapping("/clase/")
-    public ResponseEntity<Clase> newClase(@RequestBody Clase clase){
+    public ResponseEntity<Clase> newClase(@RequestBody Clase clase) {
 
-        if (clase.getNombre().isEmpty() && clase.getTutor().isEmpty()){
+        if (clase.getNombre().isEmpty() && clase.getTutor().isEmpty()) {
 
             return ResponseEntity
                     .badRequest()
                     .build();
-        }else {
+        } else {
 
-            return  ResponseEntity
+            return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(claseService.add(clase));
         }
     }
+
     @Operation(summary = "Encuenta la clase solicitada con sus detalles de aportaiones")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -105,10 +107,10 @@ public class ClaseController {
                             schema = @Schema(implementation = CajaDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                           
-                                           [Luego termino comprobado]
-                                                                                      
-                                            """
+
+                                            [Luego termino comprobado]
+
+                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
@@ -116,23 +118,19 @@ public class ClaseController {
                     content = @Content),
     })
     @GetMapping("/clase/{id}")
-    public ResponseEntity<List<ClaseDto>> findById(@RequestBody Clase clase,
-                                                   @PathVariable Long id){
+    public ResponseEntity<ClaseDto> findById(@PathVariable Long id) {
 
-        if (claseService.findById(id).isEmpty()){
+        Optional<ClaseDto> claseDto = claseService.getClaseById(id);
+
+        if (claseService.findById(id).isEmpty()) {
 
             return ResponseEntity
                     .notFound()
                     .build();
+        } else {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(claseDto.get());
         }
-        List<ClaseDto> getClases =
-                claseService.findById(id).stream()
-                        .map(claseDtoConverter::claseToGetClaseDto)
-                        .collect(Collectors.toList());
-
-        return ResponseEntity
-                .ok()
-                .body(getClases);
     }
 
     @Operation(summary = "Edita las propiedades de una clase por ID")
@@ -141,18 +139,21 @@ public class ClaseController {
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Clase.class))}),
             @ApiResponse(responseCode = "404", description = "No se ha encontrado ninguna clase relacionada con ese ID", content = @Content),})
     @PutMapping("/clase/{id}")
-    public ResponseEntity<Clase> editClase(@RequestBody Clase clase, @PathVariable Long id) {
+    public ResponseEntity<ClaseDto> editClase(@RequestBody ClaseDto clase, @PathVariable Long id) {
+
         Optional<Clase> c1 = claseService.findById(id);
 
-        return c1.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.of(c1.map(old -> {
-            old.setAportacionList(c1.get().getAportacionList());
-            old.setNombre(c1.get().getNombre());
-            old.setTutor(c1.get().getTutor());
-            claseService.add(old);
-            return old;
-        }));
+
+        if (c1.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        } else {
+            c1.get().setNombre(clase.getNombre());
+            c1.get().setTutor(clase.getTutor());
+            claseService.add(c1.get());
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(claseDtoConverter.claseToGetClaseDto(c1.get()));
+        }
 
     }
 }
