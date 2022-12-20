@@ -102,5 +102,7 @@ public class AportacionService {
         });
         return existe.get();
     }
-
+    public List<Aportacion> getDetallesAportaciones(Long id) {
+        return repository.getDetallesAportaciones(id);
+    }
 }
