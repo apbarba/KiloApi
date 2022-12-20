@@ -256,7 +256,7 @@ public class DestinatarioController {
                                 .map(alimento -> {
                                     TipoAlimentoDto getDetalleAlimento = new TipoAlimentoDto();
                                     getDetalleAlimento.setNombre(getDetalleAlimento.getNombre());
-                                  //  getDetalleAlimento.getKilosEnviados(alimento.getCantidadKgs()); Kilos enviados es double mientras yo lo utilicé con un integer
+                                 //   getDetalleAlimento.getKilosEnviados(alimento.getCantidadKgs()); Kilos enviados es double mientras yo lo utilicé con un integer
 
                                     return getDetalleAlimento;
                                 })
