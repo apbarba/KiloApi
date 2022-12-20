@@ -20,7 +20,7 @@ public interface CajaRepository extends JpaRepository<Caja, Long> {
     Optional<CajaDto> getCajaDto(@Param("id") Long id);
 
     @Query("""
-                 select new com.salesianostriana.dam.kiloapi.dto.caja.CajaDto(
+                 select new com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto(
                     c.id, c.qr, c.numCaja, c.kilosTotales, d.nombre
                  )
                  from Caja c LEFT JOIN c.destinatario d

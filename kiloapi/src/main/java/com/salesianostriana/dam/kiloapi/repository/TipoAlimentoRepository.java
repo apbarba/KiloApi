@@ -20,7 +20,7 @@ public interface TipoAlimentoRepository extends JpaRepository<TipoAlimento, Long
     TipoAlimentoDto detallesAlimento(@Param("id") Long id);
 
     @Query("""
-                 select new com.salesianostriana.dam.kiloapi.dto.tipoalimento.TipoAlimentoDto(
+                 select new com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto(
                      t.id, t.nombre, tl.cantidadKgs
                  )
                  from Caja c LEFT JOIN c.tieneList tl LEFT JOIN tl.tipoAlimento t
