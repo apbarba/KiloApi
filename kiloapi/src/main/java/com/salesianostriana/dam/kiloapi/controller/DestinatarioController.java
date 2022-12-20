@@ -115,7 +115,7 @@ public class DestinatarioController {
                         des.setTelefono(d.getTelefono());
                         destinatarioService.edit(des);
 
-                        return DestinatarioDto.of(des);
+                        return destinatarioService.generarDto(des);
                     }));
         }
     }
