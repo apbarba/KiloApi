@@ -102,5 +102,11 @@ public class AportacionService {
         });
         return existe.get();
     }
-
+    public boolean comprobarKilos(DetalleAportacion detalleAportacion){
+        boolean inKilos = false;
+        if(detalleAportacion.getTipoAlimento().getKilosDisponibles().getCantidadDisponible()>detalleAportacion.getCantidadKg()){
+            inKilos = true;
+        }
+        return inKilos;
+    }
 }
