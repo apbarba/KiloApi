@@ -35,11 +35,8 @@ public class CajaController {
 
     private final CajaService cajaService;
     private final KilosDisponiblesService kilosDisponiblesService;
-
     private final CajaServiceLogica cajaServiceLogica;
-
     private final TieneService tieneService;
-
     private final CajaDtoConverter cajaDtoConverter;
     private final TipoAlimentoService tipoAlimentoService;
     private final DestinatarioService destinatarioService;
@@ -100,8 +97,6 @@ public class CajaController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
-        //helpers
     }
 
     @Operation(summary = "Se añade un destinatario a una caja por ID")
@@ -148,10 +143,10 @@ public class CajaController {
                             schema = @Schema(implementation = CajaDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                           
-                                           [Luego termino comprobado]
-                                                                                      
-                                            """
+                                                                                       
+                                            [Luego termino comprobado]
+                                                                                       
+                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
@@ -159,9 +154,9 @@ public class CajaController {
                     content = @Content),
     })
     @GetMapping("/caja/")
-    public ResponseEntity<List<CajaDto>> findAll(){
+    public ResponseEntity<List<CajaDto>> findAll() {
 
-        if (cajaService.findAll().isEmpty()){
+        if (cajaService.findAll().isEmpty()) {
 
             return ResponseEntity
                     .notFound()
@@ -314,6 +309,7 @@ public class CajaController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
     @Operation(summary = "Modificar la cantidad de un tipo de Alimento de una determinada caja")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Cantidad modificada correctamente",
@@ -338,7 +334,7 @@ public class CajaController {
 
         Optional<Tiene> tiene = tieneService.findByCajaAndTipoAlimento(caja.get(), tipoAlimento.get());
 
-        if ((caja.isEmpty()) ||  tipoAlimento.isEmpty() || tiene.isEmpty()) {
+        if ((caja.isEmpty()) || tipoAlimento.isEmpty() || tiene.isEmpty()) {
 
             return ResponseEntity
                     .badRequest()
