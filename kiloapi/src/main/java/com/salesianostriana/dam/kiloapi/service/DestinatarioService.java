@@ -55,4 +55,10 @@ public class DestinatarioService {
         return d.getNombre() == "" || d.getDireccion() == "" || d.getPersonaContacto() == "" || d.getTelefono() == "";
     }
 
+    public DestinatarioDto generarDto (Destinatario d){
+        DestinatarioDto dto = destinatarioRepository.crearDtoKgTotales(d.getId());
+        dto.setNumCajas(destinatarioRepository.crearListaNumCajas(d.getId()));
+        return dto;
+    }
+
 }

@@ -5,7 +5,6 @@ import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionViews;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.CrearAportacionDto;
-import com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionDto;
 import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
 import com.salesianostriana.dam.kiloapi.service.ClaseService;
@@ -24,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @RestController
@@ -316,12 +316,18 @@ public class AportacionController {
 
     @DeleteMapping("/aportacion/{id}")
     public ResponseEntity<Aportacion> deleteAportacion(@PathVariable Long id) {
+        AtomicBoolean borrado = new AtomicBoolean(false);
         Optional<Aportacion> ap = aportacionService.findById(id);
         if (ap.isPresent()) {
             ap.get().getDetalleAportacionList().forEach(d -> {
-                kilosDisponiblesService.restarKilos(d);
+                if(aportacionService.comprobarKilos(d)){
+                    kilosDisponiblesService.restarKilos(d);
+                    borrado.set(true);
+                }
             });
-            aportacionService.deleteById(id);
+            if(borrado.get()){
+                aportacionService.deleteById(id);
+            }
         }
         return ResponseEntity.noContent().build();
     }
