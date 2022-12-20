@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface DestinatarioRepository extends JpaRepository<Destinatario, Long> {
 
-    @Query("select dto.nombre, dto.direccion, dto.personaContacto, dto.telefono, c.kilosTotales from Destinatario dto JOIN Caja c On (dto.id = c.destinatario) where c.destinatario = idDestinatario")
-    public List<DestinatarioDto> getDestinatario(@Param("idDestinatario") Long id);
+    @Query("select dto.nombre, dto.direccion, dto.personaContacto, dto.telefono, c.kilosTotales from Destinatario dto JOIN Caja c On (dto.id = c.destinatario) where c.destinatario = id")
+    public List<DestinatarioDto> getDestinatario(@Param("id") Long id);
 
     @Query("select new com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto(d. id, d.nombre, d.direccion, d.personaContacto, d.telefono) " +
             "from Destinatario d where d.id = :id")

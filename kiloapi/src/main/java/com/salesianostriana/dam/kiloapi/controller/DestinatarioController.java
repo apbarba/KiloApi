@@ -180,7 +180,7 @@ public class DestinatarioController {
 
         return ResponseEntity
                 .ok()
-                .body(destinatarioService.findAll(id));
+                .body(destinatarioService.findAllDestinatario(id));
     }
 
     @Operation(summary = "Devolverá al destinatario específico con los detalles completos de las cajas asignadas")

@@ -46,7 +46,7 @@ public class DestinatarioService {
     }
 
     //Implementación de ls consulta realizada en el repositorio
-    public List<DestinatarioDto> findAll(Long id){
+    public List<DestinatarioDto> findAllDestinatario(Long id){
 
         return destinatarioRepository.getDestinatario(id);
     }

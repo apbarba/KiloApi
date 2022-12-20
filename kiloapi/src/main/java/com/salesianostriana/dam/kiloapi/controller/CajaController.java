@@ -5,6 +5,7 @@ import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
 import com.salesianostriana.dam.kiloapi.model.*;
+import com.salesianostriana.dam.kiloapi.repository.TieneRepository;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.CajaServiceLogica;
 import com.salesianostriana.dam.kiloapi.service.KilosDisponiblesService;
@@ -42,6 +43,8 @@ public class CajaController {
     private final CajaDtoConverter cajaDtoConverter;
     private final TipoAlimentoService tipoAlimentoService;
     private final DestinatarioService destinatarioService;
+
+    private final TieneRepository tieneRepository;
 
 
     @Operation(summary = "Elimina un tipo de alimento de una caja por ID")
@@ -324,26 +327,31 @@ public class CajaController {
                     )}),
             @ApiResponse(responseCode = "400", description = "Datos inválidos",
                     content = @Content)})
-    @PutMapping("/caja/{id1}/tipo/{id2}/kg/{cantidad}")
-    public ResponseEntity<CajaDto> editarKilos (@PathVariable Long id1,
-                                                @PathVariable Long id2,
-                                                @PathVariable Double cantidad) {
+    @PutMapping("/caja/{id}/tipo/{idTipoAlim}/kg/{cantidad}")
+    public ResponseEntity<CajaDto> actualizarCantidadKgCaja(@PathVariable Long id,
+                                                            @PathVariable Long idTipoAlim,
+                                                            @PathVariable Double cantidad) {
 
-        TienePK t = new TienePK(id2, id1);
+        Optional<Caja> caja = cajaService.findById(id);
 
-        Optional<Tiene> tiene = tieneService.findById(t);
+        Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(idTipoAlim);
 
-        if(tiene.isPresent()){
+        Optional<Tiene> tiene = tieneService.findByCajaAndTipoAlimento(caja.get(), tipoAlimento.get());
+
+        if ((caja.isEmpty()) ||  tipoAlimento.isEmpty() || tiene.isEmpty()) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .build();
+
+        } else {
 
             tiene.get().setCantidadKgs(cantidad);
+            tieneRepository.save(tiene.get());
 
-            tieneService.add(tiene.get());
-
-            return ResponseEntity.status(HttpStatus.OK).body(CajaDto.of(tiene.get().getCaja()));
-
-        }else{
-
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity
+                    .ok()
+                    .body(CajaDto.of(tiene.get().getCaja()));
         }
 
     }

@@ -60,4 +60,9 @@ public class TieneService {
         caja.setKilosTotales(newcant.get());
 
     }
+
+    public Optional<Tiene> findByCajaAndTipoAlimento(Caja caja, TipoAlimento tipoAlimento){
+
+        return repository.findByCajaAndTipoAlimento(caja, tipoAlimento);
+    }
 }
