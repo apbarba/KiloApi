@@ -55,11 +55,14 @@ public class AportacionController {
                     content = @Content),
     })
     @GetMapping("/aportacion/")
-    public ResponseEntity<List<Aportacion>> findAll() {
+    public ResponseEntity<List<AportacionDto>> findAll() {
         List<Aportacion> aportacionList = aportacionService.findAll();
         return aportacionList.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.status(HttpStatus.OK).body(aportacionList);
+                : ResponseEntity.status(HttpStatus.OK).
+                body(aportacionList.stream()
+                        .map(aportacionDtoConverter::aportacionToGetAportacionDto2)
+                        .collect(Collectors.toList()));
 
     }
 
@@ -73,10 +76,10 @@ public class AportacionController {
                             schema = @Schema(implementation = AportacionDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                    
-                                    [Luego lo termino]
-                                    
-                                    """
+                                                                                
+                                            [Luego lo termino]
+                                                                                
+                                            """
                             )}
 
                     )}),
@@ -98,10 +101,10 @@ public class AportacionController {
         } else {
             List<AportacionDto> listaAport = new ArrayList<>();
 
-            for (Aportacion a:lista) {
+            for (Aportacion a : lista) {
                 Map<String, Double> mapa = new HashMap<>();
 
-                for (DetalleAportacion d: a.getDetalleAportacionList()) {
+                for (DetalleAportacion d : a.getDetalleAportacionList()) {
                     mapa.put(d.getTipoAlimento().getNombre(), d.getCantidadKg());
                 }
                 listaAport.add(aportacionDtoConverter.aportacionToGetAportacionDto(a, mapa));
@@ -150,7 +153,6 @@ public class AportacionController {
 //          .ok()
 //        .body(getAportacionList);
 //    }
-
 
 
     @Operation(summary = "Crear nueva aportación")
