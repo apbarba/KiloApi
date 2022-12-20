@@ -116,10 +116,10 @@ public class CajaController {
                             schema = @Schema(implementation = CajaDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                           
-                                           [Luego termino comprobado]
-                                                                                      
-                                            """
+                                                                                       
+                                            [Luego termino comprobado]
+                                                                                       
+                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
@@ -127,9 +127,9 @@ public class CajaController {
                     content = @Content),
     })
     @GetMapping("/caja/")
-    public ResponseEntity<List<CajaDto>> findAll(){
+    public ResponseEntity<List<CajaDto>> findAll() {
 
-        if (cajaService.findAll().isEmpty()){
+        if (cajaService.findAll().isEmpty()) {
 
             return ResponseEntity
                     .notFound()
@@ -282,41 +282,32 @@ public class CajaController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
     @PutMapping("/caja/{id}/tipo/{idTipoAlim}/kg/{cantidad}")
     public ResponseEntity<CajaDto> actualizarCantidadKgCaja(@PathVariable Long id,
-                                                            @PathVariable Long idTipoAlim, @PathVariable Double cantidad){
+                                                            @PathVariable Long idTipoAlim, @PathVariable Double cantidad) {
 
         Optional<Caja> caja = cajaService.findById(id);
 
         Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(idTipoAlim);
 
-        if ((caja.isEmpty())){
+        Optional<Tiene> tiene = tieneService.findByCajaAndTipoAlimento(caja.get(), tipoAlimento.get());
+
+        if ((caja.isEmpty()) ||  tipoAlimento.isEmpty() || tiene.isEmpty()) {
 
             return ResponseEntity
                     .badRequest()
                     .build();
 
-        } else if (tipoAlimento.isEmpty(){
+        } else {
 
-            return ResponseEntity
-                    .badRequest().
-                    build();
-        }
-            Tiene tiene = tieneService.findByCajaAndTipoAlimento(caja.get(), tipoAlimento.get()).orElse(null);
-
-            if (tiene == null){
-
-                return ResponseEntity
-                        .badRequest()
-                        .build();
-            }
-
-            tiene.setCantidadKgs(cantidad);
-            tieneRepository.save(tiene);
+            tiene.get().setCantidadKgs(cantidad);
+            tieneRepository.save(tiene.get());
 
             return ResponseEntity
                     .ok()
-
+                    .body(CajaDto.of(tiene.get().getCaja()));
+        }
 
     }
 
