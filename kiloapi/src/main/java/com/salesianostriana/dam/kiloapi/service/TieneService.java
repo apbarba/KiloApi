@@ -44,21 +44,6 @@ public class TieneService {
         repository.deleteById(tienePK);
     }
 
-    public void borrarTipoDeTiene(TipoAlimento t) {
-        List<Tiene> listado = this.findAll();
-        List<Tiene> listAux = new ArrayList<>();
-
-        listado.forEach(tiene -> {
-            if (tiene.getTipoAlimento().equals(t)) {
-                tiene.getCaja().removeTieneFromCaja(tiene);
-            } else {
-                listAux.add(tiene);
-            }
-        });
-
-        this.cajaService.modificarTieneList(listAux);
-    }
-
     public Optional<Tiene> findByPk(Long id1, Long id2) {
 
         TienePK t = new TienePK(id1, id2);

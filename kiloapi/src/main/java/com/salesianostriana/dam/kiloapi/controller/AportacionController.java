@@ -184,7 +184,7 @@ public class AportacionController {
             @ApiResponse(responseCode = "400", description = "Cuerpo para la creación aportado inválido",
                     content = @Content)})
     @JsonView(AportacionViews.Master.class)
-    @PostMapping("/aportacion")
+    @PostMapping("/aportacion/")
     public ResponseEntity<AportacionDto> crearAportacion(@RequestBody CrearAportacionDto crear) {
         Optional<Clase> opC = claseService.findById(crear.getId_clase());
         if (opC.isPresent() && crear.getFecha() != null && !crear.getDetalle().isEmpty()) {

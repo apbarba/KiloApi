@@ -9,6 +9,7 @@ import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.KilosDisponiblesRepository;
 import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
+import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.TieneService;
 import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,8 +36,7 @@ public class TipoAlimentoController {
     private final TipoAlimentoService tipoAlimentoService;
     private final TipoAlimentoRepository repository;
     private final AportacionService aportacionService;
-    private final TieneService tieneService;
-
+    private final CajaService cajaService;
     private final KilosDisponiblesRepository kilosDisponiblesRepository;
 
 
@@ -196,9 +196,9 @@ public class TipoAlimentoController {
         Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(id);
         if (tipoAlimento.isPresent()) {
             TipoAlimento ta = tipoAlimento.get();
-            aportacionService.removeTipoFromDetalle(ta);
-            tieneService.borrarTipoDeTiene(ta);
-            tipoAlimentoService.delete(ta);
+            if (!aportacionService.comprobarExistenciaEnAportacion(ta) && !cajaService.comprobarExistenciaEnCaja(ta)) {
+                tipoAlimentoService.delete(ta);
+            }
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

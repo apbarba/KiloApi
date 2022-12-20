@@ -3,6 +3,7 @@ package com.salesianostriana.dam.kiloapi.service;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Tiene;
+import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
 import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @RequiredArgsConstructor
@@ -77,6 +79,20 @@ public class CajaService {
 
         return cdto;
     }
+
+    public boolean comprobarExistenciaEnCaja(TipoAlimento t) {
+        AtomicBoolean existe = new AtomicBoolean(false);
+        this.findAll().forEach(c -> {
+            c.getTieneList().forEach(tiene -> {
+                if (tiene.getTipoAlimento().equals(t)) {
+                    // Si existe, no se puede borrar
+                    existe.set(true);
+                }
+            });
+        });
+        return existe.get();
+    }
+
 
     //Método para recuperar las cajas asignadas a un destinatario(id) a partir de una consulta
     //Endpoint de get /destinatario/{id}/detalles

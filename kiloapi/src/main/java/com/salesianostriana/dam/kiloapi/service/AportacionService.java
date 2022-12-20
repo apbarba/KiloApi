@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 @RequiredArgsConstructor
@@ -56,40 +57,6 @@ public class AportacionService {
                 .findFirst();
     }
 
-    public void removeTipoFromDetalle(TipoAlimento t) {
-        List<DetalleAportacion> listado = new ArrayList<>();
-        List<DetalleAportacion> listaAux = new ArrayList<>();
-
-        // CREACIÓN DE LISTA AUXILIAR
-        this.findAll().forEach(a -> {
-            a.getDetalleAportacionList().forEach(d -> {
-                listado.add(d);
-            });
-        });
-
-        // SETEO DE AQUELLOS DETALLES DONDE EL TIPO DE ALIMENTO SEA EL QUE SE QUIERE BORRAR
-        // GUARDO AQUELLOS DETALLES DONDE EL TIPO NO SEA IGUAL QUE EL QUE VOY A BORRAR EN OTRA LISTA AUX
-        listado.forEach(d -> {
-            if (d.getTipoAlimento().equals(t)) {
-                d.setTipoAlimento(null);
-            } else {
-                listaAux.add(d);
-            }
-        });
-
-        // SETEAR LOS NUEVOS DETALLES EN SUS RESPECTIVAS APORTACIONES
-        this.findAll().forEach(a -> {
-            a.getDetalleAportacionList().clear();
-            listaAux.forEach(l -> {
-                if (l.getAportacion().equals(a) && !a.getDetalleAportacionList().equals(l)) {
-                    a.addDetalleAportacion(l);
-                }
-            });
-            this.edit(a);
-        });
-    }
-
-
     public Map<TipoAlimento, Double> convertJSONToDetalles(Map<Long, Double> json) {
         Map<TipoAlimento, Double> aportacion = new HashMap<>();
         json.keySet().forEach(idTipo -> {
@@ -100,7 +67,6 @@ public class AportacionService {
         });
         return aportacion;
     }
-
 
     public void addListadoDetalles(Map<TipoAlimento, Double> aportacion, Aportacion a) {
         List<DetalleAportacion> listAux = new ArrayList<>();
@@ -123,4 +89,18 @@ public class AportacionService {
 
         return adto;
     }
+
+    public boolean comprobarExistenciaEnAportacion(TipoAlimento t) {
+        AtomicBoolean existe = new AtomicBoolean(false);
+        this.findAll().forEach(a -> {
+            a.getDetalleAportacionList().forEach(d -> {
+                if (d.getTipoAlimento().equals(t)) {
+                    // Si existe, no se puede borrar
+                    existe.set(true);
+                }
+            });
+        });
+        return existe.get();
+    }
+
 }
