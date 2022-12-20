@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.kiloapi.dto.Clase;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.*;
 
@@ -9,16 +10,17 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClaseDto {
 
     private Long idAportacion;
-
-    @JsonView(ClaseViews.Master.class)
+    @JsonView({ClaseViews.Master.class, ClaseViews.createDto.class})
     private String nombre;
-
+    @JsonView(ClaseViews.createDto.class)
     private String tutor;
     @JsonView(ClaseViews.Master.class)
     private Double totalKilos;
+
     @JsonView(ClaseViews.Master.class)
     private Long numAportaciones;
     @JsonView(ClaseViews.Master.class)

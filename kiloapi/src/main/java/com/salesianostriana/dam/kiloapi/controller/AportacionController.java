@@ -66,7 +66,6 @@ public class AportacionController {
 
     }
 
-
     @Operation(summary = "Obtener una lista con todas las aportaciones de una clase correspondiente")
     @ApiResponses(value = {
             @ApiResponse(
