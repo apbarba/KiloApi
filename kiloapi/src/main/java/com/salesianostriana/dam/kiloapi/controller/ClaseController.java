@@ -117,11 +117,9 @@ public class ClaseController {
 //                    description = "No se ha encontrado la clase",
 //                    content = @Content),
 //    })
-////    @GetMapping("/clase/{id}")
-////    public ResponseEntity<ClaseDto> findById(@PathVariable Long id) {
-////
-////
-////    }
+//    @GetMapping("/clase/{id}")
+//
+//    }
 
     @Operation(summary = "Edita las propiedades de una clase por ID")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",
@@ -141,7 +139,8 @@ public class ClaseController {
             c1.get().setNombre(clase.getNombre());
             c1.get().setTutor(clase.getTutor());
             claseService.add(c1.get());
-            return ResponseEntity.status(HttpStatus.OK).body(claseDtoConverter.claseToGetClaseDto(c1.get()));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(claseDtoConverter.claseToGetClaseDto(c1.get()));
         }
 
     }

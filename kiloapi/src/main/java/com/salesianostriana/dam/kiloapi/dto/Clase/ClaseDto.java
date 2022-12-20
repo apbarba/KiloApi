@@ -34,4 +34,11 @@ public class ClaseDto {
         this.totalKilos = totalKilos;
         this.media = media;
     }
+
+    public ClaseDto(String nombre, String tutor, Double totalKilos, Long numAportaciones) {
+        this.nombre = nombre;
+        this.tutor = tutor;
+        this.totalKilos = totalKilos;
+        this.numAportaciones = numAportaciones;
+    }
 }

@@ -4,8 +4,10 @@ import com.salesianostriana.dam.kiloapi.dto.Clase.ClaseDto;
 import com.salesianostriana.dam.kiloapi.model.Clase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClaseRepository extends JpaRepository<Clase, Long> {
     @Query("""
@@ -17,4 +19,6 @@ public interface ClaseRepository extends JpaRepository<Clase, Long> {
             """
     )
     List<ClaseDto> getRanking();
+
+
 }
