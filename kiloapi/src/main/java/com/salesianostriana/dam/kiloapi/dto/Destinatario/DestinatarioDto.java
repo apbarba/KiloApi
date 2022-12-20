@@ -30,7 +30,9 @@ public class DestinatarioDto {
     private String personaContacto;
     @JsonView(DestinatarioViews.Master.class)
     private String telefono;
+    @JsonView(DestinatarioViews.Master.class)
     private Double kgTotales;
+    @JsonView(DestinatarioViews.Master.class)
     private List<Integer> numCajas;
 
     //Array de enteros para saber el numero de las cajas asignadas del destinatario correspondiente

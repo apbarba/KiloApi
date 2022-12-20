@@ -38,6 +38,9 @@ public class MainPrueba {
         TipoAlimento ta4 = TipoAlimento.builder()
                 .nombre("Dodotis")
                 .build();
+        TipoAlimento ta5 = TipoAlimento.builder()
+                .nombre("Turrón")
+                .build();
 
         KilosDisponibles kd1 = KilosDisponibles.builder()
                 .cantidadDisponible(12)
@@ -51,24 +54,34 @@ public class MainPrueba {
         KilosDisponibles kd4 = KilosDisponibles.builder()
                 .cantidadDisponible(0)
                 .build();
+        KilosDisponibles kd5 = KilosDisponibles.builder()
+                .cantidadDisponible(2)
+                .build();
 
         Caja c1 = new Caja("http://www.caja1.com", 1);
         Caja c2 = new Caja("http://www.caja2.com", 2);
         Caja c3 = new Caja("http://www.caja3.com", 3);
+        Caja c4 = new Caja("http://www.caja4.com", 4);
 
         ta1.addKilosToTipo(kd1);
         ta2.addKilosToTipo(kd2);
         ta3.addKilosToTipo(kd3);
         ta4.addKilosToTipo(kd4);
+        ta5.addKilosToTipo(kd5);
 
-        tipoAlimentoRepository.saveAll(List.of(ta1, ta2, ta3, ta4));
+        tipoAlimentoRepository.saveAll(List.of(ta1, ta2, ta3, ta4, ta5));
 
-        kilosDisponiblesRepository.saveAll(List.of(kd1, kd2, kd3, kd4));
+        kilosDisponiblesRepository.saveAll(List.of(kd1, kd2, kd3, kd4, kd5));
 
-        cajaRepository.saveAll(List.of(c1, c2, c3));
+        cajaRepository.saveAll(List.of(c1, c2, c3, c4));
 
         TienePK tpk1 = new TienePK(ta1.getId(), c1.getId());
         TienePK tpk2 = new TienePK(ta2.getId(), c1.getId());
+        TienePK tpk3 = new TienePK(ta4.getId(), c2.getId());
+        TienePK tpk4 = new TienePK(ta3.getId(), c2.getId());
+        TienePK tpk5 = new TienePK(ta1.getId(), c2.getId());
+        TienePK tpk6 = new TienePK(ta2.getId(), c3.getId());
+        TienePK tpk7 = new TienePK(ta3.getId(), c4.getId());
 
         Tiene t1 = Tiene.builder()
                 .id(tpk1)
@@ -78,6 +91,26 @@ public class MainPrueba {
                 .id(tpk2)
                 .cantidadKgs(2)
                 .build();
+        Tiene t3 = Tiene.builder()
+                .id(tpk3)
+                .cantidadKgs(1)
+                .build();
+        Tiene t4 = Tiene.builder()
+                .id(tpk4)
+                .cantidadKgs(5)
+                .build();
+        Tiene t5 = Tiene.builder()
+                .id(tpk5)
+                .cantidadKgs(3)
+                .build();
+        Tiene t6 = Tiene.builder()
+                .id(tpk6)
+                .cantidadKgs(4)
+                .build();
+        Tiene t7 = Tiene.builder()
+                .id(tpk7)
+                .cantidadKgs(1)
+                .build();
 
         ta1.addTipoToTiene(t1);
         c1.addTieneToCaja(t1);
@@ -85,9 +118,27 @@ public class MainPrueba {
         ta2.addTipoToTiene(t2);
         c1.addTieneToCaja(t2);
 
-        cajaService.calcularKg(c1);
+        ta4.addTipoToTiene(t3);
+        c2.addTieneToCaja(t3);
 
-        tieneRepository.saveAll(List.of(t1, t2));
+        ta3.addTipoToTiene(t4);
+        c2.addTieneToCaja(t4);
+
+        ta1.addTipoToTiene(t5);
+        c2.addTieneToCaja(t5);
+
+        ta2.addTipoToTiene(t6);
+        c3.addTieneToCaja(t6);
+
+        ta3.addTipoToTiene(t7);
+        c4.addTieneToCaja(t7);
+
+        cajaService.calcularKg(c1);
+        cajaService.calcularKg(c2);
+        cajaService.calcularKg(c3);
+        cajaService.calcularKg(c4);
+
+        tieneRepository.saveAll(List.of(t1, t2, t3, t4, t5, t6, t7));
 
         Destinatario d1 = Destinatario.builder()
                 .nombre("Banco Alimentos Triana")
@@ -111,12 +162,14 @@ public class MainPrueba {
         c1.addCajaToDestinatario(d1);
         c2.addCajaToDestinatario(d1);
         c3.addCajaToDestinatario(d2);
+        c4.addCajaToDestinatario(d3);
 
         destinatarioRepository.saveAll(List.of(d1, d2, d3));
 
         cajaService.edit(c1);
         cajaService.edit(c2);
         cajaService.edit(c3);
+        cajaService.edit(c4);
 
         Clase cl1 = Clase.builder()
                 .nombre("1ºDAM")
@@ -155,7 +208,6 @@ public class MainPrueba {
         DetallesPK det4 = new DetallesPK(a2.getId(), 1);
         DetallesPK det5 = new DetallesPK(a2.getId(), 2);
         DetallesPK det6 = new DetallesPK(a3.getId(), 1);
-        DetallesPK det7 = new DetallesPK(a4.getId(), 1);
 
         DetalleAportacion da1 = DetalleAportacion.builder()
                 .detallesPK(det1)
@@ -187,7 +239,6 @@ public class MainPrueba {
                 .cantidadKg(1)
                 .tipoAlimento(ta3)
                 .build();
-
         DetalleAportacion da7 = DetalleAportacion.builder()
                 .detallesPK(det6)
                 .cantidadKg(0)
