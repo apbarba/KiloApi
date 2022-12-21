@@ -40,7 +40,6 @@ public class CajaController {
     private final CajaDtoConverter cajaDtoConverter;
     private final TipoAlimentoService tipoAlimentoService;
     private final DestinatarioService destinatarioService;
-
     private final TieneRepository tieneRepository;
 
 
@@ -48,29 +47,27 @@ public class CajaController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200",
             description = "El alimento ha sido eliminado de la caja correctamente",
             content = {@Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = CajaDto.class)),
+                    schema = @Schema(implementation = CajaDto.class),
                     examples = {@ExampleObject(
                             value = """
-                                    [
-                                      {
-                                          "id": 4,
-                                          "qr": "http://www.caja1.com",
-                                          "numCaja": 1,
-                                          "kilosTotales": 8.0,
-                                          "alimentos": [
-                                              {
-                                                  "id": 2,
-                                                  "nombre": "Leche",
-                                                  "kilosEnviados": 2.0
-                                              }
-                                          ],
-                                          "destinatarioDto": {
-                                              "id": 7,
-                                              "nombre": "Banco Alimentos Triana"
-                                          }
-                                      }
-                                                                         
-                                    ]                                          
+                                        {
+                                            "id": 7,
+                                            "qr": "http://www.caja2.com",
+                                            "numCaja": 2,
+                                            "kilosTotales": 9.0,
+                                            "alimentos": [
+                                                {
+                                                    "id": 4,
+                                                    "nombre": "Dodotis",
+                                                    "kilosEnviados": 1.0
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "nombre": "Pasta",
+                                                    "kilosEnviados": 3.0
+                                                }
+                                            ]
+                                        }                                         
                                     """
                     )}
             )}),
@@ -144,12 +141,39 @@ public class CajaController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha encontrado un listado de cajas",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CajaDto.class),
+                            array = @ArraySchema(schema = @Schema(implementation = CajaDto.class)),
                             examples = {@ExampleObject(
-                                    value = """
-                                                                                       
-                                            [Luego termino comprobado]
-                                                                                       
+                                    value = """                                                                                      
+                                            [
+                                                {
+                                                    "id": 6,
+                                                    "qr": "http://www.caja1.com",
+                                                    "numCaja": 1,
+                                                    "kilosTotales": 8.0,
+                                                    "destinatario": "Banco Alimentos Triana"
+                                                },
+                                                {
+                                                    "id": 7,
+                                                    "qr": "http://www.caja2.com",
+                                                    "numCaja": 2,
+                                                    "kilosTotales": 9.0,
+                                                    "destinatario": "Banco Alimentos Triana"
+                                                },
+                                                {
+                                                    "id": 8,
+                                                    "qr": "http://www.caja3.com",
+                                                    "numCaja": 3,
+                                                    "kilosTotales": 4.0,
+                                                    "destinatario": "Banco Alimentos Mairena"
+                                                },
+                                                {
+                                                    "id": 9,
+                                                    "qr": "http://www.caja4.com",
+                                                    "numCaja": 4,
+                                                    "kilosTotales": 1.0,
+                                                    "destinatario": "Banco Alimentos Sevilla"
+                                                }
+                                            ]                                                                                       
                                              """
                             )}
                     )}),
@@ -380,21 +404,26 @@ public class CajaController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
-                                                    "id": 4,
+                                                    "id": 7,
                                                     "qr": "http://www.caja99.com",
                                                     "numCaja": 99,
-                                                    "kilosTotales": 8.0,
+                                                    "kilosTotales": 9.0,
                                                     "destinatario": "Banco Alimentos Triana",
                                                     "alimentos": [
                                                         {
-                                                            "id": 1,
-                                                            "nombre": "Pasta",
-                                                            "kilosEnviado": 6.0
+                                                            "id": 4,
+                                                            "nombre": "Dodotis",
+                                                            "kilosEnviados": 1.0
                                                         },
                                                         {
-                                                            "id": 2,
-                                                            "nombre": "Leche",
-                                                            "kilosEnviados": 2.0
+                                                            "id": 3,
+                                                            "nombre": "Lentejas",
+                                                            "kilosEnviados": 5.0
+                                                        },
+                                                        {
+                                                            "id": 1,
+                                                            "nombre": "Pasta",
+                                                            "kilosEnviados": 3.0
                                                         }
                                                     ]
                                                 }
