@@ -115,4 +115,9 @@ public class AportacionService {
         return repository.getDetallesAportaciones(id);
     }
 
+    public List<Aportacion> getAportacion(Long id){
+
+        return repository.getAportacion(id);
+    }
+
 }
