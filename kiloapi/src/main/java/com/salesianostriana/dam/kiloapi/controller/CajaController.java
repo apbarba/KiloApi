@@ -347,7 +347,7 @@ public class CajaController {
 
             return ResponseEntity
                     .ok()
-                    .body(CajaDto.of(tiene.get().getCaja()));
+                    .body(cajaService.devolverCajaDto(tiene.get().getCaja()));
         }
 
     }
