@@ -48,18 +48,16 @@ public class DestinatarioController {
             @ApiResponse(responseCode = "201",
                     description = "Se ha agregado el destinatario",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Destinatario.class),
+                            schema = @Schema(implementation = DestinatarioDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                                                                        
                                                 {
-                                                    "id": 12,
-                                                    "nombre": "Asociación 3000 viviendas",
-                                                    "direccion": "Avenida Diputación",
-                                                    "personaContacto": "Miguel Campos",
-                                                    "telefono": "954954954"
-                                                }
-                                                                                      
+                                                    "id": 19,
+                                                    "nombre": "Banco Alimentos Salesianos",
+                                                    "direccion": "C/Condes de Bustillos",
+                                                    "personaContacto": "Paco Pepe Pérez",
+                                                    "telefono": "654987321"
+                                                }                                    
                                             """
                             )}
                     )}),
@@ -147,7 +145,16 @@ public class DestinatarioController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha encontrado el destinatario relacionado con ese ID",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Destinatario.class))}),
+                            schema = @Schema(implementation = DestinatarioDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "kgTotales": 17.0,
+                                                    "numeroCajas": 2
+                                                }
+                                            """
+                            )}
+                    )}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado un destinatario con ese ID",
                     content = @Content),

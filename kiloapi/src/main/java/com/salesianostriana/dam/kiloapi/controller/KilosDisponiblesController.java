@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -66,8 +65,18 @@ public class KilosDisponiblesController {
                                                         "id": 3,
                                                         "nombre": "Lentejas",
                                                         "kilosDisponibles": 6.0
+                                                    },
+                                                    {
+                                                        "id": 4,
+                                                        "nombre": "Dodotis",
+                                                        "kilosDisponibles": 0.0
+                                                    },
+                                                    {
+                                                        "id": 5,
+                                                        "nombre": "Turrón",
+                                                        "kilosDisponibles": 2.0
                                                     }
-                                                ]                                 
+                                                ]                            
                                             """
                             )}
                     )}),

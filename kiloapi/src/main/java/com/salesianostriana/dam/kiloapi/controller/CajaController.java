@@ -103,15 +103,18 @@ public class CajaController {
     @Operation(summary = "Se añade un destinatario a una caja por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
-                    description = "Se ha añadido la caja correctamente",
+                    description = "Se ha añadido un destinatario a la caja correctamente",
                     content = {@Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = CajaDto.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
-                                              
-                                                                                 
-                                            ]                                          
+                                                {
+                                                    "id": 10,
+                                                    "qr": "http://www.caja3.com",
+                                                    "numCaja": 3,
+                                                    "kilosTotales": 4.0,
+                                                    "destinatario": "Banco Alimentos Triana"
+                                                }                                     
                                             """
                             )}
                     )}),
@@ -183,7 +186,6 @@ public class CajaController {
                             schema = @Schema(implementation = CajaDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                                                                        
                                                 {
                                                     "id": 7,
                                                     "qr": "http://www.caja2.com",
@@ -196,11 +198,6 @@ public class CajaController {
                                                             "kilosEnviados": 1.0
                                                         },
                                                         {
-                                                            "id": 3,
-                                                            "nombre": "Lentejas",
-                                                            "kilosEnviados": 5.0
-                                                        },
-                                                        {
                                                             "id": 1,
                                                             "nombre": "Pasta",
                                                             "kilosEnviados": 3.0
@@ -210,8 +207,7 @@ public class CajaController {
                                                         "id": 10,
                                                         "nombre": "Banco Alimentos Triana"
                                                     }
-                                                }
-                                                                                      
+                                                }                                      
                                             """
                             )}
                     )}),
@@ -236,16 +232,14 @@ public class CajaController {
             @ApiResponse(responseCode = "201",
                     description = "Se ha agregado la caja",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Caja.class),
+                            schema = @Schema(implementation = CajaDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                                                                        
                                                 {
-                                                    "id": 12,
-                                                    "qr": "http://www.caja1.com",
-                                                    "numCaja": 1
-                                                }
-                                                                                      
+                                                    "id": 20,
+                                                    "qr": "http://www.caja100.com",
+                                                    "numCaja": 100
+                                                }                                    
                                             """
                             )}
                     )}),
@@ -280,7 +274,7 @@ public class CajaController {
                                                     "id": 9,
                                                     "qr": "http://www.caja4.com",
                                                     "numCaja": 4,
-                                                    "kilosTotales": 3.0,
+                                                    "kilosTotales": 8.0,
                                                     "alimentos": [
                                                         {
                                                             "id": 3,
@@ -288,14 +282,13 @@ public class CajaController {
                                                             "kilosEnviados": 1.0
                                                         },
                                                         {
-                                                            "id": 1,
-                                                            "nombre": "Pasta",
-                                                            "kilosEnviados": 2.0
+                                                            "id": 2,
+                                                            "nombre": "Leche",
+                                                            "kilosEnviados": 7.0
                                                         }
                                                     ]
                                                 }
                                             """
-
                             )}
                     )}),
             @ApiResponse(responseCode = "400",
@@ -325,7 +318,25 @@ public class CajaController {
                             schema = @Schema(implementation = CajaDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                               [Cuando se compruebe]
+                                                {
+                                                    "id": 9,
+                                                    "qr": "http://www.caja4.com",
+                                                    "numCaja": 4,
+                                                    "kilosTotales": 8.0,
+                                                    "destinatario": "Banco Alimentos Sevilla",
+                                                    "alimentos": [
+                                                        {
+                                                            "id": 3,
+                                                            "nombre": "Lentejas",
+                                                            "kilosEnviados": 5.0
+                                                        },
+                                                        {
+                                                            "id": 2,
+                                                            "nombre": "Leche",
+                                                            "kilosEnviados": 7.0
+                                                        }
+                                                    ]
+                                                }
                                             """
                             )}
                     )}),

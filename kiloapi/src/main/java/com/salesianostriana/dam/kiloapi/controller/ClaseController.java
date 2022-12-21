@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,13 +35,19 @@ public class ClaseController {
             @ApiResponse(responseCode = "204",
                     description = "Se ha borrado la clase",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Clase.class))}),
+                            schema = @Schema(implementation = Clase.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {}
+                                            """
+                            )}
+                    )}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado la clase por el ID",
                     content = @Content),
     })
     @DeleteMapping("/clase/{id}")
-    public ResponseEntity<Clase> deleteClase(@PathVariable Long id) {
+    public ResponseEntity<?> deleteClase(@PathVariable Long id) {
         if (claseService.findById(id).isPresent()) {
             claseService.deleteById(id);
         }
@@ -72,16 +77,21 @@ public class ClaseController {
 
     @Operation(summary = "Crear una nueva clase")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Clase creado",
+            @ApiResponse(responseCode = "201", description = "Clase creada",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = Clase.class),
                             examples = {@ExampleObject(
                                     value = """
-                                                {"id": 1, "nombre": "2DAM", "Tutor": ""Luismi}
+                                                {
+                                                    "id": 22,
+                                                    "nombre": "3ºDAM",
+                                                    "tutor": "Ángel Naranjo",
+                                                    "aportacionList": []
+                                                }
                                             """
                             )}
                     )}),
-            @ApiResponse(responseCode = "400", description = "DATOS ERRÓNEOS",
+            @ApiResponse(responseCode = "400", description = "No se ha podido crear la clase",
                     content = @Content)})
     @PostMapping("/clase/")
     public ResponseEntity<Clase> newClase(@RequestBody Clase clase) {

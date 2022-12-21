@@ -22,10 +22,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,12 +40,30 @@ public class AportacionController {
             @ApiResponse(responseCode = "200",
                     description = "Se han encontrado aportaciones realizadas",
                     content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Clase.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = AportacionDto.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
-                                                
-                                            ]                                          
+                                                [
+                                                    {
+                                                        "nombreClase": "1ºDAM",
+                                                        "fecha": "2022-12-12",
+                                                        "cantidadkgTotales": 7.0
+                                                    },
+                                                    {
+                                                        "nombreClase": "1ºDAM",
+                                                        "fecha": "2022-12-15"
+                                                    },
+                                                    {
+                                                        "nombreClase": "2ºDAM",
+                                                        "fecha": "2022-12-14",
+                                                        "cantidadkgTotales": 6.0
+                                                    },
+                                                    {
+                                                        "nombreClase": "2ºDAM",
+                                                        "fecha": "2022-12-16",
+                                                        "cantidadkgTotales": 0.0
+                                                    }
+                                                ]                                      
                                             """
                             )}
                     )}),
@@ -122,9 +138,22 @@ public class AportacionController {
                             schema = @Schema(implementation = AportacionDto.class),
                             examples = {@ExampleObject(
                                     value = """
-
-                                    [Luego lo termino]
-
+                                                {
+                                                        "id": 16,
+                                                        "fecha": "2022-12-14",
+                                                        "aportaciones": [
+                                                            {
+                                                                "numLinea": 1,
+                                                                "tipoAlimento": "Pasta",
+                                                                "cantidadAportada": 2.0
+                                                            },
+                                                            {
+                                                                "numLinea": 2,
+                                                                "tipoAlimento": "Leche",
+                                                                "cantidadAportada": 4.0
+                                                            }
+                                                        ]
+                                                }
                                     """
                             )}
 
@@ -312,9 +341,14 @@ public class AportacionController {
             @ApiResponse(responseCode = "204",
                     description = "Se ha borrado la aportación",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Aportacion.class))})
+                            schema = @Schema(implementation = Aportacion.class),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {}
+                                            """
+                            )}
+                    )})
     })
-
     @DeleteMapping("/aportacion/{id}")
     public ResponseEntity<Aportacion> deleteAportacion(@PathVariable Long id) {
         AtomicBoolean borrado = new AtomicBoolean(false);
