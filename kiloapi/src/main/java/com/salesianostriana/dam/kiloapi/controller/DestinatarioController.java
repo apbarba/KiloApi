@@ -275,9 +275,7 @@ public class DestinatarioController {
                     })
 
                     .collect(Collectors.toList());
-
-            getDestinatarios.setCajas(getCajaDetalles);
-
+            
             return ResponseEntity
                     .ok()
                     .body(getDestinatarios);
