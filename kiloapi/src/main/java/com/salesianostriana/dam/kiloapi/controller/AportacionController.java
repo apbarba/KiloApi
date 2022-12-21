@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
@@ -113,45 +114,46 @@ public class AportacionController {
                     body(listaAport);
         }
     }
-//    @Operation(summary = "Se ha encontrado la aportacion y muestra todos sus detalles")
-//    @ApiResponses(value = {
-//            @ApiResponse(
-//                    responseCode = "200",
-//                    description = "Clase Encontrada",
-//                    content = {@Content(mediaType = "aplication/json",
-//                            schema = @Schema(implementation = AportacionDto.class),
-//                            examples = {@ExampleObject(
-//                                    value = """
-//
-//                                    [Luego lo termino]
-//
-//                                    """
-//                            )}
-//
-//                    )}),
-//            @ApiResponse(
-//                    responseCode = "404",
-//                    description = "Aportacion inexistente",
-//                    content = @Content)})
-//     @GetMapping("/aportacion/{id}")
-//     public ResponseEntity<List<AportacionDto>> findById(@PathVariable Long id) {
-//
-//       if (aportacionService.findById(id).isEmpty()) {
-//
-//         return ResponseEntity
-//               .ok()
-//             .build();
-//    }
-//     List<AportacionDto> getAportacionList =
-//           aportacionService.findById(id).stream()
-//             //    .map(detalleAportacionDto ->
-//            //             )
-//            //   .collect(Collectors.toList());
-//
-//    return ResponseEntity
-//          .ok()
-//        .body(getAportacionList);
-//    }
+    @Operation(summary = "Se ha encontrado la aportacion y muestra todos sus detalles")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Clase Encontrada",
+                    content = {@Content(mediaType = "aplication/json",
+                            schema = @Schema(implementation = AportacionDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+
+                                    [Luego lo termino]
+
+                                    """
+                            )}
+
+                    )}),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Aportacion inexistente",
+                    content = @Content)})
+     @GetMapping("/aportacion/{id}")
+     public ResponseEntity<List<AportacionDto>> findById(@PathVariable Long id) {
+
+        Optional<Aportacion> a1 = aportacionService.findById(id);
+
+        List<Aportacion> aportacionList = aportacionService.getAportacion(id);
+
+       if (a1.isEmpty()) {
+
+         return ResponseEntity
+                 .notFound()
+                .build();
+    }
+
+    return ResponseEntity
+          .ok()
+        .body(aportacionList.stream()
+                .map(aportacionDtoConverter::aportacionToGetAportacionDto2).toList()
+        );
+    }
 
 
     @Operation(summary = "Crear nueva aportación")
