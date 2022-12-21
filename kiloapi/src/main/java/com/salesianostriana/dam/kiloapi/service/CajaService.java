@@ -2,7 +2,6 @@ package com.salesianostriana.dam.kiloapi.service;
 
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
-import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
 import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
@@ -59,18 +58,6 @@ public class CajaService {
         this.edit(c);
     }
 
-    public void modificarTieneList(List<Tiene> list) {
-        this.findAll().forEach(c -> {
-            c.getTieneList().clear();
-            list.forEach(l -> {
-                if (l.getCaja().equals(c) && !c.getTieneList().equals(l)) {
-                    c.addTieneToCaja(l);
-                }
-            });
-            this.calcularKg(c);
-        });
-    }
-
     public Optional<CajaDto> getCajaDto(Long id) {
         return repository.getCajaDto(id);
 
@@ -102,14 +89,5 @@ public class CajaService {
         });
         return existe.get();
     }
-
-
-    //Método para recuperar las cajas asignadas a un destinatario(id) a partir de una consulta
-    //Endpoint de get /destinatario/{id}/detalles
-
-    // public List<Caja> findByDestinatario(Destinatario destinatario){
-
-    //   return repository.findByDestinatario(destinatario);
-    // }
 
 }

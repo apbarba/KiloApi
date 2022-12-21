@@ -45,12 +45,6 @@ public class DestinatarioService {
         destinatarioRepository.deleteById(id);
     }
 
-    //Implementación de ls consulta realizada en el repositorio
-    public List<DestinatarioDto> findAllDestinatario(Long id){
-
-        return destinatarioRepository.getDestinatario(id);
-    }
-
     public boolean comprobarDatos(Destinatario d) {
         return d.getNombre() == "" || d.getDireccion() == "" || d.getPersonaContacto() == "" || d.getTelefono() == "";
     }
