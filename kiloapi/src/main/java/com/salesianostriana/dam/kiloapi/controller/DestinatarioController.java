@@ -157,9 +157,10 @@ public class DestinatarioController {
     @GetMapping("/destinatario/{id}")
     public ResponseEntity<Destinatario> findById(@PathVariable Long id) {
         Optional<Destinatario> d1 = destinatarioService.findById(id);
+        destinatarioService.generarDto(d1.get());
         return d1.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.of(destinatarioService.findById(id));
+                : ResponseEntity.status(HttpStatus.OK).body(d1.get());
 
     }
 
