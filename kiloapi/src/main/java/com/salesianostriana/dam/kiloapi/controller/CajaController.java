@@ -78,7 +78,7 @@ public class CajaController {
                     description = "No encontrado",
                     content = @Content),
     })
-    @DeleteMapping("/caja/{id1}/tipoAlimento/{id2}")
+    @DeleteMapping("/caja/{id1}/tipo/{id2}")
     public ResponseEntity<CajaDto> deleteAlimento(@PathVariable Long id1, @PathVariable Long id2) {
 
         Optional<Caja> c1 = cajaService.findById(id1);
@@ -427,5 +427,4 @@ public class CajaController {
         }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
 }
