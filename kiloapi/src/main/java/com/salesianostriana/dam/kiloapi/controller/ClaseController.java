@@ -52,12 +52,22 @@ public class ClaseController {
     @Operation(summary = "Obtiene todas las clases")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Se han encontrado clases",
             content = {@Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = Clase.class)),
+                    array = @ArraySchema(schema = @Schema(implementation = ClaseDto.class)),
                     examples = {@ExampleObject(value = """
-                            [
-                                {"id": 1, "nombre": "1ºDAM","tutor": "Miguel Campos"},
-                                {"id": 2, "nombre": "2ºDAM","tutor": "Luis Miguel López Magaña"}
-                            ]                                          
+                                                            [
+                                                                {
+                                                                    "id": 13,
+                                                                    "nombre": "1ºDAM",
+                                                                    "tutor": "Miguel Campos",
+                                                                    "numAportaciones": 2
+                                                                },
+                                                                {
+                                                                    "id": 14,
+                                                                    "nombre": "2ºDAM",
+                                                                    "tutor": "Luismi López",
+                                                                    "numAportaciones": 2
+                                                                }
+                                                            ]                                       
                             """)})}), @ApiResponse(responseCode = "404", description = "No se ha encontrado ninguna clase", content = @Content),})
     @GetMapping("/clase/")
     public ResponseEntity<List<ClaseDto>> findAll() {
@@ -99,7 +109,7 @@ public class ClaseController {
         }
     }
 
-    @Operation(summary = "Encuenta la clase solicitada con sus detalles de aportaiones")
+    @Operation(summary = "Encuenta la clase solicitada con sus aportaciones")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se ha encontrado la clase",
@@ -107,9 +117,12 @@ public class ClaseController {
                             schema = @Schema(implementation = CajaDto.class),
                             examples = {@ExampleObject(
                                     value = """
-
-                                            [Luego termino comprobado]
-
+                                                {
+                                                    "nombre": "2ºDAM",
+                                                    "tutor": "Luis Miguel",
+                                                    "totalKilos": 6.0,
+                                                    "numAportaciones": 3
+                                                }
                                              """
                             )}
                     )}),
@@ -136,7 +149,16 @@ public class ClaseController {
     @Operation(summary = "Edita las propiedades de una clase por ID")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",
             description = "La clase ha sido modificada correctamente",
-            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Clase.class))}),
+            content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ClaseDto.class),
+            examples = {@ExampleObject(value = """
+                                                {
+                                                    "id": 14,
+                                                    "nombre": "2ºDAM",
+                                                    "tutor": "Luis Miguel",
+                                                    "numAportaciones": 3
+                                                }
+                                                """
+            )})}),
             @ApiResponse(responseCode = "404", description = "No se ha encontrado ninguna clase relacionada con ese ID", content = @Content),})
     @PutMapping("/clase/{id}")
     public ResponseEntity<ClaseDto> editClase(@RequestBody ClaseDto clase, @PathVariable Long id) {

@@ -34,14 +34,7 @@ import java.util.stream.Collectors;
 public class DestinatarioController {
 
     private final DestinatarioService destinatarioService;
-
-    private final CajaService cajaService;
-
-    private final TipoAlimentoService tipoAlimentoService;
-
     private final DestinatarioRepository destinatarioRepository;
-
-    private final CajaDtoConverter cajaDtoConverter;
 
     @Operation(summary = "Agrega un nuevo destinatario")
     @ApiResponses(value = {
@@ -87,14 +80,14 @@ public class DestinatarioController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
-                                                    "id": 8,
+                                                    "id": 12,
                                                     "nombre": "Banco Alimentos Coria",
                                                     "direccion": "C/Mairena",
                                                     "personaContacto": "Bartolomé Méndez",
                                                     "telefono": "987654321",
-                                                    "kgTotales": 0.0,
+                                                    "kgTotales": 1.0,
                                                     "numCajas": [
-                                                        3
+                                                        4
                                                     ]
                                                 }
                                             """
@@ -154,7 +147,6 @@ public class DestinatarioController {
     })
     @JsonView(DestinatarioViews.Simple.class)
     @GetMapping("/destinatario/{id}")
-
     public ResponseEntity<DestinatarioDto> findById(@PathVariable Long id) {
         Optional<DestinatarioDto> d1 = destinatarioService.findDestinatarioById(id);
         return d1.isEmpty() ?
@@ -167,12 +159,46 @@ public class DestinatarioController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha podido encontrar la lista de los destinatarios",
                     content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Destinatario.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = DestinatarioDto.class)),
                             examples = {@ExampleObject(
-
                                     value = """
-                                    [Luego termino cuando compruebe]
-                                    """
+                                                    [
+                                                        {
+                                                            "id": 10,
+                                                            "nombre": "Banco Alimentos Triana",
+                                                            "direccion": "C/ Castilla, 10",
+                                                            "personaContacto": "Antonio Álvarez",
+                                                            "telefono": "123456789",
+                                                            "kgTotales": 17.0,
+                                                            "numCajas": [
+                                                                1,
+                                                                2
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": 11,
+                                                            "nombre": "Banco Alimentos Mairena",
+                                                            "direccion": "C/Ciaurriz",
+                                                            "personaContacto": "Bartolomé Méndez",
+                                                            "telefono": "987654321",
+                                                            "kgTotales": 4.0,
+                                                            "numCajas": [
+                                                                3
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": 12,
+                                                            "nombre": "Banco Alimentos Sevilla",
+                                                            "direccion": "Avda/Coria",
+                                                            "personaContacto": "José Pérez",
+                                                            "telefono": "456789123",
+                                                            "kgTotales": 1.0,
+                                                            "numCajas": [
+                                                                4
+                                                            ]
+                                                        }
+                                                    ]
+                                            """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
@@ -197,33 +223,21 @@ public class DestinatarioController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha podido encontrar al destinatario específico",
                     content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Destinatario.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = DestinatarioDto.class)),
                             examples = {@ExampleObject(
-
                                     value = """
-                                    {
-                                    "id":1
-                                    "nombre" : "Ana"
-                                    "direccion" : "Calle Conde Bustillo"
-                                    "telefono" : "111-111-111"
-                                    "personaContacto" : "Lola Barba"
-                                    "cajasDetalles" : [
-                                       
-                                        {
-                                            "NumCaja" : 1,
-                                            "kilosTotales" : 20.00
-                                            "alimentos" : [
-                                               
-                                                {
-                                                    "nombre" : "Legumbres",
-                                                    "cantidadKilos" : 3.0
-                                                }
-                                            ]
-                                        }
-                                         
-                                       ]
-                                    }
-                                    """
+                                                    {
+                                                        "id": 12,
+                                                        "nombre": "Banco Alimentos Sevilla",
+                                                        "direccion": "Avda/Coria",
+                                                        "personaContacto": "José Pérez",
+                                                        "telefono": "456789123",
+                                                        "kgTotales": 1.0,
+                                                        "numCajas": [
+                                                            4
+                                                        ]
+                                                    }
+                                            """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",

@@ -75,12 +75,23 @@ public class AportacionController {
                             schema = @Schema(implementation = AportacionDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                                                                
-                                            [Luego lo termino]
-                                                                                
+                                                [
+                                                    {
+                                                        "fecha": "2022-12-14",
+                                                        "listaAlimentos": {
+                                                            "Leche": 4.0,
+                                                            "Pasta": 2.0
+                                                        }
+                                                    },
+                                                    {
+                                                        "fecha": "2022-12-16",
+                                                        "listaAlimentos": {
+                                                            "Dodotis": 0.0
+                                                        }
+                                                    }
+                                                ]                                                                                
                                             """
                             )}
-
                     )}),
             @ApiResponse(
                     responseCode = "404",
@@ -163,7 +174,7 @@ public class AportacionController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
-                                                    "id": 15,
+                                                    "id": 19,
                                                     "nombreCurso": "2ºDAM",
                                                     "tutor": "Luismi López",
                                                     "fecha": "2022-12-17",
@@ -214,7 +225,7 @@ public class AportacionController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
-                                                    "id": 13,
+                                                    "id": 16,
                                                     "nombreCurso": "2ºDAM",
                                                     "tutor": "Luismi López",
                                                     "fecha": "2022-12-14",
@@ -266,8 +277,8 @@ public class AportacionController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
-                                                    "id": 12,
-                                                    "nombreCurso": "1ºDAM",
+                                                    "id": 15,
+                                                    "nombreClase": "1ºDAM",
                                                     "tutor": "Miguel Campos",
                                                     "fecha": "2022-12-12",
                                                     "aportaciones": [
@@ -277,9 +288,9 @@ public class AportacionController {
                                                             "cantidadAportada": 2.0
                                                         },
                                                         {
-                                                            "numLinea": 3,
-                                                            "tipoAlimento": "Lentejas",
-                                                            "cantidadAportada": 1.0
+                                                            "numLinea": 2,
+                                                            "tipoAlimento": "Leche",
+                                                            "cantidadAportada": 4.0
                                                         }
                                                     ]
                                                 }

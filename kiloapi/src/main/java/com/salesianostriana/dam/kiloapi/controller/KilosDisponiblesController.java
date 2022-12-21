@@ -36,7 +36,6 @@ import java.util.stream.Collectors;
 @Tag(name = "KilosDisponibles", description = "Controlador para gestionar los kilos disponibles")
 public class KilosDisponiblesController {
     private final KilosDisponiblesRepository kilosDisponiblesRepository;
-    private final KilosDisponiblesService kgDService;
     private final TipoAlimentoService tipoAlimentoService;
 
     private final AportacionService aportacionService;
@@ -91,7 +90,39 @@ public class KilosDisponiblesController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha encontrado un tipo de alimento relacionado con ese ID",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = KilosDisponibles.class))}),
+                            array = @ArraySchema(schema = @Schema(implementation = AportacionDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                [
+                                                    {
+                                                        "id": 15,
+                                                        "fecha": "2022-12-12",
+                                                        "aportaciones": [
+                                                            {
+                                                                "numLinea": 1,
+                                                                "tipoAlimento": "Pasta",
+                                                                "cantidadAportada": 2.0,
+                                                                "kilosDisponibles": 12.0
+                                                            },
+                                                            {
+                                                                "numLinea": 2,
+                                                                "tipoAlimento": "Leche",
+                                                                "cantidadAportada": 4.0,
+                                                                "kilosDisponibles": 25.0
+                                                            },
+                                                            {
+                                                                "numLinea": 3,
+                                                                "tipoAlimento": "Lentejas",
+                                                                "cantidadAportada": 1.0,
+                                                                "kilosDisponibles": 6.0
+                                                            }
+                                                        ],
+                                                        "listaAlimentos": {}
+                                                    }
+                                                ]
+                                            """
+                            )}
+                    )}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado un tipo de alimento relacionado con ese ID",
                     content = @Content),
