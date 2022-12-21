@@ -50,7 +50,7 @@ En la carpeta principal nos encontramos diferentes elementos a tener en cuenta:
 
 ### Aportaciones:
 - **GET: http://localhost:8080/aportacion/**: Obtiene el listado completo de aportaciones.
-- **GET: http://localhost:8080/aportacion/{idClase}**: Obtiene la información de las aportaciones de una clase, buscada por su ID.
+- **GET: http://localhost:8080/aportacion/clase/{idClase}**: Obtiene la información de las aportaciones de una clase, buscada por su ID.
 - **POST: http://localhost:8080/aportacion/**: Crea una nueva aportación.
 - **PUT: http://localhost:8080/aportacion/{id}/linea/{num}/kg/{numKg}**: Modifica los kilos aportados (numKg) en una línea de detalle de la aportación (num), buscada esta última
   por su ID.
