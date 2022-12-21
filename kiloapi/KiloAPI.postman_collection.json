@@ -259,12 +259,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/aportacion/14",
+							"raw": "{{BASE_URL}}/aportacion/clase/14",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"aportacion",
+								"clase",
 								"14"
 							]
 						}
@@ -364,13 +365,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/aportacion/17",
+							"raw": "{{BASE_URL}}/aportacion/16",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"aportacion",
-								"17"
+								"16"
 							]
 						}
 					},
