@@ -9,6 +9,7 @@ public class CajaDtoConverter {
 
     public CajaDto cajaToGetCajaDto (Caja caja){
         return CajaDto.builder()
+                .id(caja.getId())
                 .numCaja(caja.getNumCaja())
                 .qr(caja.getQr())
                 .kilosTotales(caja.getKilosTotales())
