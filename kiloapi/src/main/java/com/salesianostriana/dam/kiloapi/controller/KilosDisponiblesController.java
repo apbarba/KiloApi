@@ -1,8 +1,10 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
+import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoViews;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import com.salesianostriana.dam.kiloapi.model.KilosDisponibles;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
@@ -73,6 +75,7 @@ public class KilosDisponiblesController {
                     description = "No se ha encontrado ningún kilo disponible",
                     content = @Content),
     })
+    @JsonView(TipoAlimentoViews.MostrarDisponible.class)
     @GetMapping("/kilosDisponibles/")
     public ResponseEntity<List<TipoAlimentoDto>> getAll() {
         List<TipoAlimento> data = tipoAlimentoService.findAll();
