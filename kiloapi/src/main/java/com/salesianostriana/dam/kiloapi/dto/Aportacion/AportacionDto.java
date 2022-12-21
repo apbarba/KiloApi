@@ -30,6 +30,7 @@ public class AportacionDto {
     private String tutor;
     @JsonView(AportacionViews.Master.class)
     private LocalDate fecha;
+    @JsonView(AportacionViews.Master.class)
     private Double cantidadKg;
     @JsonView(AportacionViews.Master.class)
     private List<DetalleAportacionDto> aportaciones = new ArrayList<>();

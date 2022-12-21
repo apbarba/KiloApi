@@ -36,7 +36,7 @@ public interface AportacionRepository extends JpaRepository<Aportacion, Long> {
 
     @Query("""
                  select new com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionDto(
-                     d.detallesPK.numLinea_id, t.nombre, d.cantidadKg
+                     d.detallesPK.numLinea_id, t.nombre, d.cantidadKg, 0.0
                  )
                  from Aportacion a LEFT JOIN a.detalleAportacionList d LEFT JOIN d.tipoAlimento t
                  where a.id = :id

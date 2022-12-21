@@ -13,7 +13,7 @@ import lombok.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClaseDto {
 
-    private Long idAportacion;
+    private Long id;
     @JsonView({ClaseViews.Master.class, ClaseViews.createDto.class})
     private String nombre;
     @JsonView(ClaseViews.createDto.class)
