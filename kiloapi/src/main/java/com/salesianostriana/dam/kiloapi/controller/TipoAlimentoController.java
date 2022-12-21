@@ -85,7 +85,11 @@ public class TipoAlimentoController {
                             schema = @Schema(implementation = TipoAlimentoDto.class),
                             examples = {@ExampleObject(
                                     value = """
-                                                {"id": 2, "nombre": "Leche", "kilosDisponibles": 25.0}
+                                                {
+                                                    "id": 2,
+                                                    "nombre": "Leche",
+                                                    "kilosDisponibles": 25.0
+                                                }
                                             """
                             )}
                     )}),
