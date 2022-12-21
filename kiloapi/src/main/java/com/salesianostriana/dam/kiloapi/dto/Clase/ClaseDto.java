@@ -14,25 +14,36 @@ import lombok.*;
 public class ClaseDto {
 
     private Long id;
-    @JsonView({ClaseViews.Master.class, ClaseViews.createDto.class})
+
+    @JsonView(ClaseViews.Ranking.class)
+    private int posicion;
+    @JsonView({ClaseViews.Master.class, ClaseViews.createDto.class, ClaseViews.Ranking.class})
     private String nombre;
-    @JsonView(ClaseViews.createDto.class)
+    @JsonView({ClaseViews.createDto.class,ClaseViews.Ranking.class})
     private String tutor;
-    @JsonView(ClaseViews.Master.class)
+    @JsonView({ClaseViews.Master.class,ClaseViews.Ranking.class})
     private Double totalKilos;
 
-    @JsonView(ClaseViews.Master.class)
+    @JsonView({ClaseViews.Master.class,ClaseViews.Ranking.class})
     private Long numAportaciones;
-    @JsonView(ClaseViews.Master.class)
+    @JsonView({ClaseViews.Master.class,ClaseViews.Ranking.class})
     private Double media;
 
+    public ClaseDto(int posicion, String nombre, Long numAportaciones,Double totalKilos,  Double media) {
+        this.posicion = posicion;
+        this.nombre = nombre;
+        this.numAportaciones = numAportaciones;
+        this.totalKilos = totalKilos;
+        this.media = media;
 
+    }
 
     public ClaseDto(String nombre, Long numAportaciones,Double totalKilos,  Double media) {
         this.nombre = nombre;
         this.numAportaciones = numAportaciones;
         this.totalKilos = totalKilos;
         this.media = media;
+
     }
 
     public ClaseDto(String nombre, String tutor, Double totalKilos, Long numAportaciones) {

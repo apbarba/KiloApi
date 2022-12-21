@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -56,10 +57,13 @@ public class RankingController {
                     description = "No se ha encontrado ninguna clase",
                     content = @Content),
     })
-    @JsonView(ClaseViews.Master.class)
+    @JsonView(ClaseViews.Ranking.class)
     @GetMapping("/ranking/")
     public ResponseEntity<List<ClaseDto>> getRanking() {
         List<ClaseDto> ranking = claseService.getRanking();
+        for (int i = 0; i < ranking.size(); i++) {
+            ranking.get(i).setPosicion(i+1);
+        }
         return ranking.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
                 : ResponseEntity.status(HttpStatus.OK).body(ranking);
