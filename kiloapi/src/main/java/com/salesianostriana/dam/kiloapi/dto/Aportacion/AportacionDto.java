@@ -24,13 +24,15 @@ public class AportacionDto {
 
     @JsonView(AportacionViews.Master.class)
     private Long id;
-    @JsonView(AportacionViews.Master.class)
+    @JsonView({AportacionViews.Master.class, AportacionViews.FindAllAportaciones.class})
     private String nombreClase;
     @JsonView(AportacionViews.Master.class)
     private String tutor;
-    @JsonView(AportacionViews.Master.class)
+    @JsonView({AportacionViews.Master.class, AportacionViews.FindAllAportaciones.class})
     private LocalDate fecha;
     private Double cantidadKg;
+    @JsonView({AportacionViews.FindAllAportaciones.class})
+    private Double cantidadkgTotales;
     @JsonView(AportacionViews.Master.class)
     private List<DetalleAportacionDto> aportaciones = new ArrayList<>();
     @Builder.Default
@@ -65,5 +67,9 @@ public class AportacionDto {
         this.fecha = fecha;
     }
 
-
+    public AportacionDto(String nombreClase, LocalDate fecha, Double cantidadkgTotales) {
+        this.nombreClase = nombreClase;
+        this.fecha = fecha;
+        this.cantidadkgTotales = cantidadkgTotales;
+    }
 }

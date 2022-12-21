@@ -5,6 +5,7 @@ import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionViews;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionDto;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
+import com.salesianostriana.dam.kiloapi.dto.Clase.ClaseDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -47,4 +48,14 @@ public interface AportacionRepository extends JpaRepository<Aportacion, Long> {
             """
     )
     List<Aportacion> getDetallesAportaciones(@Param("id") Long id);
+
+
+    @Query("""
+            SELECT NEW com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto
+            (c.nombre, a.fecha,SUM(d.cantidadKg))
+            FROM Aportacion a LEFT JOIN a.clase c LEFT JOIN a.detalleAportacionList d
+            GROUP BY c.nombre, a.fecha
+            """
+    )
+    List<AportacionDto> findAllAportaciones();
 }

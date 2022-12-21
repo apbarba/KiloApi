@@ -7,10 +7,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DestinatarioRepository extends JpaRepository<Destinatario, Long> {
 
-    @Query("select dto.nombre, dto.direccion, dto.personaContacto, dto.telefono, c.kilosTotales from Destinatario dto JOIN Caja c On (dto.id = c.destinatario) where c.destinatario = id")
+    @Query("select dto.nombre, " +
+            "dto.direccion, dto.personaContacto, dto.telefono, c.kilosTotales " +
+            "from Destinatario dto JOIN Caja c" +
+            " where c.id = id")
     public List<DestinatarioDto> getDestinatario(@Param("id") Long id);
 
     @Query("select new com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto(d. id, d.nombre, d.direccion, d.personaContacto, d.telefono) " +
@@ -24,6 +28,15 @@ public interface DestinatarioRepository extends JpaRepository<Destinatario, Long
 
     @Query("select c.numCaja from Caja c where c.destinatario.id = :id")
     List<Integer> crearListaNumCajas(@Param("id") Long id);
+
+    @Query("""
+            SELECT NEW com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto
+            (SUM(c.kilosTotales), COUNT(c))
+            FROM Destinatario d LEFT JOIN d.cajaList c
+            WHERE d.id =:id
+            """
+    )
+    Optional<DestinatarioDto> findDestinatarioById(@Param("id") Long id);
 
 }
 

@@ -30,10 +30,13 @@ public class DestinatarioDto {
     private String personaContacto;
     @JsonView(DestinatarioViews.Master.class)
     private String telefono;
-    @JsonView(DestinatarioViews.Master.class)
+    @JsonView({DestinatarioViews.Master.class, DestinatarioViews.Simple.class})
     private Double kgTotales;
     @JsonView(DestinatarioViews.Master.class)
     private List<Integer> numCajas;
+
+    @JsonView(DestinatarioViews.Simple.class)
+    private Long numeroCajas;
 
     //Array de enteros para saber el numero de las cajas asignadas del destinatario correspondiente
     private List<Caja> numCajasAsignadasDestinatario = new ArrayList<>();
@@ -51,7 +54,12 @@ public class DestinatarioDto {
         this.kgTotales = kgTotales;
     }
 
-//    public static DestinatarioDto of(Destinatario d) {
+    public DestinatarioDto(Double kgTotales, Long numeroCajas) {
+        this.kgTotales = kgTotales;
+        this.numeroCajas = numeroCajas;
+    }
+
+    //    public static DestinatarioDto of(Destinatario d) {
 //        kg = 0;
 //        List<Integer> num = new ArrayList<>();
 //        List<Caja> listado = d.getCajaList();

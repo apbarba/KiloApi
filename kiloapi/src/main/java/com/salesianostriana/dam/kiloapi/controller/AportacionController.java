@@ -55,14 +55,13 @@ public class AportacionController {
                     content = @Content),
     })
     @GetMapping("/aportacion/")
+    @JsonView({AportacionViews.FindAllAportaciones.class})
     public ResponseEntity<List<AportacionDto>> findAll() {
-        List<Aportacion> aportacionList = aportacionService.findAll();
+        List<AportacionDto> aportacionList = aportacionService.findAllAportaciones();
         return aportacionList.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
                 : ResponseEntity.status(HttpStatus.OK).
-                body(aportacionList.stream()
-                        .map(aportacionDtoConverter::aportacionToGetAportacionDto2)
-                        .collect(Collectors.toList()));
+                body(aportacionList);
 
     }
 

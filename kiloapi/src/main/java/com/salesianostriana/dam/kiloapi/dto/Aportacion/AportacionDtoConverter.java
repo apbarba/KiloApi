@@ -38,5 +38,5 @@ public AportacionDto aportacionToGetAportacionDto2(Aportacion aportacion){
                     .map(detalleAportacionConverterDto::detalleAportacionToDetalleAportacionDto)
                     .collect(Collectors.toList()))
             .build();
-}
+    }
 }

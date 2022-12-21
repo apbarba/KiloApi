@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionViews;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
 import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioViews;
@@ -132,10 +133,12 @@ public class DestinatarioController {
     @DeleteMapping("/destinatario/{id}")
     public ResponseEntity<Destinatario> delete(@PathVariable Long id) {
         Optional<Destinatario> d1 = destinatarioService.findById(id);
-        return d1.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
+        if(d1.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            destinatarioService.deleteById(id);
+            return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     @Operation(summary = "Obtiene la información de un destinatario por su ID")
@@ -148,12 +151,13 @@ public class DestinatarioController {
                     description = "No se ha encontrado un destinatario con ese ID",
                     content = @Content),
     })
+    @JsonView(DestinatarioViews.Simple.class)
     @GetMapping("/destinatario/{id}")
-    public ResponseEntity<Destinatario> findById(@PathVariable Long id) {
-        Optional<Destinatario> d1 = destinatarioService.findById(id);
+    public ResponseEntity<DestinatarioDto> findById(@PathVariable Long id) {
+        Optional<DestinatarioDto> d1 = destinatarioService.findDestinatarioById(id);
         return d1.isEmpty() ?
                 ResponseEntity.status(HttpStatus.NOT_FOUND).build()
-                : ResponseEntity.of(destinatarioService.findById(id));
+                : ResponseEntity.of(d1);
 
     }
 
