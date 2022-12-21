@@ -10,7 +10,6 @@ import com.salesianostriana.dam.kiloapi.repository.KilosDisponiblesRepository;
 import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
 import com.salesianostriana.dam.kiloapi.service.AportacionService;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
-import com.salesianostriana.dam.kiloapi.service.TieneService;
 import com.salesianostriana.dam.kiloapi.service.TipoAlimentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -43,21 +42,33 @@ public class TipoAlimentoController {
     @Operation(summary = "Obtiene todos los tipos de alimentos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Se han encontrado todas las clases",
+                    description = "Se han encontrado todos los tipos",
                     content = {@Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = TipoAlimento.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = TipoAlimentoDto.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
-                                                {
-                                                    "id": 1,
-                                                    "nombre": "Latas de conserva"
-                                                },
-                                                {
-                                                    "id": 2,
-                                                    "nombre": "Productos limpieza"
-                                                }
-                                             ]                                         
+                                                [
+                                                    {
+                                                        "id": 1,
+                                                        "nombre": "Pasta"
+                                                    },
+                                                    {
+                                                        "id": 2,
+                                                        "nombre": "Leche"
+                                                    },
+                                                    {
+                                                        "id": 3,
+                                                        "nombre": "Lentejas"
+                                                    },
+                                                    {
+                                                        "id": 4,
+                                                        "nombre": "Dodotis"
+                                                    },
+                                                    {
+                                                        "id": 5,
+                                                        "nombre": "Turrón"
+                                                    }
+                                                ]                                   
                                             """
                             )}
                     )}),
@@ -109,13 +120,14 @@ public class TipoAlimentoController {
             @ApiResponse(responseCode = "201",
                     description = "Se ha agregado el tipo de alimento",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TipoAlimento.class),
+                            schema = @Schema(implementation = TipoAlimentoDto.class),
                             examples = {@ExampleObject(
                                     value = """
                                                                                         
                                                 {
-                                                    "id": 1,
-                                                    "nombre": "Latas de conserva"
+                                                    "id": 21,
+                                                    "nombre": "Chocolate",
+                                                    "kilosDisponibles": 0.0
                                                 }
                                                                                       
                                             """
