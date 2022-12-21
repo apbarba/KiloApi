@@ -1,15 +1,12 @@
 package com.salesianostriana.dam.kiloapi.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionViews;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
 import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioViews;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
-import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
-import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
 import com.salesianostriana.dam.kiloapi.service.DestinatarioService;
@@ -27,7 +24,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,8 +57,7 @@ public class DestinatarioController {
                                                     "nombre": "Asociación 3000 viviendas",
                                                     "direccion": "Avenida Diputación",
                                                     "personaContacto": "Miguel Campos",
-                                                    "telefono": "954954954",
-                                                    "cajasList": []
+                                                    "telefono": "954954954"
                                                 }
                                                                                       
                                             """
