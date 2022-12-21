@@ -22,19 +22,19 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CajaDto {
 
-    @JsonView(CajaViews.Master.class)
+    @JsonView({CajaViews.Master.class, CajaViews.CrearCaja.class})
     private Long id;
-    @JsonView(CajaViews.Master.class)
+    @JsonView({CajaViews.Master.class, CajaViews.CrearCaja.class})
     private String qr;
-    @JsonView(CajaViews.Master.class)
+    @JsonView({CajaViews.Master.class, CajaViews.CrearCaja.class})
     private int numCaja;
     @JsonView(CajaViews.Master.class)
     private Double kilosTotales;
     @JsonView(CajaViews.Master.class)
     private String destinatario;
-    @JsonView(CajaViews.Master.class)
+    @JsonView({CajaViews.Master.class, CajaViews.CrearCaja.class})
     private List<TipoAlimentoDto> alimentos;
-    @JsonView(CajaViews.GetCajaId.class)
+    @JsonView({CajaViews.GetCajaId.class, CajaViews.CrearCaja.class})
     private DestinatarioDto destinatarioDto;
 
     private List<Tiene> tieneList;

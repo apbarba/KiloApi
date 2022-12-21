@@ -5,6 +5,7 @@ import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
+import com.salesianostriana.dam.kiloapi.repository.DestinatarioRepository;
 import com.salesianostriana.dam.kiloapi.repository.TipoAlimentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class CajaService {
 
     private final CajaRepository repository;
     private final TipoAlimentoRepository alimentoRepository;
+
+    private final DestinatarioRepository destinatarioRepository;
 
     public Caja add(Caja caja) {
         return repository.save(caja);
@@ -78,6 +81,13 @@ public class CajaService {
         cdto.setAlimentos(alimentoRepository.generarListadoTipoAlimento(c.getId()));
 
         return cdto;
+    }
+
+    public CajaDto devolverCajaDestinatario(Caja c){
+        CajaDto dto = devolverCajaDto(c);
+        dto.setDestinatarioDto(destinatarioRepository.crearDestinatarioDto(c.getDestinatario().getId()));
+
+        return dto;
     }
 
     public boolean comprobarExistenciaEnCaja(TipoAlimento t) {

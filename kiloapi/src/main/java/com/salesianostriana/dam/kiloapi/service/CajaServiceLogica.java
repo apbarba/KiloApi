@@ -5,6 +5,7 @@ import com.salesianostriana.dam.kiloapi.model.Tiene;
 import com.salesianostriana.dam.kiloapi.model.TienePK;
 import com.salesianostriana.dam.kiloapi.model.TipoAlimento;
 import com.salesianostriana.dam.kiloapi.repository.CajaRepository;
+import com.salesianostriana.dam.kiloapi.repository.TieneRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,21 +17,54 @@ public class CajaServiceLogica {
 
     private final CajaRepository repository;
     private final TipoAlimentoService tipoAlimentoService;
-
     private final TieneService tieneService;
+//
+//    public Caja addKilostoCaja(Caja caja, Long idTipoAlim, double cantidad) {
+//        Optional<TipoAlimento> tp = tipoAlimentoService.findById(idTipoAlim);
+//        if (tp.isPresent()) {
+//            TipoAlimento tipoAl = tp.get();
+//            Optional<Tiene> ti = tieneService.findById(new TienePK(tipoAl.getId(), caja.getId()));
+//            if (ti.isPresent()) {
+//                Tiene tiene = ti.get();
+//                if(caja.getTieneList().contains(tipoAl) && caja.getTieneList().contains(caja)){
+//                    caja.setKilosTotales(caja.getKilosTotales() + cantidad);
+//                    tiene.setCantidadKgs(tiene.getCantidadKgs()+cantidad);
+//                    tipoAl.getKilosDisponibles().setCantidadDisponible(tipoAl.getKilosDisponibles()
+//                            .getCantidadDisponible() - cantidad);
+//
+//                }else{
+//                    Tiene ttp = Tiene
+//                            .builder()
+//                            .id(new TienePK(tipoAl.getId(), caja.getId()))
+//                            .build();
+//                    tieneService.add(ttp);
+//                    this.agregarTipoYKilos(caja, tipoAl, ttp, cantidad);
+//                }
+//            }
+//        }
+//        return repository.save(caja);
+//    }
+
 
     public Caja addKilostoCaja(Caja caja, Long idTipoAlim, double cantidad) {
         Optional<TipoAlimento> tp = tipoAlimentoService.findById(idTipoAlim);
-        Optional<Caja> cj = Optional.of(caja);
-        if (cj.isPresent() & tp.isPresent()) {
+        if (tp.isPresent()) {
             TipoAlimento tipoAl = tp.get();
             Optional<Tiene> ti = tieneService.findById(new TienePK(tipoAl.getId(), caja.getId()));
             if (ti.isPresent()) {
                 Tiene tiene = ti.get();
                 caja.setKilosTotales(caja.getKilosTotales() + cantidad);
-                tiene.setCantidadKgs(tiene.getCantidadKgs()+cantidad);
+                tiene.setCantidadKgs(tiene.getCantidadKgs() + cantidad);
                 tipoAl.getKilosDisponibles().setCantidadDisponible(tipoAl.getKilosDisponibles()
                         .getCantidadDisponible() - cantidad);
+            } else {
+                Tiene ttp = Tiene
+                        .builder()
+                        .id(new TienePK(tipoAl.getId(), caja.getId()))
+                        .build();
+                tipoAl.addTipoToTiene(ttp);
+                caja.addTieneToCaja(ttp);
+                this.agregarTipoYKilos(caja, tipoAl, ttp, cantidad);
             }
         }
         return repository.save(caja);
@@ -45,5 +79,12 @@ public class CajaServiceLogica {
                     && tp.getKilosDisponibles().getCantidadDisponible() > 0;
         }
         return false;
+    }
+
+    public void agregarTipoYKilos(Caja caja, TipoAlimento tipoAlimento, Tiene tiene, double cantidad) {
+        caja.setKilosTotales(caja.getKilosTotales() + cantidad);
+        tiene.setCantidadKgs(tiene.getCantidadKgs() + cantidad);
+        tipoAlimento.getKilosDisponibles().setCantidadDisponible(tipoAlimento.getKilosDisponibles()
+                .getCantidadDisponible() - cantidad);
     }
 }

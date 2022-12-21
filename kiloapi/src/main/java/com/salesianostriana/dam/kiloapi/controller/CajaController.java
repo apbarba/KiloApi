@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDtoConverter;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
+import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioViews;
 import com.salesianostriana.dam.kiloapi.model.*;
 import com.salesianostriana.dam.kiloapi.repository.TieneRepository;
 import com.salesianostriana.dam.kiloapi.service.CajaService;
@@ -213,12 +214,16 @@ public class CajaController {
                     description = "No se ha encontrado la caja por el ID",
                     content = @Content),
     })
+    @JsonView(CajaViews.CrearCaja.class)
     @GetMapping("/caja/{id}")
     public ResponseEntity<CajaDto> obtenerUno(@PathVariable Long id) {
 
-        return ResponseEntity.of(cajaService.findById(id)
-                .map(CajaDto::of));
-
+        Optional<Caja> caja = cajaService.findById(id);
+        if(caja.isPresent()){
+            Caja c = caja.get();
+            return ResponseEntity.ok(cajaService.devolverCajaDestinatario(c));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Operation(summary = "Agrega una nueva caja")
@@ -245,7 +250,7 @@ public class CajaController {
                     description = "No se ha agregado la caja",
                     content = @Content),
     })
-    @JsonView(CajaViews.Master.class)
+    @JsonView(CajaViews.CrearCaja.class)
     @PostMapping("/caja/")
     public ResponseEntity<CajaDto> newCaja(@RequestBody CajaDto cajaDto) {
         if (cajaDto.getNumCaja() == 0 || cajaDto.getQr() == null) {
@@ -257,7 +262,7 @@ public class CajaController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(CajaDto.of(caja));
+                .body(cajaService.devolverCajaDto(caja));
     }
 
     @Operation(summary = "Agrega a la caja la cantidad de kilos del tipo de alimento")
