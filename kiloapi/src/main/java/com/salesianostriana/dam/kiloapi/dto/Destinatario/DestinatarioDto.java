@@ -38,9 +38,6 @@ public class DestinatarioDto {
     @JsonView(DestinatarioViews.Simple.class)
     private Long numeroCajas;
 
-    //Array de enteros para saber el numero de las cajas asignadas del destinatario correspondiente
-    private List<Caja> numCajasAsignadasDestinatario = new ArrayList<>();
-
     private List<CajaDto> cajas = new ArrayList<>();
 
     private static double kg = 0;
