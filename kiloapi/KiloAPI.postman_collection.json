@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6875569f-3a97-4cee-9217-1b67131d1c01",
+		"_postman_id": "41a34daf-a540-40b4-bc87-acc875b1d6cc",
 		"name": "KiloAPI",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23783395"
+		"_exporter_id": "23783353"
 	},
 	"item": [
 		{
@@ -15,12 +15,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/tipoAlimento",
+							"raw": "{{BASE_URL}}/tipoAlimento/",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
-								"tipoAlimento"
+								"tipoAlimento",
+								""
 							]
 						}
 					},
@@ -31,6 +32,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Chocolate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE_URL}}/tipoAlimento/",
 							"host": [
@@ -135,6 +145,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"3ºDAM\",\r\n    \"tutor\": \"Ángel Naranjo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE_URL}}/clase/",
 							"host": [
@@ -153,14 +172,23 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"2ºDAM\",\r\n    \"tutor\": \"Luis Miguel\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{BASE_URL}}/clase/15",
+							"raw": "{{BASE_URL}}/clase/14",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"clase",
-								"15"
+								"14"
 							]
 						}
 					},
@@ -172,13 +200,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/clase/15",
+							"raw": "{{BASE_URL}}/clase/13",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"clase",
-								"15"
+								"13"
 							]
 						}
 					},
@@ -231,13 +259,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/aportacion/15",
+							"raw": "{{BASE_URL}}/aportacion/14",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"aportacion",
-								"15"
+								"14"
 							]
 						}
 					},
@@ -276,13 +304,13 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/aportacion/15/linea/2/kg/10",
+							"raw": "{{BASE_URL}}/aportacion/16/linea/2/kg/10",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"aportacion",
-								"15",
+								"16",
 								"linea",
 								"2",
 								"kg",
@@ -298,13 +326,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/aportacion/10",
+							"raw": "{{BASE_URL}}/aportacion/16",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"aportacion",
-								"10"
+								"16"
 							]
 						}
 					},
@@ -316,7 +344,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/aportacion/15/linea/2",
+							"raw": "{{BASE_URL}}/aportacion/15/linea/3",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -324,7 +352,7 @@
 								"aportacion",
 								"15",
 								"linea",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -336,13 +364,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/aportacion/10",
+							"raw": "{{BASE_URL}}/aportacion/17",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"aportacion",
-								"10"
+								"17"
 							]
 						}
 					},
@@ -440,6 +468,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Banco Alimentos Salesianos\",\r\n    \"direccion\": \"C/Condes de Bustillos\",\r\n    \"personaContacto\": \"Paco Pepe Pérez\",\r\n    \"telefono\": \"654987321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE_URL}}/destinatario/",
 							"host": [
@@ -486,13 +523,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/destinatario/12",
+							"raw": "{{BASE_URL}}/destinatario/10",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"destinatario",
-								"12"
+								"10"
 							]
 						}
 					},
@@ -504,13 +541,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/destinatario/12",
+							"raw": "{{BASE_URL}}/destinatario/10",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"destinatario",
-								"12"
+								"10"
 							]
 						}
 					},
@@ -563,6 +600,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qr\": \"http://www.caja100.com\",\r\n    \"numCaja\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE_URL}}/caja/",
 							"host": [
@@ -582,7 +628,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/caja/9/tipo/3/kg/10",
+							"raw": "{{BASE_URL}}/caja/9/tipo/1/kg/5",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -590,9 +636,9 @@
 								"caja",
 								"9",
 								"tipo",
-								"3",
+								"1",
 								"kg",
-								"10"
+								"5"
 							]
 						}
 					},
@@ -631,7 +677,7 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/caja/9/tipo/4/kg/11",
+							"raw": "{{BASE_URL}}/caja/9/tipo/3/kg/5",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -639,9 +685,9 @@
 								"caja",
 								"9",
 								"tipo",
-								"4",
+								"3",
 								"kg",
-								"11"
+								"5"
 							]
 						}
 					},
@@ -653,13 +699,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/caja/9",
+							"raw": "{{BASE_URL}}/caja/7",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"caja",
-								"9"
+								"7"
 							]
 						}
 					},
@@ -671,13 +717,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/caja/9/tipo/3",
+							"raw": "{{BASE_URL}}/caja/7/tipo/3",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"caja",
-								"9",
+								"7",
 								"tipo",
 								"3"
 							]
@@ -709,15 +755,15 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/caja/4/destinatario/16",
+							"raw": "{{BASE_URL}}/caja/19/destinatario/12",
 							"host": [
 								"{{BASE_URL}}"
 							],
 							"path": [
 								"caja",
-								"4",
+								"19",
 								"destinatario",
-								"16"
+								"12"
 							]
 						}
 					},
