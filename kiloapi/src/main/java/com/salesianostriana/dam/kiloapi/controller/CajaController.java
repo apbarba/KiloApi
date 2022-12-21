@@ -323,33 +323,31 @@ public class CajaController {
                     )}),
             @ApiResponse(responseCode = "400", description = "Datos inválidos",
                     content = @Content)})
-    @PutMapping("/caja/{id}/tipo/{idTipoAlim}/kg/{cantidad}")
-    public ResponseEntity<CajaDto> actualizarCantidadKgCaja(@PathVariable Long id,
-                                                            @PathVariable Long idTipoAlim,
+    @PutMapping("/caja/{id1}/tipo/{id2}/kg/{cantidad}")
+    public ResponseEntity<CajaDto> actualizarCantidadKgCaja(@PathVariable Long id1,
+                                                            @PathVariable Long id2,
                                                             @PathVariable Double cantidad) {
 
-        Optional<Caja> caja = cajaService.findById(id);
+       TienePK t = new TienePK(id2, id1);
 
-        Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(idTipoAlim);
+       Optional<Tiene> tiene = tieneService.findById(t);
 
-        Optional<Tiene> tiene = tieneService.findByCajaAndTipoAlimento(caja.get(), tipoAlimento.get());
+       if (tiene.isPresent()){
 
-        if ((caja.isEmpty()) || tipoAlimento.isEmpty() || tiene.isEmpty()) {
+           tiene.get().setCantidadKgs(cantidad);
 
-            return ResponseEntity
-                    .badRequest()
-                    .build();
+           tieneService.add(tiene.get());
 
-        } else {
+           return ResponseEntity
+                   .ok()
+                   .body(cajaService.devolverCajaDto(tiene.get().getCaja()));
 
-            tiene.get().setCantidadKgs(cantidad);
-            tieneRepository.save(tiene.get());
+       }else {
 
-            return ResponseEntity
-                    .ok()
-                    .body(CajaDto.of(tiene.get().getCaja()));
-        }
-
+           return ResponseEntity
+                   .notFound()
+                   .build();
+       }
     }
 
     @Operation(summary = "Modificar una caja, buscada por su ID")
