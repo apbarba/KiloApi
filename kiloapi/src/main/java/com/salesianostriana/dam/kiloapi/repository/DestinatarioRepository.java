@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DestinatarioRepository extends JpaRepository<Destinatario, Long> {
 
-    @Query("select dto.nombre, dto.direccion, dto.personaContacto, dto.telefono, c.kilosTotales from Destinatario dto JOIN Caja c On (dto.id = c.destinatario) where c.destinatario = id")
+    @Query("select dto.nombre, dto.direccion, dto.personaContacto, dto.telefono, c.kilosTotales from Destinatario dto JOIN Caja c On (dto.id = c.destinatario) where c.destinatario.id = :id")
     public List<DestinatarioDto> getDestinatario(@Param("id") Long id);
 
     @Query("select new com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto(d. id, d.nombre, d.direccion, d.personaContacto, d.telefono) " +
