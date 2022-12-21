@@ -61,4 +61,8 @@ public class DestinatarioService {
         return dto;
     }
 
+    public Optional<DestinatarioDto> findDestinatarioById(Long id){
+
+        return destinatarioRepository.findDestinatarioById(id);
+    }
 }

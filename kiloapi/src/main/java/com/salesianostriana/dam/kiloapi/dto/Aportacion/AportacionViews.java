@@ -4,5 +4,7 @@ public class AportacionViews {
 
     public static class Master {
     }
+    public static class FindAllAportaciones {
+    }
 
 }
