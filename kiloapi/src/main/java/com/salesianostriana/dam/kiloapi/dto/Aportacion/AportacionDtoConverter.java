@@ -1,8 +1,6 @@
 package com.salesianostriana.dam.kiloapi.dto.Aportacion;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionConverterDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
-import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
-import com.salesianostriana.dam.kiloapi.model.DetallesPK;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +19,6 @@ public class AportacionDtoConverter {
                 .build();
     }
 
-//    public AportacionDto getAportacionDetallesDto(DetalleAportacion detalleAportacion){
-//
-//        return AportacionDto.builder()
-//                .id(new DetallesPK(detalleAportacion.get))
-//                .cantidadK(detalleAportacion.getCantidadKg())
-//                .build();
-//    }
 public AportacionDto aportacionToGetAportacionDto2(Aportacion aportacion){
 
     return AportacionDto.builder()

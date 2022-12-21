@@ -1,7 +1,6 @@
 package com.salesianostriana.dam.kiloapi.dto.Caja;
 
 import com.salesianostriana.dam.kiloapi.model.Caja;
-import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import org.springframework.stereotype.Component;
 
 @Component

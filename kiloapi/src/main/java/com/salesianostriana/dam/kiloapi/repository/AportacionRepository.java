@@ -1,18 +1,12 @@
 package com.salesianostriana.dam.kiloapi.repository;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionDto;
-import com.salesianostriana.dam.kiloapi.dto.Aportacion.AportacionViews;
 import com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionDto;
-import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
-import com.salesianostriana.dam.kiloapi.dto.Clase.ClaseDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
-import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
-import java.util.Optional;
 
 public interface AportacionRepository extends JpaRepository<Aportacion, Long> {
 
