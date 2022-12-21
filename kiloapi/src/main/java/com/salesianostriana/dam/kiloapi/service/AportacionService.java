@@ -120,4 +120,8 @@ public class AportacionService {
         return repository.getAportacion(id);
     }
 
+    public List<AportacionDto> findAllAportaciones() {
+        return repository.findAllAportaciones();
+    }
+
 }

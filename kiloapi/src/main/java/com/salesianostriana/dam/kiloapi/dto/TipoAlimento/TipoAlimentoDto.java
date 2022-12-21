@@ -10,7 +10,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+<<<<<<< HEAD
 //@AllArgsConstructor
+=======
+>>>>>>> 07cca9df8c693e1d9aa8f4ce9789a27aac7a5996
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TipoAlimentoDto {
