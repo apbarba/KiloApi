@@ -37,9 +37,7 @@ public class DestinatarioDto {
 
     @JsonView(DestinatarioViews.Simple.class)
     private Long numeroCajas;
-
-    private List<CajaDto> cajas = new ArrayList<>();
-
+    
     private static double kg = 0;
 
     public DestinatarioDto(Long id, String nombre, String direccion, String personaContacto, String telefono, Double kgTotales) {
