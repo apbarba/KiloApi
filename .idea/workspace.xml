@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ab444732-5f52-4294-8cef-d7b533405706" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/db/basededatos.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/basededatos.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/db/basededatos.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/db/basededatos.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/controller/CajaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/TipoAlimento/TipoAlimentoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/kiloapi/src/main/java/com/salesianostriana/dam/kiloapi/dto/TipoAlimento/TipoAlimentoDto.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="RunManager">
+    <configuration name="KiloapiApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.salesianostriana.dam.kiloapi.KiloapiApplication" />
+      <module name="kiloapi" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.salesianostriana.dam.kiloapi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.KiloapiApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+</project>
