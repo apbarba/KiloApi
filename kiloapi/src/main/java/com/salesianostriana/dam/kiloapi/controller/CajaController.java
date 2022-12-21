@@ -332,15 +332,16 @@ public class CajaController {
 
         Optional<TipoAlimento> tipoAlimento = tipoAlimentoService.findById(idTipoAlim);
 
-        Optional<Tiene> tiene = tieneService.findByCajaAndTipoAlimento(caja.get(), tipoAlimento.get());
 
-        if ((caja.isEmpty()) || tipoAlimento.isEmpty() || tiene.isEmpty()) {
+        if (!caja.isPresent() || !tipoAlimento.isPresent()) {
 
             return ResponseEntity
                     .badRequest()
                     .build();
 
         } else {
+
+            Optional<Tiene> tiene = tieneService.findByCajaAndTipoAlimento(caja.get(), tipoAlimento.get());
 
             tiene.get().setCantidadKgs(cantidad);
             tieneRepository.save(tiene.get());
