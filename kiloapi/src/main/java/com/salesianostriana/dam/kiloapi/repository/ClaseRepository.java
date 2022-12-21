@@ -25,6 +25,7 @@ public interface ClaseRepository extends JpaRepository<Clase, Long> {
             (c.nombre, c.tutor, SUM(d.cantidadKg),COUNT(a))
             FROM Clase c LEFT JOIN c.aportacionList a LEFT JOIN a.detalleAportacionList d
             WHERE c.id = :id
+            GROUP BY c.nombre
             """
     )
     Optional<ClaseDto> getClaseById(@Param("id")Long id);
