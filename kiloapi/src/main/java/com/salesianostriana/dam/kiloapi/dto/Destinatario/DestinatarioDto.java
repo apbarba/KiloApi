@@ -3,7 +3,6 @@ package com.salesianostriana.dam.kiloapi.dto.Destinatario;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
-import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +35,6 @@ public class DestinatarioDto {
     @JsonView(DestinatarioViews.Simple.class)
     private Long numeroCajas;
 
-    private static double kg = 0;
 
     public DestinatarioDto(Long id, String nombre, String direccion, String personaContacto, String telefono, Double kgTotales) {
         this.id = id;
@@ -52,27 +50,6 @@ public class DestinatarioDto {
         this.numeroCajas = numeroCajas;
     }
 
-    //    public static DestinatarioDto of(Destinatario d) {
-//        kg = 0;
-//        List<Integer> num = new ArrayList<>();
-//        List<Caja> listado = d.getCajaList();
-//        listado.forEach(l -> {
-//            kg += l.getKilosTotales();
-//            num.add(l.getNumCaja());
-//        });
-//
-//
-//        return DestinatarioDto.builder()
-//                .id(d.getId())
-//                .nombre(d.getNombre())
-//                .direccion(d.getDireccion())
-//                .personaContacto(d.getPersonaContacto())
-//                .telefono(d.getTelefono())
-//                .kgTotales(kg)
-//                .numCajas(num)
-//                .build();
-//    }
-
     public DestinatarioDto(Long id, String nombre, String direccion, String personaContacto, String telefono){
         this.id = id;
         this.nombre = nombre;
@@ -81,15 +58,5 @@ public class DestinatarioDto {
         this.telefono = telefono;
     }
 
-    public static DestinatarioDto mostrarIdYNombre(Destinatario d) {
-        if (d != null) {
-            return DestinatarioDto
-                    .builder()
-                    .id(d.getId())
-                    .nombre(d.getNombre())
-                    .build();
-        }
-        return null;
-    }
 
 }
