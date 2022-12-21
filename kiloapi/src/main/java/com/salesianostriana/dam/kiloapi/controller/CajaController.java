@@ -78,6 +78,7 @@ public class CajaController {
                     description = "No encontrado",
                     content = @Content),
     })
+    @JsonView(CajaViews.PostCajaTipo.class)
     @DeleteMapping("/caja/{id1}/tipo/{id2}")
     public ResponseEntity<CajaDto> deleteAlimento(@PathVariable Long id1, @PathVariable Long id2) {
 
@@ -93,7 +94,7 @@ public class CajaController {
             cajaService.add(c1.get());
             tieneService.delete(tiene.get());
 
-            return ResponseEntity.status(HttpStatus.OK).body(CajaDto.of(c1.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(cajaService.devolverCajaDto(c1.get()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -184,25 +185,30 @@ public class CajaController {
                                     value = """
                                                                                         
                                                 {
-                                                    "id": 4,
-                                                    "qr": "http://www.caja1.com",
-                                                    "numCaja": 1,
-                                                    "kilosTotales": 8.0,
+                                                    "id": 7,
+                                                    "qr": "http://www.caja2.com",
+                                                    "numCaja": 2,
+                                                    "kilosTotales": 9.0,
                                                     "alimentos": [
+                                                        {
+                                                            "id": 4,
+                                                            "nombre": "Dodotis",
+                                                            "kilosEnviados": 1.0
+                                                        },
+                                                        {
+                                                            "id": 3,
+                                                            "nombre": "Lentejas",
+                                                            "kilosEnviados": 5.0
+                                                        },
                                                         {
                                                             "id": 1,
                                                             "nombre": "Pasta",
-                                                            "kilosDisponibles": 12.0
-                                                        },
-                                                        {
-                                                            "id": 2,
-                                                            "nombre": "Leche",
-                                                            "kilosDisponibles": 25.0
+                                                            "kilosEnviados": 3.0
                                                         }
                                                     ],
                                                     "destinatarioDto": {
-                                                        "id": 12,
-                                                        "nombre": "Banco Alimentos Triana",
+                                                        "id": 10,
+                                                        "nombre": "Banco Alimentos Triana"
                                                     }
                                                 }
                                                                                       
@@ -213,12 +219,16 @@ public class CajaController {
                     description = "No se ha encontrado la caja por el ID",
                     content = @Content),
     })
+    @JsonView(CajaViews.GetCaja.class)
     @GetMapping("/caja/{id}")
     public ResponseEntity<CajaDto> obtenerUno(@PathVariable Long id) {
 
-        return ResponseEntity.of(cajaService.findById(id)
-                .map(CajaDto::of));
-
+        Optional<Caja> caja = cajaService.findById(id);
+        if(caja.isPresent()){
+            Caja c = caja.get();
+            return ResponseEntity.ok(cajaService.devolverCajaDestinatario(c));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @Operation(summary = "Agrega una nueva caja")
@@ -233,9 +243,7 @@ public class CajaController {
                                                 {
                                                     "id": 12,
                                                     "qr": "http://www.caja1.com",
-                                                    "numCaja": 1,
-                                                    "kilosTotales": 0.0,
-                                                    "destinatario": null
+                                                    "numCaja": 1
                                                 }
                                                                                       
                                             """
@@ -245,7 +253,7 @@ public class CajaController {
                     description = "No se ha agregado la caja",
                     content = @Content),
     })
-    @JsonView(CajaViews.Master.class)
+    @JsonView(CajaViews.CrearCaja.class)
     @PostMapping("/caja/")
     public ResponseEntity<CajaDto> newCaja(@RequestBody CajaDto cajaDto) {
         if (cajaDto.getNumCaja() == 0 || cajaDto.getQr() == null) {
@@ -257,7 +265,7 @@ public class CajaController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(CajaDto.of(caja));
+                .body(cajaService.devolverCajaDto(caja));
     }
 
     @Operation(summary = "Agrega a la caja la cantidad de kilos del tipo de alimento")
@@ -269,20 +277,20 @@ public class CajaController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
-                                                    "id": 4,
-                                                    "qr": "http://www.caja99.com",
-                                                    "numCaja": 99,
-                                                    "kilosTotales": 8.0,
+                                                    "id": 9,
+                                                    "qr": "http://www.caja4.com",
+                                                    "numCaja": 4,
+                                                    "kilosTotales": 3.0,
                                                     "alimentos": [
+                                                        {
+                                                            "id": 3,
+                                                            "nombre": "Lentejas",
+                                                            "kilosEnviados": 1.0
+                                                        },
                                                         {
                                                             "id": 1,
                                                             "nombre": "Pasta",
-                                                            "kilosDisponibles": 12.0
-                                                        },
-                                                        {
-                                                            "id": 2,
-                                                            "nombre": "Leche",
-                                                            "kilosDisponibles": 25.0
+                                                            "kilosEnviados": 2.0
                                                         }
                                                     ]
                                                 }
@@ -304,7 +312,7 @@ public class CajaController {
             if (cajaServiceLogica.comprobarCantidad(idTipoAlim, cantidad)) {
                 cajaServiceLogica.addKilostoCaja(caja, idTipoAlim, cantidad);
                 tieneService.modificarKilos(caja);
-                return ResponseEntity.status(HttpStatus.CREATED).body(CajaDto.of(caja));
+                return ResponseEntity.status(HttpStatus.CREATED).body(cajaService.devolverCajaDestinatario(caja));
             }
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

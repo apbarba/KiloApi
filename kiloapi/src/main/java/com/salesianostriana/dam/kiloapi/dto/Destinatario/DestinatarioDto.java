@@ -2,15 +2,13 @@ package com.salesianostriana.dam.kiloapi.dto.Destinatario;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.salesianostriana.dam.kiloapi.dto.Caja.CajaDto;
-import com.salesianostriana.dam.kiloapi.model.Caja;
+import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,9 +18,9 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DestinatarioDto {
 
-    @JsonView(DestinatarioViews.Master.class)
+    @JsonView({DestinatarioViews.Master.class, CajaViews.GetCaja.class})
     private Long id;
-    @JsonView(DestinatarioViews.Master.class)
+    @JsonView({DestinatarioViews.Master.class, CajaViews.GetCaja.class})
     private String nombre;
     @JsonView(DestinatarioViews.Master.class)
     private String direccion;
