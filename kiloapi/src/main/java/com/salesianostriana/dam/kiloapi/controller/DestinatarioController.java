@@ -188,9 +188,13 @@ public class DestinatarioController {
     @GetMapping("/destinatario/")
     public ResponseEntity<List<DestinatarioDto>> findAll(Long id){
 
+        List<DestinatarioDto> result = destinatarioService.findAll().stream()
+                .map(destinatarioService::generarDto)
+                .toList();
+
         return ResponseEntity
                 .ok()
-                .body(destinatarioService.findAllDestinatario(id));
+                .body(result);
     }
 
     @Operation(summary = "Devolverá al destinatario específico con los detalles completos de las cajas asignadas")
