@@ -7,11 +7,12 @@ import com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.Detalle
 import com.salesianostriana.dam.kiloapi.dto.Caja.CajaViews;
 import com.salesianostriana.dam.kiloapi.dto.Clase.ClaseDto;
 import com.salesianostriana.dam.kiloapi.model.Aportacion;
+import com.salesianostriana.dam.kiloapi.model.DetalleAportacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.util.List;
+import java.util.Optional;
 
 public interface AportacionRepository extends JpaRepository<Aportacion, Long> {
 
@@ -35,7 +36,7 @@ public interface AportacionRepository extends JpaRepository<Aportacion, Long> {
 
     @Query("""
                  select new com.salesianostriana.dam.kiloapi.dto.Aportacion.DetalleAportacion.DetalleAportacionDto(
-                     d.detallesPK.numLinea_id, t.nombre, d.cantidadKg
+                     d.detallesPK.numLinea_id, t.nombre, d.cantidadKg, 0.0
                  )
                  from Aportacion a LEFT JOIN a.detalleAportacionList d LEFT JOIN d.tipoAlimento t
                  where a.id = :id
@@ -48,6 +49,12 @@ public interface AportacionRepository extends JpaRepository<Aportacion, Long> {
             """
     )
     List<Aportacion> getDetallesAportaciones(@Param("id") Long id);
+
+    @Query("""
+            select a, d from Aportacion a LEFT JOIN a.detalleAportacionList d
+            where a.id = :id
+            """)
+    List<Aportacion> getAportacion(@Param("id") Long id);
 
 
     @Query("""

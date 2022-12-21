@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface KilosDisponiblesRepository extends JpaRepository<KilosDisponibles, TipoAlimento> {
     @Query("select new com.salesianostriana.dam.kiloapi.dto.TipoAlimento." +
-            "TipoAlimentoDto(t.id, t.nombre, k.cantidadDisponible)from TipoAlimento t JOIN t.kilosDisponibles k")
+            "TipoAlimentoDto(t.id, t.nombre, k.cantidadDisponible, 0.0)from TipoAlimento t JOIN t.kilosDisponibles k")
     List<TipoAlimentoDto> crearTipoAlimentoDto();
 
 

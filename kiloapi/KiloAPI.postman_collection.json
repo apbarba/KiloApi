@@ -1,0 +1,802 @@
+{
+	"info": {
+		"_postman_id": "41a34daf-a540-40b4-bc87-acc875b1d6cc",
+		"name": "KiloAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23783353"
+	},
+	"item": [
+		{
+			"name": "TipoAlimento",
+			"item": [
+				{
+					"name": "Listado Tipos Alimentos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/tipoAlimento/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tipoAlimento",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Tipo Alimento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Chocolate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tipoAlimento/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tipoAlimento",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Tipo Alimento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Leche Semidesnatada\",\r\n    \"cantidadDisponible\": 32\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/tipoAlimento/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tipoAlimento",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Tipo Alimento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/tipoAlimento/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tipoAlimento",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles Tipo Alimento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/tipoAlimento/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"tipoAlimento",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clases",
+			"item": [
+				{
+					"name": "Listado Clases",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/clase/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"clase",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Clase",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"3ºDAM\",\r\n    \"tutor\": \"Ángel Naranjo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/clase/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"clase",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Clase",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"2ºDAM\",\r\n    \"tutor\": \"Luis Miguel\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/clase/14",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"clase",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Clase",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/clase/13",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"clase",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles Clase",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/clase/14",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"clase",
+								"14"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Aportación",
+			"item": [
+				{
+					"name": "Listado Aportaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/aportacion/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"aportacion",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listado Aportaciones / Clase",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/aportacion/14",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"aportacion",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Aportación",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha\": \"2022-12-17\",\r\n    \"id_clase\": 14,\r\n    \"detalle\": {\r\n        \"1\": \"6.0\",\r\n        \"3\": \"7.0\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/aportacion/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"aportacion",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Aportación",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/aportacion/16/linea/2/kg/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"aportacion",
+								"16",
+								"linea",
+								"2",
+								"kg",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Aportación",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/aportacion/16",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"aportacion",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Linea Aportación",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/aportacion/15/linea/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"aportacion",
+								"15",
+								"linea",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles Aportación",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/aportacion/17",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"aportacion",
+								"17"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "KilosDisponibles",
+			"item": [
+				{
+					"name": "Listado Kilos Disponibles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/kilosDisponibles/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"kilosDisponibles",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles Kilos Disponibles / Alimento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/kilosDisponibles/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"kilosDisponibles",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ranking",
+			"item": [
+				{
+					"name": "Detalles Ranking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/ranking/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"ranking",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Destinatario",
+			"item": [
+				{
+					"name": "Listado Destinatarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/destinatario/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"destinatario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Destinatario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Banco Alimentos Salesianos\",\r\n    \"direccion\": \"C/Condes de Bustillos\",\r\n    \"personaContacto\": \"Paco Pepe Pérez\",\r\n    \"telefono\": \"654987321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/destinatario/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"destinatario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Destinatario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Banco Alimentos Coria\",\r\n    \"direccion\": \"C/Mairena\",\r\n    \"personaContacto\": \"Bartolomé Méndez\",\r\n    \"telefono\": \"987654321\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/destinatario/12",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"destinatario",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Destinatario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/destinatario/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"destinatario",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles Destinatario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/destinatario/10",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"destinatario",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "+ Detalles Destinatario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/destinatario/12/detalle",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"destinatario",
+								"12",
+								"detalle"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Caja",
+			"item": [
+				{
+					"name": "Listado Cajas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/caja/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Caja",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qr\": \"http://www.caja100.com\",\r\n    \"numCaja\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/caja/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Kilos / Tipo / Caja",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/caja/9/tipo/1/kg/5",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								"9",
+								"tipo",
+								"1",
+								"kg",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Caja",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"qr\": \"http://www.caja99.com\",\r\n    \"numCaja\": 99\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/caja/7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Kilos / Tipo / Caja",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/caja/9/tipo/3/kg/5",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								"9",
+								"tipo",
+								"3",
+								"kg",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Caja",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/caja/7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Tipo / Caja",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/caja/7/tipo/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								"7",
+								"tipo",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles Caja",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/caja/7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar Caja / Destinatario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/caja/19/destinatario/12",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"caja",
+								"19",
+								"destinatario",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

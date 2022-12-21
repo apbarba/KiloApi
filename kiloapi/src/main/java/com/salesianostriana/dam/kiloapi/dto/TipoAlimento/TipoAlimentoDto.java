@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TipoAlimentoDto {
@@ -19,16 +18,16 @@ public class TipoAlimentoDto {
     private Long id;
     @JsonView({TipoAlimentoViews.Master.class, CajaViews.Master.class})
     private String nombre;
-    @JsonView(TipoAlimentoViews.MostrarDisponible.class)
+    @JsonView({TipoAlimentoViews.MostrarDisponible.class, CajaViews.Master.class})
     private Double kilosDisponibles;
     @JsonView({TipoAlimentoViews.MostrarEnviado.class, CajaViews.Master.class})
     private Double kilosEnviados;
 
-//    public TipoAlimentoDto(Long id, String nombre, Double kilosDisponibles){
-//        this.id = id;
-//        this.nombre = nombre;
-//        this.kilosDisponibles = kilosDisponibles;
-//    }
+    public TipoAlimentoDto(Long id, String nombre, Double kilosDisponibles, Double aux) {
+        this.id = id;
+        this.nombre = nombre;
+        this.kilosDisponibles = kilosDisponibles;
+    }
 
     public TipoAlimentoDto(Long id, String nombre, Double kilosEnviados) {
         this.id = id;

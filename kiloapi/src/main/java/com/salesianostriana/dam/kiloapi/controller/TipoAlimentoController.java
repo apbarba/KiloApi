@@ -135,7 +135,6 @@ public class TipoAlimentoController {
             KilosDisponibles kd = KilosDisponibles
                     .builder()
                     .tipoAlimento(tipoAlimento)
-                    .cantidadDisponible(0.0)
                     .build();
             kilosDisponiblesRepository.save(kd);
 

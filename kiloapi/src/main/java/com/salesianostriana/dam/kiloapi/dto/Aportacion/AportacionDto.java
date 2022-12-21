@@ -30,6 +30,7 @@ public class AportacionDto {
     private String tutor;
     @JsonView({AportacionViews.Master.class, AportacionViews.FindAllAportaciones.class})
     private LocalDate fecha;
+    @JsonView(AportacionViews.Master.class)
     private Double cantidadKg;
     @JsonView({AportacionViews.FindAllAportaciones.class})
     private Double cantidadkgTotales;

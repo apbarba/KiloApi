@@ -6,6 +6,7 @@ import com.salesianostriana.dam.kiloapi.dto.Destinatario.DestinatarioDto;
 import com.salesianostriana.dam.kiloapi.dto.TipoAlimento.TipoAlimentoDto;
 import com.salesianostriana.dam.kiloapi.model.Caja;
 import com.salesianostriana.dam.kiloapi.model.Destinatario;
+import com.salesianostriana.dam.kiloapi.model.Tiene;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +36,8 @@ public class CajaDto {
     private List<TipoAlimentoDto> alimentos;
     @JsonView(CajaViews.GetCajaId.class)
     private DestinatarioDto destinatarioDto;
+
+    private List<Tiene> tieneList;
 
     public static CajaDto mostrarDetallesCaja(Caja c) {
         List<TipoAlimentoDto> listado = new ArrayList<>();

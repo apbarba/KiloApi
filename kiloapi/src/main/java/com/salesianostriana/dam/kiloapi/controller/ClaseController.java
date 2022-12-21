@@ -99,27 +99,39 @@ public class ClaseController {
         }
     }
 
-//    @Operation(summary = "Encuenta la clase solicitada con sus detalles de aportaiones")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200",
-//                    description = "Se ha encontrado la clase",
-//                    content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = CajaDto.class),
-//                            examples = {@ExampleObject(
-//                                    value = """
-//
-//                                            [Luego termino comprobado]
-//
-//                                             """
-//                            )}
-//                    )}),
-//            @ApiResponse(responseCode = "404",
-//                    description = "No se ha encontrado la clase",
-//                    content = @Content),
-//    })
-//    @GetMapping("/clase/{id}")
-//
-//    }
+    @Operation(summary = "Encuenta la clase solicitada con sus detalles de aportaiones")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado la clase",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CajaDto.class),
+                            examples = {@ExampleObject(
+                                    value = """
+
+                                            [Luego termino comprobado]
+
+                                             """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado la clase",
+                    content = @Content),
+    })
+    @GetMapping("/clase/{id}")
+    public ResponseEntity<ClaseDto> findById(@PathVariable Long id) {
+
+        Optional<ClaseDto> claseDto = claseService.getClaseById(id);
+
+        if (claseService.findById(id).isEmpty()) {
+
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        } else {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(claseDto.get());
+        }
+    }
 
     @Operation(summary = "Edita las propiedades de una clase por ID")
     @ApiResponses(value = {@ApiResponse(responseCode = "200",
